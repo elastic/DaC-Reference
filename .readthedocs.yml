@@ -11,7 +11,7 @@ build:
       - poetry config virtualenvs.create false
     post_install:
       # Install dependencies
-      - poetry install
+      - poetry install myst_parser
 
 sphinx:
   configuration: docs/conf.py
