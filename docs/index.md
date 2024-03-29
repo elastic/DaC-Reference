@@ -5,12 +5,9 @@
 <span style="font-size:1.5em;">Elastic Reference</span><br>
 <span style="font-size:em;">_______________</span><br>
 <span style="font-size:1.5em;">Managing Elastic Security Security Detection RUles Using DaC</span><br><br><br>
-<span style="font-size:1.8em;font-weight: bold;">Table of Contents</span>
 
 ```{toctree}
-:maxdepth: 2
 :caption: Documentation
-hidden:
 ./dac_concept_and_workflows.md
 ./managing_detection_rules_in_a_vcs.md
 ./syncing_rules_and_data_from_vcs_to_elastic_security.md
