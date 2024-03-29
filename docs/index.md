@@ -17,12 +17,15 @@
 
 ![Footer](./_static/footer.png)
 
-.. toctree::
-    dac_concept_and_workflows.md
-    managing_detection_rules_in_a_vcs.md
-    syncing_rules_and_data_from_vcs_to_elastic_security.md
-    managing_detection_rules_in_elastic_security.md
-    syncing_rules_and_data_from_elastic_security_to_vcs.md
-    duel_syncing_rules_and_data_between_kibana_and_vcs.md
-    etoe_reference_example.md
-    feedback_and_resources.md
+```{toctree}
+:maxdepth: 2
+:caption: Documentation
+./dac_concept_and_workflows.md
+./managing_detection_rules_in_a_vcs.md
+./syncing_rules_and_data_from_vcs_to_elastic_security.md
+./managing_detection_rules_in_elastic_security.md
+./syncing_rules_and_data_from_elastic_security_to_vcs.md
+./duel_syncing_rules_and_data_between_kibana_and_vcs.md
+./etoe_reference_example.md
+./feedback_and_resources.md
+```
