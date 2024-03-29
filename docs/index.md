@@ -1,3 +1,5 @@
+# DaC Reference
+================================
 ![Header](./_static/header.png)
 <span style="font-size:4em;font-weight: bold;">Detections as Code</span><br>
 <span style="font-size:1.5em;">Elastic Reference</span><br>
