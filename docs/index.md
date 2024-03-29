@@ -7,6 +7,7 @@
 <span style="font-size:1.5em;">Managing Elastic Security Security Detection RUles Using DaC</span><br><br><br>
 
 ```{toctree}
+:maxdepth: 2
 :caption: Documentation
 ./dac_concept_and_workflows.md
 ./managing_detection_rules_in_a_vcs.md
