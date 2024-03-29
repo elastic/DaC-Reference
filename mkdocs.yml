@@ -1,0 +1,12 @@
+site_name: My Documentation
+nav:
+    - Home: index.md
+    - DaC Concept and Workflows: dac_concept_and_workflows.md
+    - Managing Detection Rules in a VCS: managing_detection_rules_in_a_vcs.md
+    - Syncing Rules and Data from VCS to Elastic Security: syncing_rules_and_data_from_vcs_to_elastic_security.md
+    - Managing Detection Rules in Elastic Security: managing_detection_rules_in_elastic_security.md
+    - Syncing Rules and Data from Elastic Security to VCS: syncing_rules_and_data_from_elastic_security_to_vcs.md
+    - Duel Syncing Rules and Data between Kibana and VCS: duel_syncing_rules_and_data_between_kibana_and_vcs.md
+    - E2E Reference Example: e2e_reference_example.md
+    - Feedback and Resources: feedback_and_resources.md
+theme: readthedocs
