@@ -1,8 +1,8 @@
 ![Header](./_static/header.png)
-<span style="font-size:4em;font-weight: bold;">Detections as Code</span>
-<span style="font-size:1.5em;">Elastic Reference</span>
-<span style="font-size:em;">_______________</span>
-<span style="font-size:1.5em;">Managing Elastic Security Security Detection RUles Using DaC</span>
+<span style="font-size:4em;font-weight: bold;">Detections as Code</span><br>
+<span style="font-size:1.5em;">Elastic Reference</span><br>
+<span style="font-size:em;">_______________</span><br>
+<span style="font-size:1.5em;">Managing Elastic Security Security Detection RUles Using DaC</span><br>
 <br>
 <span style="font-size:1.8em;font-weight: bold;">Table of Contents</span>
 - [DaC Concept and Workflows](./dac_concept_and_workflows.md)
