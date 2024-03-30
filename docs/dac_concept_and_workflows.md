@@ -199,75 +199,10 @@ development, version control, and operational environments.
 
 ## High-Level Workflow Delineation
 
-<table>
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 28%" />
-<col style="width: 22%" />
-<col style="width: 33%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Workflow Topic</strong></td>
-<td><strong>Description</strong></td>
-<td><strong>Requirements</strong></td>
-<td><strong>Key Steps</strong></td>
-</tr>
-<tr class="even">
-<td><strong>Maintaining Rules within VCS</strong></td>
-<td>Involves version control, collaboration, and historical tracking of
-detection rules within a VCS.</td>
-<td><p>- Access to a VCS</p>
-<p>- Forked or cloned detection-rules repository</p></td>
-<td><p>- Fork/clone the detection-rules repo</p>
-<p>- Create, validate, and unit test rules, actions/exceptions list
-using CLI</p>
-<p>- Commit and push updates regularly</p></td>
-</tr>
-<tr class="odd">
-<td><strong>Syncing Rules from VCS to Elastic Security</strong></td>
-<td>Covers the automated or manual processes of deploying or updating
-rules in Elastic Security from VCS.</td>
-<td><p>- API access to Elastic Stack</p>
-<p>- Authentication credentials</p>
-<p>- CI/CD pipeline (optional)</p></td>
-<td><p>- Import rules into Elastic Security using CLI or API</p>
-<p>- Configure CI/CD for automated syncing</p></td>
-</tr>
-<tr class="even">
-<td><strong>Managing Rules within Elastic Security (consistent with
-DaC)</strong></td>
-<td>Focuses on creating, testing, and managing rules directly in Elastic
-Security while considering backup and versioning strategies.</td>
-<td><p>- Elastic Security access with permissions</p>
-<p>- Knowledge of Elastic Security's UI</p></td>
-<td><p>- Directly create, modify, and manage rules in Elastic
-Security</p>
-<p>- Manually export rules for backup/version control</p></td>
-</tr>
-<tr class="odd">
-<td><strong>Syncing Rules from Elastic Security to VCS</strong></td>
-<td>Describes exporting and versioning rules from Elastic Security back
-into VCS for tracking and collaboration.</td>
-<td><p>- Scripting for API interaction</p>
-<p>- Authentication</p>
-<p>- CI/CD setup for automation (optional)</p></td>
-<td><p>- Export rules using Detection Engine API</p>
-<p>- Commit exported rules into VCS</p>
-<p>- Use CI/CD workflows to automate the process</p></td>
-</tr>
-<tr class="even">
-<td><strong>(Optional) Dual Sync Between VCS and Elastic
-Security</strong></td>
-<td>Highlights a hybrid approach that ensures rules are synchronized and
-up-to-date in both Elastic Security and VCS.</td>
-<td><p>- Setup for bidirectional syncing</p>
-<p>- Authentication</p>
-<p>- Access</p>
-<p>- Automation tools/scripts</p></td>
-<td><p>- Establish sync process for both directions</p>
-<p>- Automate sync using CLI, API, and CI/CD</p>
-<p>- Regularly review and reconcile discrepancies</p></td>
-</tr>
-</tbody>
-</table>
+| Workflow Topic                                                   | Description                                                                                                                       | Requirements                                                                                    | Key Steps                                                                                                                                                  |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Maintaining Rules within VCS**                                 | Involves version control, collaboration, and historical tracking of detection rules within a VCS.                                 | - Access to a VCS<br>- Forked or cloned detection-rules repository                              | - Fork/clone the detection-rules repo<br>- Create, validate, and unit test rules, actions/exceptions list using CLI<br>- Commit and push updates regularly |
+| **Syncing Rules from VCS to Elastic Security**                   | Covers the automated or manual processes of deploying or updating rules in Elastic Security from VCS.                             | - API access to Elastic Stack<br>- Authentication credentials<br>- CI/CD pipeline (optional)    | - Import rules into Elastic Security using CLI or API<br>- Configure CI/CD for automated syncing                                                           |
+| **Managing Rules within Elastic Security (consistent with DaC)** | Focuses on creating, testing, and managing rules directly in Elastic Security while considering backup and versioning strategies. | - Elastic Security access with permissions<br>- Knowledge of Elastic Security's UI              | - Directly create, modify, and manage rules in Elastic Security<br>- Manually export rules for backup/version control                                      |
+| **Syncing Rules from Elastic Security to VCS**                   | Describes exporting and versioning rules from Elastic Security back into VCS for tracking and collaboration.                      | - Scripting for API interaction<br>- Authentication<br>- CI/CD setup for automation (optional)  | - Export rules using Detection Engine API<br>- Commit exported rules into VCS<br>- Use CI/CD workflows to automate the process                             |
+| **(Optional) Dual Sync Between VCS and Elastic Security**        | Highlights a hybrid approach that ensures rules are synchronized and up-to-date in both Elastic Security and VCS.                 | - Setup for bidirectional syncing<br>- Authentication<br>- Access<br>- Automation tools/scripts | - Establish sync process for both directions<br>- Automate sync using CLI, API, and CI/CD<br>- Regularly review and reconcile discrepancies                |
