@@ -82,8 +82,8 @@ Leveraging automation tools and CI/CD pipelines facilitates a constant sync betw
 
 ###### Option 1: Automation Tools for Syncing
 
-| Pros                                                      | Cons                                                                 |
-| --------------------------------------------------------- | -------------------------------------------------------------------- |
+| Pros | Cons |
+| - | - |
 | - Minimizes manual intervention, automating rule synchronization. </br> - Supports collaborative rule development with integrated version control. | - Requires significant initial setup and maintenance of automation scripts and CI/CD pipelines. </br> - Potential for configuration complexities and the need to handle merge conflicts or discrepancies between the two environments.|
 
 **Steps:**
@@ -97,13 +97,13 @@ Leveraging automation tools and CI/CD pipelines facilitates a constant sync betw
 
 Incorporate a sync check step within the PR workflow, running an automated job to compare rule versions or hashes between Elastic Security and VCS. This step aims to identify and resolve any discrepancies before merging changes into the main branch or deploying rules to production. It serves as a final check to ensure all rules are correctly synchronized and ready for deployment.
 
-| Pros                                                                                                                                               | Cons                                                                                                                                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pros | Cons |
+| - | - |
 | - Ensures a final validation of rule synchronization, enhancing rule integrity before production deployment. </br> - Streamlines the resolution of any version conflicts or discrepancies, maintaining rule consistency. | - Introduces potential delays in rule synchronization due to the manual review process. </br> - Requires clear documentation and understanding of the sync process among team members. |
 
 **Steps:**
 
 1. Integrate a sync check script into the CI/CD pipeline, triggered as part of the PR process.
-1. The script compares rule data between Elastic Security and VCS, highlighting discrepancies for resolution.
-1. Resolve any conflicts or discrepancies identified by the sync check before merging the PR.
-1. Upon successful sync check completion, proceed with merging the PR and deploying the rules to production.
+2. The script compares rule data between Elastic Security and VCS, highlighting discrepancies for resolution.
+3. Resolve any conflicts or discrepancies identified by the sync check before merging the PR.
+4. Upon successful sync check completion, proceed with merging the PR and deploying the rules to production.
