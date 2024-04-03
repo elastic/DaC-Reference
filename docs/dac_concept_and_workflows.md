@@ -53,7 +53,7 @@ However, this reference is meant to enable implementations of DaC even without t
 This resource describes principles to adopt a DaC approach to Elastic Security rule management. Whether you're looking to automate rule deployments, enhance rule validation processes, or streamline rule versioning and exception management, this guide offers a modular set of practices and components. Select and combine the options relevant to your specific needs and operational context to customize your detection rule management workflow.
 
 
-When considering adopting a DaC approach, several discrete components should be taken into consideration. This viewpoint helps identify the high-level requirements for implementing DaC end-to-end while reinforcing the modular approach. This reference includes an explanation of the different options, with any specific implications across these components. See the DaC Diagram and [Delineation table](LinkTBD) for more information on how these components overlap.
+When considering adopting a DaC approach, several discrete components should be taken into consideration. This viewpoint helps identify the high-level requirements for implementing DaC end-to-end while reinforcing the modular approach. This reference includes an explanation of the different options, with any specific implications across these components. See the DaC Diagram and [Delineation table](#core-components-of-dac-delineation) for more information on how these components overlap.
 
 :bulb: Note: Jump to the quickstart [end to end reference](./etoe_reference_example.md) example to get up and running quickly.
 
