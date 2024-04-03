@@ -1,11 +1,13 @@
 # DaC Concept and Workflows
+
 ================================
 
 ## Overview
+
 Detection as Code (DaC) is a modern security approach that applies software development best practices to the creation, management, and deployment of security rules. By treating “detections” as traditional code, organizations can leverage version control systems (VCS), automate testing and deployment processes, and ensure consistency across their security information and event management (SIEM) and endpoint detection and response (EDR) capabilities. This methodology enhances collaboration among security teams, streamlines updates, and facilitates a more agile response to evolving threats.
 
 <div style="text-align: center;">
-    <img src="_static/dac_lock.png" style="width:3.24354in;height:3.24354in" />
+    <img src="_static/dac_lock.png" style="width:3.24354in;height:3.24354in" alt="DaC Lock"/>
 </div>
 
 DaC adoption is driven by several factors:
@@ -21,19 +23,20 @@ DaC adoption is driven by several factors:
 
 Incorporating DaC principles into Elastic Security rules management workflows involves using VCS to track rule changes, employing continuous integration (CI) tools for validation and testing, and continuous deployment (CD) mechanisms to update detection rules within [Kibana](https://www.elastic.co/guide/en/kibana/current/introduction.html)’s Elastic Security seamlessly. This practice ensures that rule changes are systematically reviewed, tested and enables rapid deployment of updates to respond to new vulnerabilities and attack techniques.
 
-###  Prerequisites
+### Prerequisites
 
 To effectively apply DaC principles to Elastic Security, individuals or teams should have a foundational understanding of several key concepts and technologies:
+
 - **Version Control Systems (VCS)**: Familiarity with VCS and tools (e.g. particularly Git), is crucial for tracking changes to detection rules and collaborating on rule development.
 - **Continuous Integration and Continuous Deployment (CI/CD)**: Knowledge of CI/CD pipelines and how they facilitate automated testing and deployment processes.
 - **Elastic Security**: An understanding of how Elastic Security functions, including creating and managing detection rules within Elastic Security.
 - **Elastic Prebuilt Rules repository**: Exposure to the detection-rules repo
 - **Scripting and Automation**: Basic proficiency in scripting (e.g., Python, Shell) to automate rule deployment and management tasks.
 
-
 ### Who Will Benefit from This Guide
 
 This guide is for security analysts, engineers, and architects who develop, deploy, and manage detection rules, especially within Elastic Security environments. It is particularly beneficial for:
+
 - Security Analysts who wish to leverage automation for more efficient rule management and to respond more rapidly to emerging threats.
 - Detection Engineers looking for methodologies to streamline detection logic development, testing, and deployment.
 - Security Team Leads seeking to implement best practices for rule version control, collaboration, and quality assurance within their teams.
@@ -52,7 +55,6 @@ However, this reference is meant to enable implementations of DaC even without t
 
 This resource describes principles to adopt a DaC approach to Elastic Security rule management. Whether you're looking to automate rule deployments, enhance rule validation processes, or streamline rule versioning and exception management, this guide offers a modular set of practices and components. Select and combine the options relevant to your specific needs and operational context to customize your detection rule management workflow.
 
-
 When considering adopting a DaC approach, several discrete components should be taken into consideration. This viewpoint helps identify the high-level requirements for implementing DaC end-to-end while reinforcing the modular approach. This reference includes an explanation of the different options, with any specific implications across these components. See the DaC Diagram and [Delineation table](#core-components-of-dac-delineation) for more information on how these components overlap.
 
 :bulb: Note: Jump to the quickstart [end to end reference](./etoe_reference_example.md) example to get up and running quickly.
@@ -69,8 +71,9 @@ The hierarchy of information is broken down as follows:
     - Considerations based on applied governance model
 
 As an example:
- - Managing Detection Rules in a VCS (core component)
-   - Creating Detection Rules (sub-component)
+
+- Managing Detection Rules in a VCS (core component)
+  - Creating Detection Rules (sub-component)
     - Manually Creating Rules Based on Template (option 1)
       - VCS as authoritative (governance model consideration)
         - …
@@ -82,27 +85,26 @@ As an example:
 
 For simplicity, you can consider it slightly analogous to a recipe book, where, across each component (and sub-components), you have options based on your governance model, needs, and desires.
 
-
 ## Overall Elastic DaC Diagram
 
 |                                                                         |
 | ----------------------------------------------------------------------- |
-| <img src="_static/overall_dac_diagram.png" style="width:5.94271in;height:5.84793in" /> |
-| <center>*Figure 1: High-level components* </center>
-
+| <img src="_static/overall_dac_diagram.png" style="width:5.94271in;height:5.84793in" alt="High Level Components"/> |
+| <center>*Figure 1: High-level components* </center> |
 
 This diagram serves as a visual guide to the three primary environments where security rules are maintained:
+
 1. Locally within a cloned repository, as indicated by the **user-org/detection-rules** component.
 1. In various version control environments, such as GitHub, GitLab, Bitbucket, or Gitea, denoted by the **VCS** component.
 1. Within the **Elastic Security** platform.
 
 The diagram also outlines the synchronization methods between these environments:
+
 - **Git Sync**: Manages the transfer of rules between the local repository and the VCS.
 - **CI/CD Sync via APIs**: Handles the deployment and updating of rules from the VCS to Elastic Security.
 - **REST API Sync**: Facilitates direct communication and rule synchronization between the local clone and Elastic Security.
 
 This reference explains multiple strategies for synchronizing rules between the components. Depending on the chosen governance model, syncing may involve pushing rules from a local repository or VCS to Elastic Security or pulling rules from Elastic Security to be merged into the VCS or local repositories, ensuring that changes replicate across the development, version control, and operational environments.
-
 
 ## Core Components of DaC Delineation
 
