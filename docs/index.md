@@ -10,14 +10,15 @@
 :maxdepth: 2
 :caption: Documentation
 ./dac_concept_and_workflows.md
-./managing_detection_rules_in_a_vcs.md
-./syncing_rules_and_data_from_vcs_to_elastic_security.md
-./managing_detection_rules_in_elastic_security.md
-./syncing_rules_and_data_from_elastic_security_to_vcs.md
-./duel_syncing_rules_and_data_between_kibana_and_vcs.md
+./core_components_and_governance_models_of_dac.md
+./internals_of_the_detection_rules_repo.md
+./core_component_managing_detection_rules_in_a_vcs.md
+./core_component_syncing_rules_and_data_from_vcs_to_elastic_security.md
+./core_component_managing_detection_rules_in_elastic_security.md
+./core_component_syncing_rules_and_data_from_elastic_security_to_vcs.md
 ./etoe_reference_example.md
-./feedback_and_resources.md
+./feedback_and_resources.mdindex.md
+./about.md
 ```
 
 ![Footer](./_static/footer.png)
-

@@ -147,19 +147,6 @@ information on how these components overlap.
 Note: Jump to the [<u>quickstart</u>](#quickstart) section to get up and
 running quickly.
 
-### Core Workflows to Implement DaC within Elastic
-
-1.  Maintaining rules within a Version Control System (VCS)
-
-2.  Syncing rules from VCS to Elastic Security
-
-3.  Managing rules within Elastic Security (consistent with a DaC
-    approach)
-
-4.  Syncing rules from Elastic Security to VCS
-
-5.  Dual sync between VCS and Elastic Security (optional)
-
 ## Overall Elastic DaC Diagram
 
 |                                                                         |
@@ -197,7 +184,7 @@ or pulling rules from Elastic Security to be merged into the VCS or
 local repositories, ensuring that changes replicate across the
 development, version control, and operational environments.
 
-## High-Level Workflow Delineation
+## Core Components of DaC Delineation
 
 | Workflow Topic                                                   | Description                                                                                                                       | Requirements                                                                                    | Key Steps                                                                                                                                                  |
 | ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -205,4 +192,11 @@ development, version control, and operational environments.
 | **Syncing Rules from VCS to Elastic Security**                   | Covers the automated or manual processes of deploying or updating rules in Elastic Security from VCS.                             | - API access to Elastic Stack<br>- Authentication credentials<br>- CI/CD pipeline (optional)    | - Import rules into Elastic Security using CLI or API<br>- Configure CI/CD for automated syncing                                                           |
 | **Managing Rules within Elastic Security (consistent with DaC)** | Focuses on creating, testing, and managing rules directly in Elastic Security while considering backup and versioning strategies. | - Elastic Security access with permissions<br>- Knowledge of Elastic Security's UI              | - Directly create, modify, and manage rules in Elastic Security<br>- Manually export rules for backup/version control                                      |
 | **Syncing Rules from Elastic Security to VCS**                   | Describes exporting and versioning rules from Elastic Security back into VCS for tracking and collaboration.                      | - Scripting for API interaction<br>- Authentication<br>- CI/CD setup for automation (optional)  | - Export rules using Detection Engine API<br>- Commit exported rules into VCS<br>- Use CI/CD workflows to automate the process                             |
-| **(Optional) Dual Sync Between VCS and Elastic Security**        | Highlights a hybrid approach that ensures rules are synchronized and up-to-date in both Elastic Security and VCS.                 | - Setup for bidirectional syncing<br>- Authentication<br>- Access<br>- Automation tools/scripts | - Establish sync process for both directions<br>- Automate sync using CLI, API, and CI/CD<br>- Regularly review and reconcile discrepancies                |
+
+## Governance Models of Dac Delineation
+
+| Workflow Topic                                                   | Description                                                                                                                       | Requirements                                                                                    | Key Steps                                                                                                                                                  |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **VCS as authoritative**                                 | Updates always flow from VCS to the platform. Any discrepancies are overwritten based on changes from VCS. Rules should not be modified in the platform.                                 | ||
+| **Elastic security as authoritative**                   | Updates always flow from the platform to VCS. Any discrepancies are overwritten based on changes from the platform. Rules should not be modified in VCS directly.                             | ||
+| **Dual Sync Between VCS and Elastic Security** | Updates can originate via VCS or the platform, however, they should be reconciled before subsequent changes (race condition) | - Setup for bidirectional syncing <br> - Authentication <br>- Access <br> - Automation tools/scripts | - Establish sync process for both directions <br> - Automate sync using CLI, API, and CI/CD <br> - Regularly review and reconcile discrepancies|
