@@ -88,14 +88,14 @@ For simplicity, you can consider it slightly analogous to a recipe book, where, 
 
 |                                                                         |
 | ----------------------------------------------------------------------- |
-| <img src="_static/overall_dac_diagram.png" style="width:5.94271in;height:5.84793in" alt="High Level Components"/> |
+| <img src="_static/overall_dac_diagram.png" alt="High Level Components"/> |
 | <center>*Figure 1: High-level components* </center> |
 
 This diagram serves as a visual guide to the three primary environments where security rules are maintained:
 
 1. Locally within a cloned repository, as indicated by the **user-org/detection-rules** component.
-1. In various version control environments, such as GitHub, GitLab, Bitbucket, or Gitea, denoted by the **VCS** component.
-1. Within the **Elastic Security** platform.
+2. In various version control environments, such as GitHub, GitLab, Bitbucket, or Gitea, denoted by the **VCS** component.
+3. Within the **Elastic Security** platform.
 
 The diagram also outlines the synchronization methods between these environments:
 
