@@ -69,7 +69,7 @@ Dual syncing between Elastic Security and a Version Control System (VCS) embodie
 
 |                                                                                        |
 | -------------------------------------------------------------------------------------- |
-| <img src="_static/dual-sync-overall-diagram.png" style="width:5.94271in;height:5.84793in" alt="Dual Sync Diagram"/> |
+| <img src="_static/dual_sync_overall_diagram.png" style="width:5.94271in;height:5.84793in" alt="Dual Sync Diagram"/> |
 | <center>*Figure 2: Combining Multiple Options to Duel Sync Rules* </center>                                    |
 
 #### Considerations
