@@ -88,7 +88,7 @@ For simplicity, you can consider it slightly analogous to a recipe book, where, 
 
 |                                                                         |
 | ----------------------------------------------------------------------- |
-| <img src="_static/overall_dac_diagram.png" alt="High Level Components"/> |
+| <img src="_static/overall_dac_components.png" alt="High Level Components"/> |
 | <center>*Figure 1: High-level components* </center> |
 
 This diagram serves as a visual guide to the three primary environments where security rules are maintained:
