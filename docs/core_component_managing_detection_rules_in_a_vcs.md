@@ -24,7 +24,7 @@ By following the recommended steps within this workflow, you will implement a Da
 
 ## Considerations
 
-While various strategies exist for managing detection rules within a VCS framework, the [Sub-Component 1: Elastic Detection Rules Repo and Usage](linktbd) approach is showcased throughout this reference. It demonstrates effective rule management techniques utilizing the detection-rules repository alongside available configurations. It is important to highlight that, among the discussed methods, the **detection-rules** repository approach remains the primary and actively supported method for managing security rules within the Elastic ecosystem. It requires some familiarity with the [detection-rules](https://github.com/elastic/detection-rules) repository to take full advantage of the features available. This strategy ensures that security teams can leverage the full potential of Elastic's capabilities in a structured, version-controlled manner.
+While various strategies exist for managing detection rules within a VCS framework, the [Sub-Component 1: Elastic Detection Rules Repo and Usage](./core_component_managing_detection_rules_in_a_vcs.md#sub-component-1-elastic-detection-rules-repo-and-usage) approach is showcased throughout this reference. It demonstrates effective rule management techniques utilizing the detection-rules repository alongside available configurations. It is important to highlight that, among the discussed methods, the **detection-rules** repository approach remains the primary and actively supported method for managing security rules within the Elastic ecosystem. It requires some familiarity with the [detection-rules](https://github.com/elastic/detection-rules) repository to take full advantage of the features available. This strategy ensures that security teams can leverage the full potential of Elastic's capabilities in a structured, version-controlled manner.
 
 With that being said, there has been a big initiative to decouple and abstract components where it makes sense, to allow for adoption of principles, with easier customization and extensibility. The intent here is that you can build from within the repo (via a forked version), or you can import the components as needed, whether they are part of the base repo functionality, or one of the embedded modules, such as Kibana and KQL. Finally, there is the option to not directly adopt or employ from the repo at all, but consult it as a reference to build out something more specific (within the constraints of the Elastic v2 License).
 
@@ -32,7 +32,7 @@ Terraform, as a powerful tool for infrastructure as code (IaC), offers significa
 
 ## Sub-Component 1: Elastic Detection Rules Repo and Usage
 
-Reference [Getting Started with the Repo](linktbd) internals to get setup with the detection rules repo and for an understanding of the layout. It is also highly recommended to step through all of the internals in order to fully understand functionality and usage.
+Reference [Getting Started with the Repo](./internals_of_the_detection_rules_repo.md#getting-started-with-the-repo) internals to get setup with the detection rules repo and for an understanding of the layout. It is also highly recommended to step through all of the internals in order to fully understand functionality and usage.
 
 |Pros|Cons|
 |-|-|
@@ -40,7 +40,7 @@ Reference [Getting Started with the Repo](linktbd) internals to get setup with t
 
 ### CLI
 
-Reference the [CLI](linktbd) internals usage of CLI for a better understanding of its intent and how to use it.
+Reference the [CLI](./internals_of_the_detection_rules_repo.md#cli) internals usage of CLI for a better understanding of its intent and how to use it.
 
 |Pros|Cons|
 |-|-|
@@ -48,7 +48,7 @@ Reference the [CLI](linktbd) internals usage of CLI for a better understanding o
 
 ### Unit Tests
 
-Reference the [Unit Tests](linktbd) internals usage of unit tests for a better understanding of the tests that the suite is composed of, and best practices around implementing tests.
+Reference the [Unit Tests](./internals_of_the_detection_rules_repo.md#unit-tests) internals usage of unit tests for a better understanding of the tests that the suite is composed of, and best practices around implementing tests.
 
 |Pros|Cons|
 |-|-|
@@ -64,7 +64,7 @@ WIP
 
 ### Schemas and Data Structures
 
-Reference the [Schemas and Data Structures](linktbd) internals usage of schemas and data structures for a better understanding of their purpose and how to leverage them.
+Reference the [Schemas and Data Structures](./internals_of_the_detection_rules_repo.md#schemas-and-data-structures) internals usage of schemas and data structures for a better understanding of their purpose and how to leverage them.
 
 |Pros|Cons|
 |-|-|
@@ -72,30 +72,30 @@ Reference the [Schemas and Data Structures](linktbd) internals usage of schemas 
 
 ## Sub-Component 2: Incorporating Custom Rules
 
-Reference the [Incorporating Custom Rules](linktbd) internals for a better understanding of how to incorporate custom rules.
+Reference the [Incorporating Custom Rules](./internals_of_the_detection_rules_repo.md#incorporating-custom-rules) internals for a better understanding of how to incorporate custom rules.
 
 
 ## Sub-Component 3: Creating Detection Rules
 
-Reference the [Creating Detection Rules](linktbd) internals for a better understanding of how to create detection rules.
+Reference the [Creating Detection Rules](./internals_of_the_detection_rules_repo.md#creating-detection-rules) internals for a better understanding of how to create detection rules.
 
 ## Sub-Component 4: Rule Versioning
 
-Reference the [Rule Versioning](linktbd) internals for a better understanding of how to version rules.
+Reference the [Rule Versioning](./internals_of_the_detection_rules_repo.md#rule-versioning) internals for a better understanding of how to version rules.
 
 ## Sub-Component 5: Exceptions and Actions
 
-Reference the [Exceptions and Actions](linktbd) internals for a better understanding of how to create exceptions and actions.
+Reference the [Exceptions and Actions](./internals_of_the_detection_rules_repo.md#exceptions-and-actions) internals for a better understanding of how to create exceptions and actions.
 
 ## Sub-Component 6: Unit testing
 
-Reference the [Unit Testing](linktbd) internals for a better understanding of how to unit test rules.
+Reference the [Unit Testing](./internals_of_the_detection_rules_repo.md#unit-testing) internals for a better understanding of how to unit test rules.
 
 ## Sub-Component 7: Rule Schema Validation
 
-Reference the [Rule Schema Validation](linktbd) internals for a better understanding of how to validate rule schemas.
+Reference the [Rule Schema Validation](./internals_of_the_detection_rules_repo.md#rule-schema-validation) internals for a better understanding of how to validate rule schemas.
 
 ## Sub-Component 8: Detection Logic Validation
 
-Reference the [Detection Logic Validation](linktbd) internals for a better understanding of how to validate detection logic.
+Reference the [Detection Logic Validation](./internals_of_the_detection_rules_repo.md#detection-logic-validation) internals for a better understanding of how to validate detection logic.
 

@@ -138,7 +138,7 @@ Commands:
 
 ## Unit tests
 
-The detection-rules repository's unit tests serve as a comprehensive mechanism to verify the compatibility of rules with the expected format and structure for Elastic Security. These tests ensure consistency in rule management and adherence to best practices as defined by Elastic's detection engineering team. By loading all rules simultaneously, the tests efficiently iterate over the rule set to evaluate various cases, from syntax validation to logical consistency. Note: Additional unit testing options and details are available in [Sub-Component 6: Unit Testing](linktbd).
+The detection-rules repository's unit tests serve as a comprehensive mechanism to verify the compatibility of rules with the expected format and structure for Elastic Security. These tests ensure consistency in rule management and adherence to best practices as defined by Elastic's detection engineering team. By loading all rules simultaneously, the tests efficiently iterate over the rule set to evaluate various cases, from syntax validation to logical consistency. Note: Additional unit testing options and details are available in [Sub-Component 6: Unit Testing](#unit-testing).
 
 **Steps:**
 
@@ -162,7 +162,7 @@ plugins: typeguard-3.0.2
 
 :bulb: *Note: You can optionally run pytest to run the tests.*
 
-2. Running all test cases may not be desirable. In this case, you can configure the unit tests glob-style by creating a test config and specifying the test cases. More details are provided in the [Sub-Component 6: Unit Testing](linktbd) section.  For further troubleshooting or unit test customization, refer to the **pytest** module documentation, which the CLI leverages to run tests and format outputs.
+2. Running all test cases may not be desirable. In this case, you can configure the unit tests glob-style by creating a test config and specifying the test cases. More details are provided in the [Sub-Component 6: Unit Testing](#unit-testing) section.  For further troubleshooting or unit test customization, refer to the **pytest** module documentation, which the CLI leverages to run tests and format outputs.
 
 ## Schemas and Data Structures
 
