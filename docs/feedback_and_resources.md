@@ -1,12 +1,16 @@
 # Feedback and Resources
+
 ================================
 
 ## Feedback
 
 We’re always interested in hearing from the community and our partners! If you have use cases, workflows, or any feedback related to Detection as Code (DaC), we encourage you to share them with us. Your input is crucial for continuous improvement and fostering a collaborative environment. Please reach out through the following channels:
+
 - [GitHub Issues](https://github.com/elastic/detection-rules/issues): For technical issues, enhancements, or feature requests.
 - [Community Slack](http://ela.st/slack): Join our conversations for real-time discussions.
 - [Discuss Forums](https://discuss.elastic.co/c/security/endpoint-security/80): Post your questions, share insights, and engage with the Elastic community.
+
+<center><img src="_static/dac_updates.png"  alt="DaC Updates"/></center>
 
 ## Updates and Next Steps
 

@@ -17,7 +17,7 @@
 ./core_component_managing_detection_rules_in_elastic_security.md
 ./core_component_syncing_rules_and_data_from_elastic_security_to_vcs.md
 ./etoe_reference_example.md
-./feedback_and_resources.mdindex.md
+./feedback_and_resources.md
 ./about.md
 ```
 
