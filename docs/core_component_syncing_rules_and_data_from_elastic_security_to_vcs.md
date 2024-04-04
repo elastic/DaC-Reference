@@ -7,7 +7,7 @@ This workflow focuses on the process of transferring detection rules from Elasti
 
 |                                                                                           |
 | ----------------------------------------------------------------------------------------- |
-| <img src="_static/sync_from_elastic_to_vcs.png"  alt="Sync from Elastic to VCS" id="figure3"/> |
+| <img src="_static/sync_rules_from_elastic_to_vcs.png"  alt="Sync from Elastic to VCS" id="figure3"/> |
 | <center>*Figure 10: Direct REST API Sync: From Local Repo to Elastic Security w/ Optional VCS Preservation* </center>                                       |
 
 Alternatively to using **git** workflows, the available REST API calls can be used directly to manage syncing rules. In this workflow, VCS can still be used, however the rule path traverses from the local repo directly to Elastic Security, and then optionally preserved in VCS.
