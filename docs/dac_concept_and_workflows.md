@@ -56,7 +56,7 @@ This resource describes principles to adopt a DaC approach to Elastic Security r
 
 When considering adopting a DaC approach, several discrete components should be taken into consideration. This viewpoint helps identify the high-level requirements for implementing DaC end-to-end while reinforcing the modular approach. This reference includes an explanation of the different options, with any specific implications across these components. See the DaC Diagram and [Delineation table](#core-components-of-dac-delineation) for more information on how these components overlap.
 
-:bulb: Note: Jump to the quickstart [end to end reference](./etoe_reference_example.md) example to get up and running quickly.
+💡 Note: Jump to the quickstart [end to end reference](./etoe_reference_example.md) example to get up and running quickly.
 
 ### Understanding the Layout of this Reference
 
