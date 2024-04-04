@@ -1,4 +1,4 @@
-## About this guide and project
+# About this guide and project
 ================================
 This guide was authored and maintained by:
 
@@ -10,7 +10,6 @@ This guide is meant to enable the implementation of detections as code in a gene
 
 
 ## Licensing and Use
-WIP
 
-permissive license: and copyright to Mika and Justin
+See the LICENSE file for licensing information. This guide is provided as-is and is not officially supported by Elastic. It is intended to be a community-driven project, and we welcome contributions and feedback.
 
