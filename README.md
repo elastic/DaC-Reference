@@ -71,4 +71,4 @@ For more commands and project details, refer to the project's documentation and 
 
 ## License
 
-Everything in this repository is licensed under the [Elastic License v2](LICENSE.txt).
+Everything in this repository is licensed under the [License](LICENSE).
