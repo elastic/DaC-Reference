@@ -18,7 +18,6 @@ DaC adoption is driven by several factors:
 - **Broader Adoption of Automation**: The wider movement towards automation in technology environments, exemplified by the adoption of Infrastructure as Code (IaC) principles, calls for enhanced automation capabilities across all tools used by security teams. DaC aligns with this trend by integrating rule management into automated workflows, ensuring consistency, efficiency, and the ability to swiftly respond to new threats.
 - **Compliance and Governance Requirements**: Many organizations are adopting DaC to meet certification compliance requirements for peer review, change control, and disaster recovery of SIEM detections. Implementing DaC ensures that security rules are developed, reviewed, and maintained following strict governance standards, providing auditable evidence of compliance.
 
-
 ## Applying DaC Principles to Rules in Elastic
 
 Incorporating DaC principles into Elastic Security rules management workflows involves using VCS to track rule changes, employing continuous integration (CI) tools for validation and testing, and continuous deployment (CD) mechanisms to update detection rules within [Kibana](https://www.elastic.co/guide/en/kibana/current/introduction.html)’s Elastic Security seamlessly. This practice ensures that rule changes are systematically reviewed, tested and enables rapid deployment of updates to respond to new vulnerabilities and attack techniques.
@@ -37,11 +36,11 @@ To effectively apply DaC principles to Elastic Security, individuals or teams sh
 
 This guide is for security analysts, engineers, and architects who develop, deploy, and manage detection rules, especially within Elastic Security environments. It is particularly beneficial for:
 
-- Security Analysts who wish to leverage automation for more efficient rule management and to respond more rapidly to emerging threats.
-- Detection Engineers looking for methodologies to streamline detection logic development, testing, and deployment.
-- Security Team Leads seeking to implement best practices for rule version control, collaboration, and quality assurance within their teams.
-- DevOps Engineers involved in integrating security practices into CI/CD pipelines, aiming for a more cohesive and automated approach to security within their workflows.
-- IT Security Architects exploring ways to incorporate as-code principles into security operations to enhance agility, repeatability, and reliability.
+- **Security Analysts**: who wish to leverage automation for more efficient rule management and to respond more rapidly to emerging threats.
+- **Detection Engineers**: looking for methodologies to streamline detection logic development, testing, and deployment.
+- **Security Team Leads**: seeking to implement best practices for rule version control, collaboration, and quality assurance within their teams.
+- **DevOps Engineers**: involved in integrating security practices into CI/CD pipelines, aiming for a more cohesive and automated approach to security within their workflows.
+- **IT Security Architects**: exploring ways to incorporate as-code principles into security operations to enhance agility, repeatability, and reliability.
 
 There are many ways to implement DaC within Elastic Security ecosystems, but this reference provides a few examples to convey the core principles. It delineates various approaches and architectures to building DaC, catering to different operational models and organizational needs. By navigating through this reference, individuals will gain the insights and practical know-how to establish robust DaC workflows, leading to more streamlined security operations, enhanced collaboration across teams, and a solid foundation for integrating security practices within automated CI/CD pipelines.
 
