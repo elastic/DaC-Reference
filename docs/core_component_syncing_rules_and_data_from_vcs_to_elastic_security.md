@@ -194,7 +194,7 @@ Testing can occur at two critical junctures: before opening a Pull Request (PR),
 
 Testing frameworks play a crucial role in simulating real-world threats to validate rule effectiveness. These frameworks, such as Red Team Automation (RTA) scripts or third-party platforms like Atomic Red Team, provide a structured way to generate synthetic events that mimic attack behaviors. Such rigorous testing ensures that rules not only trigger alerts as expected but also accurately match query criteria against the events generated in Elasticsearch, providing a nuanced measure of rule performance beyond mere alert firing.
 
-Note: The complexity of testing may vary based on the specific nature of the detection rules and the available testing infrastructure. Considerations include the scalability of the testing environment, the representativeness of the test data, and the ability to automate the testing process. Automated CI/CD pipelines can facilitate the deployment of rules to the testing environment, execution of test scenarios, and collection of results for analysis.
+💡 Note: The complexity of testing may vary based on the specific nature of the detection rules and the available testing infrastructure. Considerations include the scalability of the testing environment, the representativeness of the test data, and the ability to automate the testing process. Automated CI/CD pipelines can facilitate the deployment of rules to the testing environment, execution of test scenarios, and collection of results for analysis.
 
 ### Option 1 - Pre-PR Individual Rule Testing
 
