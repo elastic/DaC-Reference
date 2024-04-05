@@ -33,7 +33,7 @@ The [Elastic Security APIs](https://www.elastic.co/guide/en/security/current/sec
 
 **Steps:**
 
-1. **Authenticate** using one of the several Elastic API [authentication](https://www.elastic.co/guide/en/security/current/rule-api-overview.html#_authentication_2) options available or using one of the detection-rules options.
+1. **Authenticate** using one of the several Elastic API [authentication](https://www.elastic.co/guide/en/security/current/rule-api-overview.html#_authentication_2) options available or using one of the detection-rules options
 
 CLI commands which are tied to Elastic Security and Elasticsearch are capable of parsing auth-related keyword args from a config file or environment variables. If a value is set in multiple places, such as config file and environment variable, the order of precedence will be as follows:
 - explicitly passed args (such as `--user joe`)

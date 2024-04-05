@@ -24,7 +24,7 @@ Utilizing the Detection Rules API, security teams can export detection rules fro
 
 |Pros|Cons|
 |-|-|
-|- Automation Potential: Can be automated through scripting to regularly update rule sets in VCS.<br/> - Rule Format: Able to store the rule in any format suitable for the team (e.g. JSON, YAML, etc.)|- Complex Setup: Requires initial configuration and understanding of Elastic's API.<br/> - Manual Intervention: Without full automation, manual steps may be necessary to initiate exports.|
+|- Automation Potential: Can be automated through scripting to regularly update rule sets in VCS.<br/> - Rule Format: Able to store the rule in any format suitable for the team (e.g. JSON, YAML, etc.).|- Complex Setup: Requires initial configuration and understanding of Elastic's API.<br/> - Manual Intervention: Without full automation, manual steps may be necessary to initiate exports.|
 
 **Steps:**
 
