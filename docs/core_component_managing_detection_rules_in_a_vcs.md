@@ -14,8 +14,8 @@ If the *Elastic security as authoritative* governance model is employed, the VCS
 
 By following the recommended steps within this workflow, you will implement a DaC strategy from scratch that leverages VCS and the detection-rules repo. In particular, you will:
 
-1. Fork the detection-rules repo,
-1. Install the Python dependencies,
+1. Fork the detection-rules repo
+1. Install the Python dependencies
 1. Initialize and configure your DaC custom rules folder using the CLI
 1. Configure the unit tests to run
 1. Create and version rules using the **detection-rules** capabilities
@@ -36,7 +36,7 @@ Reference [Getting Started with the Repo](./internals_of_the_detection_rules_rep
 
 |Pros|Cons|
 |-|-|
-|- Open Source Collaboration: Encourages open-source contributions, allowing for community-driven enhancements and shared improvements. </br> - Comprehensive Tooling: The CLI support simplifies DaC processes, from syncing to validation, making rule management more efficient. </br> - Extensive Validation and Testing: Incorporates built-in unit tests and schemas to validate detection rules against Elastic's standards before deployment rigorously. </br> - Flexibility and Customization: Designed to accommodate diverse operational needs, the repository can be tailored for specific environments or detection strategies. </br> - Maintained: constantly updated to reflect upstream changes and bugs addressed.|- Learning Curve: Familiarity with the command line and Git is necessary to fully utilize the repository’s capabilities, which might present a hurdle for some users. </br> - Limited UI Integrations: While the CLI offers powerful functionalities, certain rule configurations that are accessible through Elastic Security's UI might not be directly supported or require manual adjustments. </br> - Customization Requirements: To align with unique organizational requirements or to incorporate non-standard rule types, additional customization of the repository structure or scripts may be needed. </br> - Primary purpose: built for the internal Threat Research and Detection Engineering (TRADE) team to maintain pre-built rule set|
+|- Open Source Collaboration: Encourages open-source contributions, allowing for community-driven enhancements and shared improvements. </br> - Comprehensive Tooling: The CLI support simplifies DaC processes, from syncing to validation, making rule management more efficient. </br> - Extensive Validation and Testing: Incorporates built-in unit tests and schemas to validate detection rules against Elastic's standards before deployment rigorously. </br> - Flexibility and Customization: Designed to accommodate diverse operational needs, the repository can be tailored for specific environments or detection strategies. </br> - Maintained: constantly updated to reflect upstream changes and bugs addressed.|- Learning Curve: Familiarity with the command line and Git is necessary to fully utilize the repository’s capabilities, which might present a hurdle for some users. </br> - Limited UI Integrations: While the CLI offers powerful functionalities, certain rule configurations that are accessible through Elastic Security's UI might not be directly supported or require manual adjustments. </br> - Customization Requirements: To align with unique organizational requirements or to incorporate non-standard rule types, additional customization of the repository structure or scripts may be needed. </br> - Primary purpose: built for the internal Threat Research and Detection Engineering (TRADE) team to maintain pre-built rule set.|
 
 ### CLI
 

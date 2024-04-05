@@ -33,7 +33,7 @@ This section covers the **detection-rules** repo, how to install prerequisites, 
 | <img src="_static/detection_rules_getting_started.png" style="width:5.94271in;height:5.84793in" alt="High Level Components"/> |
 | <center>*Figure 5: detection-rules Getting Started* </center>                                                               |
 
-Note: We recommend using a [Python virtual environment](https://docs.python.org/3/library/venv.html) for a cleaner management experience.
+💡 Note: We recommend using a [Python virtual environment](https://docs.python.org/3/library/venv.html) for a cleaner management experience.
 
 The repo contains code for unit testing in Python, integrating with the security solution in Elastic Security via [APIs](https://www.elastic.co/guide/en/security/current/security-apis.html) , Red Team Automation (RTA) to emulate attack techniques, and a miscellaneous directory that contains schemas used for query validation.
 
@@ -42,7 +42,7 @@ The repo contains code for unit testing in Python, integrating with the security
 | Folder                | Description                                                                                                      |
 |-----------------------|------------------------------------------------------------------------------------------------------------------|
 | detection_rules/      | Python module for rule parsing, validating, and packaging. Also includes miscellaneous files, such as ECS and Beats schemas |
-| doc/                  | Documentation on rule management and other useful tips.                                                         |
+| doc/                  | Documentation on rule management and other useful tips                                                         |
 | kibana/               | Python library for handling the API calls to Elastic Security and the Detection Engine                           |
 | kql/                  | Python library for parsing and validating Kibana Query Language                                                  |
 | rta/                  | Red Team Automation code used to emulate attacker techniques, used for rule testing                              |
@@ -60,7 +60,7 @@ The miscellaneous folder [detection_rules/etc](https://github.com/elastic/detect
 | version.lock.json      | Master version lock file used to track the version of a rule based on sha256 calculation                        |
 | integration-*.json.gz  | Files used to validate rules against Elastic integration schemas                                                 |
 
-:bulb:*Note: View the schemas and dataclass section to view the schema files and folders table.*
+💡 *Note: View the schemas and dataclass section to view the schema files and folders table.*
 
 ## CLI
 
@@ -74,7 +74,7 @@ The CLI contains more options than needed to perform standard DAC operations. Th
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
-█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █       █▄▄▀ █  █ █   █▄▄ █▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 Usage: detection_rules [OPTIONS] COMMAND [ARGS]...
@@ -105,16 +105,15 @@ Commands:
   validate-all            Check if all rules validates against a schema.
   validate-rule           Check if a rule staged in rules dir validates...
   view-rule               View an internal rule or specified rule file.
-Note: Using some of these options with your custom rules requires repo configuration
 ```
 
-:bulb: *Note: Using some of these options with your custom rules requires repo configuration.*
+💡 *Note: Using some of these options with your custom rules requires repo configuration.*
 
 2. Explore the **DAC** CLI commands by running **python -m detection_rules <name> -h** in the terminal.
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
-█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █       █▄▄▀ █  █ █   █▄▄ █▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 Usage: detection_rules [OPTIONS] COMMAND [ARGS]...
@@ -134,7 +133,7 @@ Commands:
   view-rule               View an internal rule or specified rule file.
 ```
 
-:bulb: *Note: Using these options with your custom rules requires repo configuration and the Elastic Security Solution available.*
+💡 *Note: Using these options with your custom rules requires repo configuration and the Elastic Security Solution available.*
 
 ## Unit tests
 
@@ -142,14 +141,14 @@ The detection-rules repository's unit tests serve as a comprehensive mechanism t
 
 **Steps:**
 
-1. Run the unit tests to confirm all prebuilt rules are passing the test cases. The CLI provides an option to run the unit tests and format the output using the pytest python module. Run python -m detection_rules test to run all tests. (alternative options for invoking unit tests include: make test, pytest [tests], unittest [tests])
+1. Run the unit tests to confirm all prebuilt rules are passing the test cases. The CLI provides an option to run the unit tests and format the output using the pytest python module. Run **python -m detection_rules test** to run all tests. (alternative options for invoking unit tests include: **make test**, **pytest [tests]**, **unittest [tests]**)
 
 ```bash
 (detection_dev) ➜  detection-rules git:(main) ✗ python -m detection_rules test
 Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
-█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █       █▄▄▀ █  █ █   █▄▄ █▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 ================================================== test session starts ==================================================
@@ -160,7 +159,7 @@ configfile: pyproject.toml
 plugins: typeguard-3.0.2
 ```
 
-:bulb: *Note: You can optionally run pytest to run the tests.*
+💡 *Note: You can optionally run **pytest** to run the tests.*
 
 2. Running all test cases may not be desirable. In this case, you can configure the unit tests glob-style by creating a test config and specifying the test cases. More details are provided in the [Sub-Component 6: Unit Testing](#unit-testing) section.  For further troubleshooting or unit test customization, refer to the **pytest** module documentation, which the CLI leverages to run tests and format outputs.
 
@@ -239,7 +238,7 @@ export CUSTOM_RULES=my_custom_dir
 2. Initialize the custom directory with necessary detection-rules specific files by running:
 
 ```bash
-Python -m detection_rules <name> init my_custom_dir
+python -m detection_rules <name> init my_custom_dir
 ```
 
 This command will generate the custom directory supplied to the command line and initialize the folder with the detection-rule specific files necessary.
@@ -360,7 +359,7 @@ The recommended approach is to manage production rule versions using a **version
 
 The **.version.lock.json** file contains several fields nested under the rule ID:
 
-- min_stack_version: The minimum Elastic Security version that the rule supports.
+- min_stack_version: The minimum Elastic Security version that the rule supports
 - rule_name: The name of the rule
 - sha256: The hash of the rule contents generated
 - type: The rule type (e.g. query, saved_query, machine_learning, eql, esql, threshold, threat_match, new_terms)
@@ -377,7 +376,7 @@ The **.version.lock.json** file contains several fields nested under the rule ID
 
 The **deprecated_rules.json** also contains several fields nested under the rule ID:
 
-- stack_version: The minimum Elastic Security version that the rule supported.
+- stack_version: The minimum Elastic Security version that the rule supported
 - rule_name: The name of the rule
 - Deprecation_date: The date the rule was deprecated
 
@@ -428,7 +427,7 @@ Instead of using a version lock file or building versions dynamically to insert 
 
 **Steps:**
 
-1. Add a **version** or similar field to the **RuleMeta** class
+1. Add a **version** or similar field to the **RuleMeta** class.
 1. Manually (or through automation) add version information to each rule's TOML file.
 1. Implement a mechanism to **increment versions** as needed, ensuring consistency and accuracy in version tracking.
 
@@ -446,7 +445,7 @@ Rule [exceptions](https://www.elastic.co/guide/en/security/current/detections-ui
 
 **Steps:**
 
-1. In the **_config.yaml**, specify the action and exception folder names
+1. In the **_config.yaml**, specify the action and exception folder names.
 
 ```config
  directories:
@@ -525,7 +524,7 @@ type = "detection"
       value = "specific_value"
 ```
 
-4. Validate the lists by running the unit tests
+4. Validate the lists by running the unit tests.
 
 ### Option 2: Manually Leverage Rule Schema Support
 
@@ -619,7 +618,7 @@ test_only:
 3. Execute the tests using:
    - For default tests (all tests run): **make test** or **python -m detection_rules test**
    - For custom test configurations: **DETECTION_RULES_TEST_CONFIG=path/to/test_config.yaml make test**
-   - For custom rules directory: **CUSTOM_RULES_DIR=custom-rules make test** with the **testing.config** set to **etc/test_config.yaml** in your **_config.yaml**.
+   - For custom rules directory: **CUSTOM_RULES_DIR=custom-rules make test** with the **testing.config** set to **etc/test_config.yaml** in your **_config.yaml**
 
 This approach streamlines the process of validating detection rules, ensuring that only the most relevant tests are applied based on the development and testing needs of your security team.
 

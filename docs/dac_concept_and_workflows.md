@@ -29,7 +29,7 @@ To effectively apply DaC principles to Elastic Security, individuals or teams sh
 - **Version Control Systems (VCS)**: Familiarity with VCS and tools (e.g. particularly Git), is crucial for tracking changes to detection rules and collaborating on rule development.
 - **Continuous Integration and Continuous Deployment (CI/CD)**: Knowledge of CI/CD pipelines and how they facilitate automated testing and deployment processes.
 - **Elastic Security**: An understanding of how Elastic Security functions, including creating and managing detection rules within Elastic Security.
-- **Elastic Prebuilt Rules repository**: Exposure to the detection-rules repo
+- **Elastic Prebuilt Rules repository**: Exposure to the detection-rules repo.
 - **Scripting and Automation**: Basic proficiency in scripting (e.g., Python, Shell) to automate rule deployment and management tasks.
 
 ### Who Will Benefit from This Guide

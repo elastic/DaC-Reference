@@ -1,7 +1,7 @@
 # About this guide and project
 ================================
 
-This guide was authored and maintained by:
+This guide was authored and is maintained by:
 
 **Mika Ayenson** <a href="https://twitter.com/@stryker0x"><img src="_static/x_logo.png" width="20" height="20" style="vertical-align:middle"></a> <a href="https://github.com/Mikaayenson"><img src="_static/github_logo.png" width="20" height="20" style="vertical-align:middle"></a> <a href="https://linkedin.com/in/mika-ayenson"><img src="_static/linkedin_logo.png" width="20" height="20" style="vertical-align:middle"></a> - Sr Security Research Engineer at Elastic and Detection Enablement and Development on the TRADE team
 

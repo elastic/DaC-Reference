@@ -33,7 +33,7 @@ The [Elastic Security APIs](https://www.elastic.co/guide/en/security/current/sec
 
 **Steps:**
 
-1. **Authenticate** using one of the several Elastic API [authentication](https://www.elastic.co/guide/en/security/current/rule-api-overview.html#_authentication_2) options available or using one of the detection-rules options.
+1. **Authenticate** using one of the several Elastic API [authentication](https://www.elastic.co/guide/en/security/current/rule-api-overview.html#_authentication_2) options available or using one of the detection-rules options
 
 CLI commands which are tied to Elastic Security and Elasticsearch are capable of parsing auth-related keyword args from a config file or environment variables. If a value is set in multiple places, such as config file and environment variable, the order of precedence will be as follows:
 - explicitly passed args (such as `--user joe`)
@@ -194,7 +194,7 @@ Testing can occur at two critical junctures: before opening a Pull Request (PR),
 
 Testing frameworks play a crucial role in simulating real-world threats to validate rule effectiveness. These frameworks, such as Red Team Automation (RTA) scripts or third-party platforms like Atomic Red Team, provide a structured way to generate synthetic events that mimic attack behaviors. Such rigorous testing ensures that rules not only trigger alerts as expected but also accurately match query criteria against the events generated in Elasticsearch, providing a nuanced measure of rule performance beyond mere alert firing.
 
-:bulb: Note: The complexity of testing may vary based on the specific nature of the detection rules and the available testing infrastructure. Considerations include the scalability of the testing environment, the representativeness of the test data, and the ability to automate the testing process. Automated CI/CD pipelines can facilitate the deployment of rules to the testing environment, execution of test scenarios, and collection of results for analysis.
+💡 Note: The complexity of testing may vary based on the specific nature of the detection rules and the available testing infrastructure. Considerations include the scalability of the testing environment, the representativeness of the test data, and the ability to automate the testing process. Automated CI/CD pipelines can facilitate the deployment of rules to the testing environment, execution of test scenarios, and collection of results for analysis.
 
 ### Option 1 - Pre-PR Individual Rule Testing
 
