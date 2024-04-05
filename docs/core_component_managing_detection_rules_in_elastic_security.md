@@ -14,7 +14,7 @@ This section explores the intricacies of managing detection rules within Elastic
 
 Effective [rule management in Elastic Security](https://www.elastic.co/guide/en/security/current/rules-ui-management.html) requires understanding the available security features, workflows, and how they compare to managing rules in VCS. It's important to evaluate the benefits of immediate rule deployment and testing in Elastic Security against the structured version control and collaboration offered by VCS. The ability to quickly deploy and test rules within Elastic Security is balanced against the structured version control, collaboration, and historical tracking provided by VCS systems. This balance is crucial for teams that, while primarily operating within Elastic Security for daily tasks, require robust external processes for rule oversight and version management.
 
-Note: More detail on syncing is provided in [Core Component: Syncing Rules and Data from Elastic Security to VCS](./core_component_syncing_rules_and_data_from_elastic_security_to_vcs.md) and [Core Component: Syncing Rules and Data from VCS to Elastic Security](./core_component_syncing_rules_and_data_from_vcs_to_elastic_security.md).
+💡 Note: More detail on syncing is provided in [Core Component: Syncing Rules and Data from Elastic Security to VCS](./core_component_syncing_rules_and_data_from_elastic_security_to_vcs.md) and [Core Component: Syncing Rules and Data from VCS to Elastic Security](./core_component_syncing_rules_and_data_from_vcs_to_elastic_security.md).
 
 ## Sub-Component 1: Source of Truth
 
