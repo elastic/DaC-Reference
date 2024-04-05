@@ -60,7 +60,7 @@ The miscellaneous folder [detection_rules/etc](https://github.com/elastic/detect
 | version.lock.json      | Master version lock file used to track the version of a rule based on sha256 calculation                        |
 | integration-*.json.gz  | Files used to validate rules against Elastic integration schemas                                                 |
 
-:bulb:*Note: View the schemas and dataclass section to view the schema files and folders table.*
+*Note: View the schemas and dataclass section to view the schema files and folders table.*
 
 ## CLI
 
@@ -108,7 +108,7 @@ Commands:
 Note: Using some of these options with your custom rules requires repo configuration
 ```
 
-:bulb: *Note: Using some of these options with your custom rules requires repo configuration.*
+*Note: Using some of these options with your custom rules requires repo configuration.*
 
 2. Explore the **DAC** CLI commands by running **python -m detection_rules <name> -h** in the terminal.
 
@@ -134,7 +134,7 @@ Commands:
   view-rule               View an internal rule or specified rule file.
 ```
 
-:bulb: *Note: Using these options with your custom rules requires repo configuration and the Elastic Security Solution available.*
+*Note: Using these options with your custom rules requires repo configuration and the Elastic Security Solution available.*
 
 ## Unit tests
 
@@ -160,7 +160,7 @@ configfile: pyproject.toml
 plugins: typeguard-3.0.2
 ```
 
-:bulb: *Note: You can optionally run pytest to run the tests.*
+*Note: You can optionally run pytest to run the tests.*
 
 2. Running all test cases may not be desirable. In this case, you can configure the unit tests glob-style by creating a test config and specifying the test cases. More details are provided in the [Sub-Component 6: Unit Testing](#unit-testing) section.  For further troubleshooting or unit test customization, refer to the **pytest** module documentation, which the CLI leverages to run tests and format outputs.
 
