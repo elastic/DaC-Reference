@@ -4,7 +4,7 @@
 <span style="font-size:4em;font-weight: bold;">Detections as Code</span><br><br><br>
 <span style="font-size:1.5em;">Elastic Reference</span><br>
 <span style="font-size:em;">_______________</span><br>
-<span style="font-size:1.5em;">Managing Elastic Security Security Detection RUles Using DaC</span><br><br><br>
+<span style="font-size:1.5em;">Managing Elastic Security Security Detection Rules Using DaC</span><br><br><br>
 
 ```{toctree}
 :maxdepth: 2
