@@ -6,7 +6,7 @@
 <span style="font-size:em;">_______________</span><br>
 <span style="font-size:1.5em;">Managing Elastic Security Security Detection Rules Using DaC</span><br><br><br>
 
-⚠️ Note: The alpha detection-rules branch, content within these slides, and this reference guide are subject to change. Once we finally migrate the changes to the `main` branch, we will update the content accordingly.
+⚠️ Note: The alpha detection-rules [DAC-feature](https://github.com/elastic/detection-rules/tree/DAC-feature) branch, content within these [slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf), and this reference guide are subject to change. Once we finally migrate the changes to the `main` branch, we will update the content accordingly.
 
 ```{toctree}
 :maxdepth: 2

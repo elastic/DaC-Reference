@@ -28,6 +28,8 @@ This section covers the **detection-rules** repo, how to install prerequisites, 
 1. Download and install [Python](https://www.python.org/downloads/). Note: Versions *3.12+* are supported.
 1. Install the detection-rules python **CLI** prerequisites. Installing essentially requires you to change to the new directory and use pip to install. **cd detection-rules -> make** (optionally install direct using: **pip install “[.dev]”**) See the [README](https://github.com/elastic/detection-rules/blob/main/README.md) for more details.
 
+💡 Note: The DAC alpha branch to use is [DAC-feature](https://github.com/elastic/detection-rules/tree/DAC-feature).
+
 |                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------------- |
 | <img src="_static/detection_rules_getting_started.png" style="width:5.94271in;height:5.84793in" alt="High Level Components"/> |
@@ -73,6 +75,7 @@ The CLI contains more options than needed to perform standard DAC operations. Th
 1. Confirm prerequisites are installed by loading the help. For an exhaustive list of options run **python -m detection_rules -h** in the terminal.
 
 ```bash
+
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
@@ -89,11 +92,12 @@ Commands:
   build-limited-rules     Import rules from json, toml, or Kibana...
   build-threat-map-entry  Build a threat map entry.
   create-rule             Create a detection rule.
+  custom-rules            Commands for supporting custom rules.
   dev                     Commands related to the Elastic Stack rules...
   es                      Commands for integrating with Elasticsearch.
-  export-rules            Export rule(s) into an importable ndjson file.
+  export-rules-from-repo  Export rule(s) into an importable ndjson file.
   generate-rules-index    Generate enriched indexes of rules, based on a...
-  import-rules            Import rules from json, toml, yaml, or Kibana...
+  import-rules-to-repo    Import rules from json, toml, yaml, or Kibana...
   kibana                  Commands for integrating with Kibana.
   mass-update             Update multiple rules based on eql results.
   normalize-data          Normalize Elasticsearch data timestamps and sort.
@@ -109,35 +113,31 @@ Commands:
 
 💡 *Note: Using some of these options with your custom rules requires repo configuration.*
 
-2. Explore the **DAC** CLI commands by running **python -m detection_rules <name> -h** in the terminal.
+2. Explore the **Custom Rules** CLI commands by running **python -m detection_rules custom-rules -h** in the terminal.
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
-Usage: detection_rules [OPTIONS] COMMAND [ARGS]...
+Usage: detection_rules custom-rules [OPTIONS] COMMAND [ARGS]...
 
-  Commands for detection-rules repository.
+  Commands for supporting custom rules.
 
 Options:
-  -D, --debug / -N, --no-debug  Print full exception stacktrace on errors
-  -h, --help                    Show this message and exit.
+  -h, --help  Show this message and exit.
 
 Commands:
-  build-limited-rules     Import rules from json, toml, or Kibana...
-  create-rule             Create a detection rule.
-  export-rules            Export rule(s) into an importable ndjson file.
-  import-rules            Import rules from json, toml, yaml, or Kibana...
-  kibana                  Commands for integrating with Kibana.
-  view-rule               View an internal rule or specified rule file.
+  init-config  Initialize the custom rules configuration.
 ```
 
 💡 *Note: Using these options with your custom rules requires repo configuration and the Elastic Security Solution available.*
 
 ## Unit tests
 
-The detection-rules repository's unit tests serve as a comprehensive mechanism to verify the compatibility of rules with the expected format and structure for Elastic Security. These tests ensure consistency in rule management and adherence to best practices as defined by Elastic's detection engineering team. By loading all rules simultaneously, the tests efficiently iterate over the rule set to evaluate various cases, from syntax validation to logical consistency. Note: Additional unit testing options and details are available in [Sub-Component 6: Unit Testing](#unit-testing).
+The detection-rules repository's unit tests serve as a comprehensive mechanism to verify the compatibility of rules with the expected format and structure for Elastic Security. These tests ensure consistency in rule management and adherence to best practices as defined by Elastic's detection engineering team. By loading all rules simultaneously, the tests efficiently iterate over the rule set to evaluate various cases, from syntax validation to logical consistency.
+
+💡 *Note: Additional unit testing options and details are available in [Sub-Component 6: Unit Testing](#unit-testing).*
 
 **Steps:**
 
@@ -223,6 +223,8 @@ python -m detection_rules dev integrations build-schemas
 
 This method involves creating a custom directory within your forked version of the **detection-rules** repository to manage and map rules. By setting an environment variable to this directory's location and initializing it via the CLI, users can effectively manage custom rule sets alongside the benefits of schema validation and unit testing provided by the original repository.
 
+For more information on the custom rules directory, refer to the [Custom Rules Docs]([#custom-rules](https://github.com/elastic/detection-rules/blob/DAC-feature/docs/custom-rules.md)).
+
 |Pros|Cons|
 |-|-|
 | - Ease of Customization: Requires minimal adjustments to accommodate custom rules. </br> - Schema Control: Offers direct control over schemas, allowing for further customization. </br> - Organizational Flexibility: Enables the segregation of custom rules tailored to specific Elastic stacks or spaces, enhancing manageability.| - In-depth Knowledge Required: Users need a thorough understanding of detection-rules internals for leveraging custom schemas or implementing unique versioning mechanisms.|
@@ -232,34 +234,36 @@ This method involves creating a custom directory within your forked version of t
 1. Set the **CUSTOM_RULES** environment variable to a custom directory of your choosing.
 
 ```bash
-export CUSTOM_RULES=my_custom_dir
+export CUSTOM_RULES=dac_custom_rules_dir
 ```
 
 2. Initialize the custom directory with necessary detection-rules specific files by running:
 
 ```bash
-python -m detection_rules <name> init my_custom_dir
+python -m detection_rules custom-rules init-config dac_custom_rules_dir
 ```
 
-This command will generate the custom directory supplied to the command line and initialize the folder with the detection-rule specific files necessary.
+This command will generate the custom directory supplied to the command line and initialize the folder with the detection-rule specific files necessary. Rules can then be added to the **rules** directory, and exceptions and actions can be added to their respective directories.
 
 ```config
 #   example structure:
-#     my_custom_dir
-#     ├── _config.yaml
-#     ├── example_rule_1.toml
-#     ├── example_rule_2.toml
-#     └── etc
-#         ├── deprecated_rules.json
- #         ├── packages.yml
- #         ├── stack-schema-map.yaml
- #         └── version.lock.json
- #     └── actions
- ##         ├── action_1.toml
- ##         ├── action_2.toml
- #     └── exceptions
- ##         ├── exception_1.toml
- ##         ├── exception_2.toml
+#     dac_custom_rules_dir
+├── _config.yaml
+├── actions
+    ├── action_1.toml
+    ├── action_2.toml
+├── etc
+│   ├── deprecated_rules.json
+│   ├── packages.yml
+│   ├── stack-schema-map.yaml
+│   ├── test_config.yaml
+│   └── version.lock.json
+├── exceptions
+    ├── exception_1.toml
+    └── exception_2.toml
+└── rules
+    ├── example_rule_1.toml
+    └── example_rule_2.toml
 ```
 
 The **_config.yaml** will contain a configuration that points to custom directory-specific configuration files defining how to load, package, and validate the custom rules. Here are some management notes associated with each file.
@@ -273,15 +277,46 @@ The **_config.yaml** will contain a configuration that points to custom director
   - Update the schema manifest as needed, download schemas and migrate the schemas to the custom directory
 - version_lock: etc/version.lock.json
 
-```bash
-<TODO> Fill in with example DAC execution when commands are available.
+```config
+# detection-rules _config.yaml file
+
+rule_dirs:
+  - rules
+files:
+  deprecated_rules: etc/deprecated_rules.json
+  packages: etc/packages.yml
+  stack_schema_map: etc/stack-schema-map.yaml
+  version_lock: etc/version.lock.json
+
+testing:
+  config: etc/test_config.yaml
 ```
 
-3. Validate and test your custom rules by executing:
+```bash
+(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules custom-rules init-config dac_custom_rules_dir
+Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+created directory: dac_custom_rules_dir/actions
+created directory: dac_custom_rules_dir/exceptions
+created directory: dac_custom_rules_dir/rules
+created directory: dac_custom_rules_dir/etc
+created file: dac_custom_rules_dir/_config.yaml
+created file: dac_custom_rules_dir/etc/deprecated_rules.json
+created file: dac_custom_rules_dir/etc/packages.yml
+created file: dac_custom_rules_dir/etc/stack-schema-map.yaml
+created file: dac_custom_rules_dir/etc/version.lock.json
+created file: dac_custom_rules_dir/etc/test_config.yaml
+```
+
+1. Validate and test your custom rules by executing:
 
 ```bash
-CUSTOM_RULES_DIR=my_custom_dir make test
-CUSTOM_RULES_DIR=my_cusom_dir python -m detection_rules test
+CUSTOM_RULES_DIR=dac_custom_rules_dir make test
+CUSTOM_RULES_DIR=dac_custom_rules_dir python -m detection_rules test
 ```
 
 ### Option 2: Custom Repo Changes
@@ -536,11 +571,7 @@ Another approach is to use the available action and exception fields in the dete
 
 **Steps:**
 
-1. Directly edit the detection rule's TOML file to include an exception list or action fields, following Elastic Security's expected format.
-
-```bash
-<TODO add example when this is implemented>
-```
+1. Directly edit the detection rule's TOML file to include an exception list or action fields, following Elastic Security's expected format. Kibana expects a list of dictionaries for exceptions, with each dictionary containing the necessary fields. See the [Exceptions schema](https://www.elastic.co/guide/en/security/current/detections-ui-exceptions.html) for more details.
 
 2. Leverage built-in dataclasses to validate and format these fields correctly before deploying them to Elastic Security.
 
@@ -654,10 +685,6 @@ One of the more prominent features of the detection-rules repo is the extensive 
 **Steps:**
 
 1. Create custom rules in TOML format, referencing existing rules as templates or using the **create** rule CLI command for guided rule creation.
-
-```bash
-<Add example of create command if we want to keep this>
-```
 
 ```bash
 python -m detection_rules create-rule /path/to/new_rule.toml

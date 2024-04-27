@@ -69,10 +69,439 @@ Currently supported arguments:
 3. Once authenticated, you can use [API calls](https://www.elastic.co/guide/en/security/current/security-apis.html#_api_calls) directly. If using the detection-rules CLI, the following DAC commands are available. Deploy the latest set of rules by running the following command:
 
 ```bash
-<TODO> Fill in with example execution when commands are available.
+(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules -h
+Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+Usage: detection_rules [OPTIONS] COMMAND [ARGS]...
+
+  Commands for detection-rules repository.
+
+Options:
+  -D, --debug / -N, --no-debug  Print full exception stacktrace on errors
+  -h, --help                    Show this message and exit.
+
+Commands:
+  ...
+  export-rules-from-repo  Export rule(s) into an importable ndjson file.
+  generate-rules-index    Generate enriched indexes of rules, based on a...
+  import-rules-to-repo    Import rules from json, toml, yaml, or Kibana...
+  ...
 ```
 
-4. Step to sync / deploy exception/action lists with the the specific DAC command
+💡 Note: There's a known issue importing some of the rule types. In the interim, the legacy kibana commands can be used as a workaround.
+
+```bash
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+Usage: detection_rules kibana [OPTIONS] COMMAND [ARGS]...
+
+  Commands for integrating with Kibana.
+
+Options:
+  --ignore-ssl-errors TEXT
+  --space TEXT                 Kibana space
+  --provider-name TEXT         Elastic Cloud providers: cloud-basic and cloud-
+                               saml (for SSO)
+  --provider-type TEXT         Elastic Cloud providers: basic and saml (for
+                               SSO)
+  -ku, --kibana-user TEXT
+  --kibana-url TEXT
+  -kp, --kibana-password TEXT
+  -kc, --kibana-cookie TEXT    Cookie from an authed session
+  --cloud-id TEXT              ID of the cloud instance.
+  -h, --help                   Show this message and exit.
+
+Commands:
+  export-rules   Export custom rules from Kibana.
+  import-rules   Import custom rules into Kibana.
+  search-alerts  Search detection engine alerts with KQL.
+  upload-rule    Upload a list of rule .toml files to Kibana.
+```
+
+### Testing
+
+```
+python -m detection_rules kibana export-rules -d test-export-rules --skip-errors
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+- skipping Stolen Credentials Used to Login to Okta Account After MFA Reset - ValidationError
+- skipping First Occurrence of Okta User Session Started via Proxy - ValidationError
+- skipping ESQL test: cmd child of Explorer - ValidationError
+- skipping Potential Persistence Through Run Control Detected - ValidationError
+- skipping First Time Seen AWS Secret Value Accessed in Secrets Manager - ValidationError
+- skipping Potential Shadow File Read via Command Line Utilities - ValidationError
+- skipping Abnormal Process ID or Lock File Created - ValidationError
+- skipping New service installed in last 24 hours - ValidationError
+- skipping Scheduled Task or Driver added - KqlParseError
+- skipping Scheduled Task or Driver removed - KqlParseError
+- skipping name - ValidationError
+33 rules exported
+22 rules converted
+22 saved to test-export-rules
+11 errors saved to test-export-rules/_errors.txt
+```
+
+```
+ls test-export-rules
+
+_errors.txt
+collection_exchange_mailbox_export_via_powershell.toml.toml
+credential_access_multiple_okta_user_auth_events_with_same_device_token_hash_behind_a_proxy.toml.toml
+credential_access_potential_okta_mfa_bombing_via_push_notifications.toml.toml
+defense_evasion_agent_spoofing_multiple_hosts_using_same_agent.toml.toml
+defense_evasion_attempt_to_disable_syslog_service.toml.toml
+defense_evasion_kernel_module_removal.toml.toml
+discovery_enumeration_of_kernel_modules.toml.toml
+execution_interactive_terminal_spawned_via_python.toml.toml
+initial_access_multiple_okta_client_addresses_for_a_single_user_session.toml.toml
+initial_access_new_okta_authentication_behavior_detected.toml.toml
+initial_access_okta_fastpass_phishing_detection.toml.toml
+initial_access_okta_sign_in_events_via_third_party_idp.toml.toml
+initial_access_okta_user_sessions_started_from_different_geolocations.toml.toml
+lateral_movement_multiple_okta_sessions_detected_for_a_single_user.toml.toml
+my_first_alert.toml.toml
+persistence_new_okta_identity_provider_idp_added_by_admin.toml.toml
+test_data_view.toml.toml
+test_noisy.toml.toml
+test_suppress.toml.toml
+web_application_suspicious_activity_post_request_declined.toml.toml
+web_application_suspicious_activity_sqlmap_user_agent.toml.toml
+web_application_suspicious_activity_unauthorized_method.toml.toml
+```
+
+```
+cat test-export-rules/_errors.txt
+- Stolen Credentials Used to Login to Okta Account After MFA Reset - {'_schema': ['Setup header found in both note and setup fields.']}
+- First Occurrence of Okta User Session Started via Proxy - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}
+- ESQL test: cmd child of Explorer - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}, 'language': ['Must be equal to eql.']}), ValidationError({'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}}), ValidationError({'type': ['Must be equal to threshold.'], 'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}, 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}, 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}, 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.'], 'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}}), ValidationError({'type': ['Must be equal to new_terms.'], 'threat': {0: {'tactic': {'reference': ['String does not match expected pattern.']}, 'technique': {0: {'reference': ['String does not match expected pattern.']}}}}, 'new_terms': ['Missing data for required field.']})]}
+- Potential Persistence Through Run Control Detected - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}
+- First Time Seen AWS Secret Value Accessed in Secrets Manager - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}
+- Potential Shadow File Read via Command Line Utilities - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}
+- Abnormal Process ID or Lock File Created - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}
+- New service installed in last 24 hours - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}
+- Scheduled Task or Driver added - Error at line:1,column:75
+Unknown field
+data_stream.dataset:osquery_manager.result and osquery_meta.counter>0 and osquery_meta.type:diff and osquery.last_run_code:0 and osquery_meta.action:added
+                                                                          ^^^^^^^^^^^^^^^^^
+stack: 8.9.0, beats: 8.9.0, ecs: 8.9.0
+- Scheduled Task or Driver removed - Error at line:1,column:75
+Unknown field
+data_stream.dataset:osquery_manager.result and osquery_meta.counter>0 and osquery_meta.type:diff and osquery.last_run_code:0 and osquery_meta.action:removed
+                                                                          ^^^^^^^^^^^^^^^^^
+stack: 8.9.0, beats: 8.9.0, ecs: 8.9.0
+- name - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗
+```
+
+<details>
+<summary>Detailed commands output</summary>
+
+Help output:
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -h
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+Kibana client:
+Options:
+  --ignore-ssl-errors TEXT
+  --space TEXT                 Kibana space
+  --provider-name TEXT         Elastic Cloud providers: cloud-basic and cloud-
+                               saml (for SSO)
+  --provider-type TEXT         Elastic Cloud providers: basic and saml (for
+                               SSO)
+  -ku, --kibana-user TEXT
+  --kibana-url TEXT
+  -kp, --kibana-password TEXT
+  -kc, --kibana-cookie TEXT    Cookie from an authed session
+  --cloud-id TEXT              ID of the cloud instance.
+
+Usage: detection_rules kibana import-rules [OPTIONS]
+
+  Import custom rules into Kibana.
+
+Options:
+  -f, --rule-file FILE
+  -d, --directory DIRECTORY       Recursively load rules from a directory
+  -id, --rule-id TEXT
+  -o, --overwrite                 Overwrite existing rules
+  -e, --overwrite-exceptions      Overwrite exceptions in existing rules
+  -a, --overwrite-action-connectors
+                                  Overwrite action connectors in existing
+                                  rules
+  -h, --help                      Show this message and exit.
+```
+
+Existing rule fails as expected:
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_EXISTING_RULE.toml
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+1 rule(s) failed to import!
+ - 50887ba8-7ff7-11ee-a038-f661ea17fbcd: (409) rule_id: "50887ba8-7ff7-11ee-a038-f661ea17fbcd" already exists
+```
+
+`-o` overwrite forces the import successfully
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_EXISTING_RULE.toml -o
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+1 rule(s) successfully imported
+ - 50887ba8-7ff7-11ee-a038-f661ea17fbcd
+```
+
+New rule successfully imports:
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_NEW_RULE.toml
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+1 rule(s) successfully imported
+ - 50887ba8-aaaa-bbbb-a038-f661ea17fbcd
+```
+
+The rule loader detects a collision in name and fails as intended:
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+Error loading rule in /Users/jibarra/PycharmProjects/detection-rules-fork/test-export-rules/credential_access_NEW_RULE.toml
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 34, in <module>
+    main()
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 31, in main
+    root(prog_name="detection_rules")
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/cli_utils.py", line 83, in get_collection
+    rules.load_directories(Path(d) for d in directories)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 499, in load_directories
+    self.load_directory(path, recursive=recursive, obj_filter=obj_filter)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 494, in load_directory
+    self.load_files(paths)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 487, in load_files
+    self.load_file(path)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 435, in load_file
+    return self.load_dict(obj, path=path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 415, in load_dict
+    self.add_rule(rule)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 392, in add_rule
+    self._assert_new(rule)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 383, in _assert_new
+    assert rule.name not in name_map, \
+AssertionError: Rule Name Multiple Okta User Auth Events with Same Device Token Hash Behind a Proxy for 50887ba8-aaaa-bbbb-a038-f661ea17fbcd collides with rule ID 50887ba8-7ff7-11ee-a038-f661ea17fbcd
+```
+
+Expected failure on rule_id collision:
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
+Loaded config file: /Users/jibarra/PycharmProjects/detection-rules-fork/.detection-rules-cfg.yaml
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+Error loading rule in /Users/jibarra/PycharmProjects/detection-rules-fork/test-export-rules/credential_access_multiple_okta_user_auth_events_with_same_device_token_hash_behind_a_proxy.toml
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 34, in <module>
+    main()
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 31, in main
+    root(prog_name="detection_rules")
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1157, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1078, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 783, in invoke
+    return __callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/cli_utils.py", line 83, in get_collection
+    rules.load_directories(Path(d) for d in directories)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 499, in load_directories
+    self.load_directory(path, recursive=recursive, obj_filter=obj_filter)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 494, in load_directory
+    self.load_files(paths)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 487, in load_files
+    self.load_file(path)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 435, in load_file
+    return self.load_dict(obj, path=path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 415, in load_dict
+    self.add_rule(rule)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 392, in add_rule
+    self._assert_new(rule)
+  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 381, in _assert_new
+    assert rule.id not in id_map, \
+AssertionError: Rule ID 50887ba8-7ff7-11ee-a038-f661ea17fbcd for Multiple Okta User Auth Events with Same Device Token Hash Behind a Proxy collides with rule Multiple Okta User Auth Events with Same Device Token Hash Behind a Proxy
+```
+
+Import a full directory - all fail as expected:
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+23 rule(s) failed to import!
+ - ee663abc-fb77-49d2-a7c5-204b9cf888ca: (409) rule_id: "ee663abc-fb77-49d2-a7c5-204b9cf888ca" already exists
+ - 50887ba8-aaaa-bbbb-a038-f661ea17fbcd: (409) rule_id: "50887ba8-aaaa-bbbb-a038-f661ea17fbcd" already exists
+ - 50887ba8-7ff7-11ee-a038-f661ea17fbcd: (409) rule_id: "50887ba8-7ff7-11ee-a038-f661ea17fbcd" already exists
+ - 8a0fbd26-867f-11ee-947c-f661ea17fbcd: (409) rule_id: "8a0fbd26-867f-11ee-947c-f661ea17fbcd" already exists
+ - aaaaaaaa-f861-414c-8602-150d5505b777: (409) rule_id: "aaaaaaaa-f861-414c-8602-150d5505b777" already exists
+ - 2f8a1226-5720-437d-9c20-e0029deb6194: (409) rule_id: "2f8a1226-5720-437d-9c20-e0029deb6194" already exists
+ - cd66a5af-e34b-4bb0-8931-57d0a043f2ef: (409) rule_id: "cd66a5af-e34b-4bb0-8931-57d0a043f2ef" already exists
+ - 2d8043ed-5bda-4caf-801c-c1feb7410504: (409) rule_id: "2d8043ed-5bda-4caf-801c-c1feb7410504" already exists
+ - d76b02ef-fc95-4001-9297-01cb7412232f: (409) rule_id: "d76b02ef-fc95-4001-9297-01cb7412232f" already exists
+ - cc382a2e-7e52-11ee-9aac-f661ea17fbcd: (409) rule_id: "cc382a2e-7e52-11ee-9aac-f661ea17fbcd" already exists
+ - 260486ee-7d98-11ee-9599-f661ea17fbcd: (409) rule_id: "260486ee-7d98-11ee-9599-f661ea17fbcd" already exists
+ - ee39a9f7-5a79-4b0a-9815-d36b3cf28d3e: (409) rule_id: "ee39a9f7-5a79-4b0a-9815-d36b3cf28d3e" already exists
+ - 1ceb05c4-7d25-11ee-9562-f661ea17fbcd: (409) rule_id: "1ceb05c4-7d25-11ee-9562-f661ea17fbcd" already exists
+ - 2e56e1bc-867a-11ee-b13e-f661ea17fbcd: (409) rule_id: "2e56e1bc-867a-11ee-b13e-f661ea17fbcd" already exists
+ - 621e92b6-7e54-11ee-bdc0-f661ea17fbcd: (409) rule_id: "621e92b6-7e54-11ee-bdc0-f661ea17fbcd" already exists
+ - a198fbbd-9413-45ec-a269-47ae4ccf59ce: (409) rule_id: "a198fbbd-9413-45ec-a269-47ae4ccf59ce" already exists
+ - 29b53942-7cd4-11ee-b70e-f661ea17fbcd: (409) rule_id: "29b53942-7cd4-11ee-b70e-f661ea17fbcd" already exists
+ - aaec44bc-d691-4874-99b2-48ab7392dfd5: (409) rule_id: "aaec44bc-d691-4874-99b2-48ab7392dfd5" already exists
+ - 40e1f208-0f70-47d4-98ea-378ccf504ad3: (409) rule_id: "40e1f208-0f70-47d4-98ea-378ccf504ad3" already exists
+ - 5e9bc07c-7e7a-415b-a6c0-1cae4a0d256e: (409) rule_id: "5e9bc07c-7e7a-415b-a6c0-1cae4a0d256e" already exists
+ - 17d99572-793d-41ae-8b55-cee30db13fa2: (409) rule_id: "17d99572-793d-41ae-8b55-cee30db13fa2" already exists
+ - 38accba8-894a-4f32-98d5-7cb01c82f5d6: (409) rule_id: "38accba8-894a-4f32-98d5-7cb01c82f5d6" already exists
+ - e1b7d2a6-d23a-4747-b621-d249d83162ea: (409) rule_id: "e1b7d2a6-d23a-4747-b621-d249d83162ea" already exists
+```
+
+Import a fulle directory, with `-o` forcing the updates successfully
+```
+(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules -o
+Loaded config file: /Users/jibarra/PycharmProjects/detection-rules-fork/.detection-rules-cfg.yaml
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+23 rule(s) successfully imported
+ - ee663abc-fb77-49d2-a7c5-204b9cf888ca
+ - 50887ba8-aaaa-bbbb-a038-f661ea17fbcd
+ - 50887ba8-7ff7-11ee-a038-f661ea17fbcd
+ - 8a0fbd26-867f-11ee-947c-f661ea17fbcd
+ - aaaaaaaa-f861-414c-8602-150d5505b777
+ - 2f8a1226-5720-437d-9c20-e0029deb6194
+ - cd66a5af-e34b-4bb0-8931-57d0a043f2ef
+ - 2d8043ed-5bda-4caf-801c-c1feb7410504
+ - d76b02ef-fc95-4001-9297-01cb7412232f
+ - cc382a2e-7e52-11ee-9aac-f661ea17fbcd
+ - 260486ee-7d98-11ee-9599-f661ea17fbcd
+ - ee39a9f7-5a79-4b0a-9815-d36b3cf28d3e
+ - 1ceb05c4-7d25-11ee-9562-f661ea17fbcd
+ - 2e56e1bc-867a-11ee-b13e-f661ea17fbcd
+ - 621e92b6-7e54-11ee-bdc0-f661ea17fbcd
+ - a198fbbd-9413-45ec-a269-47ae4ccf59ce
+ - 29b53942-7cd4-11ee-b70e-f661ea17fbcd
+ - aaec44bc-d691-4874-99b2-48ab7392dfd5
+ - 40e1f208-0f70-47d4-98ea-378ccf504ad3
+ - 5e9bc07c-7e7a-415b-a6c0-1cae4a0d256e
+ - 17d99572-793d-41ae-8b55-cee30db13fa2
+ - 38accba8-894a-4f32-98d5-7cb01c82f5d6
+ - e1b7d2a6-d23a-4747-b621-d249d83162ea
+
+```
+
+</details>
+
+
+<details>
+<summary>Detailed API calls</summary>
+
+```python
+    from kibana import definitions
+
+    rids = ['40e1f208-0f70-47d4-98ea-378ccf504ad3', '5e9bc07c-7e7a-415b-a6c0-1cae4a0d256e']
+
+    # with TypedDict, either is valid, both with static type checking
+    st = definitions.RuleBulkSetTags(type='set_tags', value=['tag1', 'tag2'])
+    dt: definitions.RuleBulkDeleteTags = {'type': 'delete_tags', 'value': ['tag1', 'tag2']}
+    with kibana:
+        r1 = RuleResource.bulk_enable(rids, dry_run=True)
+        r2 = RuleResource.bulk_disable(rids, dry_run=True)
+        r3 = RuleResource.bulk_duplicate(rids, dry_run=True)
+        r4 = RuleResource.bulk_export(rids)
+        r5 = RuleResource.bulk_edit(edit_object=[st, dt], rule_ids=rids, dry_run=True)
+        r6 = RuleResource.bulk_delete(rids, dry_run=True)
+```
+
+</details>
+
+4. Finally sync / deploy exception/action lists along with the rules.
+
+💡 Note: The exceptions/actions lists have links to rules by ID in their dedicated schemas. When pushing rule updates, any available action or exception lists will be updated automatically.
+
+```bash
+# Export TOML files to ndjson
+python -m detection_rules export-rules-from-repo
+
+# Import rules (ndjon) to Kibana
+python -m detection_rules kibana import-rules ...
+```
 
 ### Option 2:  Fleet Engine
 
@@ -104,7 +533,17 @@ python -m detection_rules dev build-release
 curl -XPOST -H 'content-type: application/zip' -H 'kbn-xsrf: true' https://my-kibana:9243/api/fleet/epm/packages -u elastic:<password> --data-binary @security_detection_engine-8.13.0-beta.0.zip
 ```
 
-6. Step to sync / deploy exception/action lists with the the specific DAC command
+6. Finally sync / deploy exception/action lists along with the rules.
+
+💡 Note: The exceptions/actions lists have links to rules by ID in their dedicated schemas. When pushing rule updates, any available action or exception lists will be updated automatically.
+
+```bash
+# Export TOML files to ndjson
+python -m detection_rules export-rules-from-repo
+
+# Import rules (ndjon) to Kibana
+python -m detection_rules kibana import-rules ...
+```
 
 ## Sub-Component 2: Deploying via CI/CD
 

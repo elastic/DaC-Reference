@@ -55,11 +55,85 @@ For details on the various options, refer to those specific core components sect
 
 ### VCS as authoritative
 
-WIP
+#### Overview
+
+When the Version Control System (VCS) serves as the authoritative source, all rule changes originate from VCS, emphasizing a code-first approach to detection rule management. This model supports strict change control and full traceability of rule modifications, which is ideal for teams prioritizing rigorous oversight and auditability of detection rules.
+
+#### Considerations
+
+Choosing VCS as the authoritative source requires establishing stringent procedures for rule creation, modification, and deployment, ensuring that all changes are versioned and reviewed before being synchronized to Elastic Security. This governance model relies heavily on CI/CD pipelines to manage deployments and maintain rule integrity across environments.
+
+##### Consideration 1: Code-First Development
+
+This approach encourages the development and testing of detection rules within the VCS environment before deploying to Elastic Security, ensuring that all changes are reviewed and validated through pull requests and automated checks.
+
+###### Option 1: Pull Request Reviews
+
+| Pros | Cons |
+|------|------|
+| - Enforces peer reviews, enhancing rule quality. </br> - Facilitates a comprehensive audit trail for each change. | - Can slow down the deployment process. </br> - Requires a mature development process and discipline among team members.|
+
+**Steps:**
+
+1. Configure branch protection rules in VCS to require pull requests for changes.
+2. Implement CI checks that must pass before merging, including rule validation and automated tests.
+3. Require approvals from designated team members on pull requests to ensure compliance and accuracy.
+4. Merge approved changes to deploy them automatically to Elastic Security via CI/CD pipelines.
+
+###### Option 2: Automated Rule Testing
+
+| Pros | Cons |
+|------|------|
+| - Ensures that rules meet all standards before deployment. </br> - Reduces the risk of deploying faulty or ineffective rules. | - Requires setup and maintenance of testing frameworks. </br> - Increases the complexity of the CI/CD pipeline.|
+
+**Steps:**
+
+1. Implement unit and integration tests within the CI/CD pipeline to validate rule logic and performance.
+2. Configure CI to run these tests automatically on every pull request.
+3. Use test results to guide rule approvals and merges.
+4. Sync approved and tested rules to Elastic Security automatically.
 
 ### Elastic security as authoritative
 
-WIP
+#### Overview
+
+In models where Elastic Security is the authoritative source, rule creation and testing occur primarily within the Elastic Security platform. This model suits teams who prefer using the platform's native tools and interfaces for rule management, relying on VCS primarily for backup and version tracking rather than active development.
+
+#### Considerations
+
+The primary challenge in this model is ensuring that changes made directly in Elastic Security are captured and accurately reflected in VCS, maintaining consistency across platforms and providing a backup for disaster recovery.
+
+##### Consideration 1: Platform-First Development
+
+This strategy focuses on leveraging Elastic Security's built-in capabilities for rule management, using VCS as a secondary sync point to ensure that all changes are version-controlled and backed up.
+
+###### Option 1: Direct Rule Management in Elastic Security
+
+| Pros | Cons |
+|------|------|
+| - Utilizes the user-friendly interface of Elastic Security for rule management. </br> - Immediate deployment and testing within the platform. | - Higher risk of changes not being captured in VCS. </br> - Dependence on manual processes for syncing to VCS.|
+
+**Steps:**
+
+1. Develop and modify detection rules directly in Elastic Security.
+2. Periodically export rules from Elastic Security to a local directory or directly into VCS.
+3. Use scripts or CI/CD jobs to automate the export and commit process to VCS.
+4. Review and back up changes in VCS to ensure all modifications are captured.
+
+###### Option 2: Scheduled Sync to VCS
+
+| Pros | Cons |
+|------|------|
+| - Automates the synchronization process, reducing manual overhead. </br> - Ensures consistent backups in VCS. | - May introduce a delay between rule creation in Elastic Security and its reflection in VCS. </br> - Requires reliable scheduling and monitoring of sync processes.|
+
+**Steps:**
+
+1. Implement a scheduled job to export rules from Elastic Security to VCS.
+2. Configure the job to run at regular intervals, e.g., daily or weekly.
+3. Monitor sync processes and logs to catch and resolve any failures or discrepancies.
+4. Review VCS periodically to confirm that it accurately reflects the current state of rules in Elastic Security.
+
+These sections expand on the governance models by detailing specific considerations and options for each model, maintaining consistency with the established format of providing practical steps and weighing the pros and cons.
 
 ### Dual Syncing Rules and Data between Kibana and VCS
 
