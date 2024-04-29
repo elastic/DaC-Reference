@@ -48,13 +48,36 @@ This approach involves creating a CI/CD workflow, such as a GitHub Action, that 
 1. Script the API calls to Elastic Security for rule extraction.
 
 ```bash
-<Example CLI wrapping the API>
+# Export Rules from Elastic Security
+python -m detection_rules kibana export-rules -d test-export-rules --skip-errors
+
+█▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
+█  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
+█▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
+
+DEBUG MODE ENABLED
+- skipping Stolen Credentials Used to Login to Okta Account After MFA Reset - ValidationError
+- skipping First Occurrence of Okta User Session Started via Proxy - ValidationError
+- skipping ESQL test: cmd child of Explorer - ValidationError
+- skipping Potential Persistence Through Run Control Detected - ValidationError
+- skipping First Time Seen AWS Secret Value Accessed in Secrets Manager - ValidationError
+- skipping Potential Shadow File Read via Command Line Utilities - ValidationError
+- skipping Abnormal Process ID or Lock File Created - ValidationError
+- skipping New service installed in last 24 hours - ValidationError
+- skipping Scheduled Task or Driver added - KqlParseError
+- skipping Scheduled Task or Driver removed - KqlParseError
+- skipping name - ValidationError
+33 rules exported
+22 rules converted
+22 saved to test-export-rules
+11 errors saved to test-export-rules/_errors.txt
 ```
 
 3. Format and commit the extracted rules into VCS, optionally creating a PR for review.
 
 ```bash
-<Indicate the step in the workflow that does this.>
+# Import Rules into Detection Rules
+python -m detection_rules import-rules-to-repo ...
 ```
 
 ### Option 2: Cron Scheduling Pull
