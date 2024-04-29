@@ -292,48 +292,13 @@ The rule loader detects a collision in name and fails as intended:
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 DEBUG MODE ENABLED
-Error loading rule in /Users/jibarra/PycharmProjects/detection-rules-fork/test-export-rules/credential_access_NEW_RULE.toml
+Error loading rule in ... /detection-rules-fork/test-export-rules/credential_access_NEW_RULE.toml
 Traceback (most recent call last):
   File "<frozen runpy>", line 198, in _run_module_as_main
   File "<frozen runpy>", line 88, in _run_code
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 34, in <module>
-    main()
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 31, in main
-    root(prog_name="detection_rules")
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1157, in __call__
-    return self.main(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1078, in main
-    rv = self.invoke(ctx)
-         ^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
-    return _process_result(sub_ctx.command.invoke(sub_ctx))
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
-    return _process_result(sub_ctx.command.invoke(sub_ctx))
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
-    return ctx.invoke(self.callback, **ctx.params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 783, in invoke
-    return __callback(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/cli_utils.py", line 83, in get_collection
-    rules.load_directories(Path(d) for d in directories)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 499, in load_directories
-    self.load_directory(path, recursive=recursive, obj_filter=obj_filter)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 494, in load_directory
-    self.load_files(paths)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 487, in load_files
-    self.load_file(path)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 435, in load_file
-    return self.load_dict(obj, path=path)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 415, in load_dict
-    self.add_rule(rule)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 392, in add_rule
-    self._assert_new(rule)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 383, in _assert_new
+
+  ... truncated ...
+
     assert rule.name not in name_map, \
 AssertionError: Rule Name Multiple Okta User Auth Events with Same Device Token Hash Behind a Proxy for 50887ba8-aaaa-bbbb-a038-f661ea17fbcd collides with rule ID 50887ba8-7ff7-11ee-a038-f661ea17fbcd
 ```
@@ -341,55 +306,20 @@ AssertionError: Rule Name Multiple Okta User Auth Events with Same Device Token 
 Expected failure on rule_id collision:
 ```
 (venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
-Loaded config file: /Users/jibarra/PycharmProjects/detection-rules-fork/.detection-rules-cfg.yaml
+Loaded config file: .../detection-rules-fork/.detection-rules-cfg.yaml
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 DEBUG MODE ENABLED
-Error loading rule in /Users/jibarra/PycharmProjects/detection-rules-fork/test-export-rules/credential_access_multiple_okta_user_auth_events_with_same_device_token_hash_behind_a_proxy.toml
+Error loading rule in .../detection-rules-fork/test-export-rules/credential_access_multiple_okta_user_auth_events_with_same_device_token_hash_behind_a_proxy.toml
 Traceback (most recent call last):
   File "<frozen runpy>", line 198, in _run_module_as_main
   File "<frozen runpy>", line 88, in _run_code
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 34, in <module>
-    main()
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/__main__.py", line 31, in main
-    root(prog_name="detection_rules")
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1157, in __call__
-    return self.main(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1078, in main
-    rv = self.invoke(ctx)
-         ^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
-    return _process_result(sub_ctx.command.invoke(sub_ctx))
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1688, in invoke
-    return _process_result(sub_ctx.command.invoke(sub_ctx))
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 1434, in invoke
-    return ctx.invoke(self.callback, **ctx.params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/venv312/lib/python3.12/site-packages/click/core.py", line 783, in invoke
-    return __callback(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/cli_utils.py", line 83, in get_collection
-    rules.load_directories(Path(d) for d in directories)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 499, in load_directories
-    self.load_directory(path, recursive=recursive, obj_filter=obj_filter)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 494, in load_directory
-    self.load_files(paths)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 487, in load_files
-    self.load_file(path)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 435, in load_file
-    return self.load_dict(obj, path=path)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 415, in load_dict
-    self.add_rule(rule)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 392, in add_rule
-    self._assert_new(rule)
-  File "/Users/jibarra/PycharmProjects/detection-rules-fork/detection_rules/rule_loader.py", line 381, in _assert_new
+
+  ... truncated ...
+
     assert rule.id not in id_map, \
 AssertionError: Rule ID 50887ba8-7ff7-11ee-a038-f661ea17fbcd for Multiple Okta User Auth Events with Same Device Token Hash Behind a Proxy collides with rule Multiple Okta User Auth Events with Same Device Token Hash Behind a Proxy
 ```
@@ -432,7 +362,7 @@ DEBUG MODE ENABLED
 Import a fulle directory, with `-o` forcing the updates successfully
 ```
 (venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules -o
-Loaded config file: /Users/jibarra/PycharmProjects/detection-rules-fork/.detection-rules-cfg.yaml
+Loaded config file: .../detection-rules-fork/.detection-rules-cfg.yaml
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
