@@ -1,6 +1,6 @@
 # Frequently Asked Questions
 
-Here are some frequently asked questions about Detections as Code (DaC). More questions and answers will be added over time to address common queries and concerns.
+Here are some frequently asked questions about Detections as Code (DaC). There are known [limitations](./known_limitations.md), so please review if you do not see your question answered here. More questions and answers will be added over time to address common queries and concerns.
 
 **Q1:** What is Detections as Code (DaC)?
 **A1**: Detections as Code is a methodology that applies software development practices to the creation, management, and deployment of security detection rules. By treating detection rules as code, it enables version control, automated testing, and deployment processes, enhancing collaboration, consistency, and agility in response to threats.
