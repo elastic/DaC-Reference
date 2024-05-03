@@ -714,6 +714,20 @@ standalone = ["Sphinx (>=5)"]
 test = ["pytest"]
 
 [[package]]
+name = "sphinxemoji"
+version = "0.3.1"
+description = "An extension to use emoji codes in your Sphinx documentation"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "sphinxemoji-0.3.1-py3-none-any.whl", hash = "sha256:dae483695f8d1e90a28a6e9bbccc08d256202afcc1d0fbd33b51b3b4352d439e"},
+    {file = "sphinxemoji-0.3.1.tar.gz", hash = "sha256:23ecff1f1e765393e49083b45386b7da81ced97c9a18a1dfd191460a97da3b11"},
+]
+
+[package.dependencies]
+sphinx = ">=5.0"
+
+[[package]]
 name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
@@ -744,4 +758,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "6a5fcd53de4b5a2be14e4e89b38262a538460cdd02d974349bbb7a6ba3138427"
+content-hash = "a30d8e1413dee8fcc0d1d071040c43f2dbf7296bf4de7fe0ca087a705e6d73a1"

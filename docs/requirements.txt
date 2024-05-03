@@ -276,6 +276,9 @@ sphinxcontrib-qthelp==1.0.7 ; python_version >= "3.10" and python_version < "4.0
 sphinxcontrib-serializinghtml==1.1.10 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:326369b8df80a7d2d8d7f99aa5ac577f51ea51556ed974e7716cfd4fca3f6cb7 \
     --hash=sha256:93f3f5dc458b91b192fe10c397e324f262cf163d79f3282c158e8436a2c4511f
+sphinxemoji==0.3.1 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:23ecff1f1e765393e49083b45386b7da81ced97c9a18a1dfd191460a97da3b11 \
+    --hash=sha256:dae483695f8d1e90a28a6e9bbccc08d256202afcc1d0fbd33b51b3b4352d439e
 urllib3==2.2.1 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:450b20ec296a467077128bff42b73080516e71b56ff59a60a02bef2232c4fa9d \
     --hash=sha256:d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19
