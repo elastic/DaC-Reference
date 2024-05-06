@@ -231,10 +231,10 @@ For more information on the custom rules directory, refer to the [Custom Rules D
 
 **Steps:**
 
-1. Set the **CUSTOM_RULES** environment variable to a custom directory of your choosing.
+1. Set the **CUSTOM_RULES_DIR** environment variable to a custom directory of your choosing.
 
 ```bash
-export CUSTOM_RULES=dac_custom_rules_dir
+export CUSTOM_RULES_DIR=dac_custom_rules_dir
 ```
 
 2. Initialize the custom directory with necessary detection-rules specific files by running:
