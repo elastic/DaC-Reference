@@ -113,22 +113,21 @@ Commands:
 
 💡 *Note: Using some of these options with your custom rules requires repo configuration.*
 
-2. Explore the **Custom Rules** CLI commands by running **python -m detection_rules custom-rules -h** in the terminal.
+2. Explore the **Custom Rules** CLI commands by running **python -m detection_rules custom-rules setup-config -h** in the terminal.
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
-Usage: detection_rules custom-rules [OPTIONS] COMMAND [ARGS]...
+Usage: detection_rules custom-rules setup-config [OPTIONS] DIRECTORY
+                                                 [KIBANA_VERSION]
 
-  Commands for supporting custom rules.
+  Setup the custom rules configuration directory and files with defaults.
 
 Options:
-  -h, --help  Show this message and exit.
-
-Commands:
-  init-config  Initialize the custom rules configuration.
+  --overwrite  Overwrite the existing _config.yaml file.
+  -h, --help   Show this message and exit.
 ```
 
 💡 *Note: Using these options with your custom rules requires repo configuration and the Elastic Security Solution available.*
@@ -240,7 +239,7 @@ export CUSTOM_RULES_DIR=dac_custom_rules_dir
 2. Initialize the custom directory with necessary detection-rules specific files by running:
 
 ```bash
-python -m detection_rules custom-rules init-config dac_custom_rules_dir
+python -m detection_rules custom-rules setup-config dac_custom_rules_dir
 ```
 
 This command will generate the custom directory supplied to the command line and initialize the folder with the detection-rule specific files necessary. Rules can then be added to the **rules** directory, and exceptions and actions can be added to their respective directories.
@@ -293,23 +292,28 @@ testing:
 ```
 
 ```bash
-(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules custom-rules init-config dac_custom_rules_dir
+(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
 Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
-created directory: dac_custom_rules_dir/actions
-created directory: dac_custom_rules_dir/exceptions
-created directory: dac_custom_rules_dir/rules
-created directory: dac_custom_rules_dir/etc
-created file: dac_custom_rules_dir/_config.yaml
-created file: dac_custom_rules_dir/etc/deprecated_rules.json
-created file: dac_custom_rules_dir/etc/packages.yml
-created file: dac_custom_rules_dir/etc/stack-schema-map.yaml
-created file: dac_custom_rules_dir/etc/version.lock.json
-created file: dac_custom_rules_dir/etc/test_config.yaml
+Created directory: dac_custom_rules_dir/actions
+Created directory: dac_custom_rules_dir/exceptions
+Created directory: dac_custom_rules_dir/rules
+Created directory: dac_custom_rules_dir/rules_building_block
+Created directory: dac_custom_rules_dir/etc
+Created file with default content: dac_custom_rules_dir/etc/deprecated_rules.json
+Created file with default content: dac_custom_rules_dir/etc/version.lock.json
+Created file with default content: dac_custom_rules_dir/etc/packages.yml
+Created file with default content: dac_custom_rules_dir/etc/stack-schema-map.yaml
+Created file with default content: dac_custom_rules_dir/etc/test_config.yaml
+Created file with default content: dac_custom_rules_dir/_config.yaml
+
+# For details on how to configure the _config.yaml file,
+# consult: /Users/stryker/workspace/ElasticGitHub/detection-rules/detection_rules/etc/_config.yaml
+# or the docs: /Users/stryker/workspace/ElasticGitHub/detection-rules/docs/custom-rules.md
 ```
 
 1. Validate and test your custom rules by executing:
