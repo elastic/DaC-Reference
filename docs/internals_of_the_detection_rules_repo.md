@@ -52,13 +52,13 @@ The repo contains code for unit testing in Python, integrating with the security
 | rules_building_block/ | Root directory where building block rules are stored                                                             |
 | tests/                | Python code for unit testing rules                                                                                |
 
-The miscellaneous folder [detection_rules/etc](https://github.com/elastic/detection-rules/tree/main/detection_rules/etc) contains our schemas used for validation, our versioning files used to track rule changes, and our stack-schema-map.yml file which instructs our validation to run on specific Elastic Security environment and schema version combinations. When electing to fork the detection-rules repo and manage rules in a **CUSTOM_DIR**, these files enable additional customization and workflows to test and validate rules. Not all files are included in the table, however the more prominent ones are highlighted below.
+The miscellaneous folder [detection_rules/etc](https://github.com/elastic/detection-rules/tree/main/detection_rules/etc) contains our schemas used for validation, our versioning files used to track rule changes, and our stack-schema-map.yaml file which instructs our validation to run on specific Elastic Security environment and schema version combinations. When electing to fork the detection-rules repo and manage rules in a **CUSTOM_DIR**, these files enable additional customization and workflows to test and validate rules. Not all files are included in the table, however the more prominent ones are highlighted below.
 
 | File                   | Description                                                                                                      |
 |------------------------|------------------------------------------------------------------------------------------------------------------|
 | deprecated_rules.json  | Version file containing a reference of all deprecated rules                                                     |
-| packages.yml           | Package used to build a fleet package                                                                            |
-| rule-mapping.yml       | Mapping file used to map detection rules to RTAs                                                                 |
+| packages.yaml          | Package used to build a fleet package                                                                            |
+| rule-mapping.yaml      | Mapping file used to map detection rules to RTAs                                                                 |
 | version.lock.json      | Master version lock file used to track the version of a rule based on sha256 calculation                        |
 | integration-*.json.gz  | Files used to validate rules against Elastic integration schemas                                                 |
 
@@ -253,7 +253,7 @@ This command will generate the custom directory supplied to the command line and
     ├── action_2.toml
 ├── etc
 │   ├── deprecated_rules.json
-│   ├── packages.yml
+│   ├── packages.yaml
 │   ├── stack-schema-map.yaml
 │   ├── test_config.yaml
 │   └── version.lock.json
@@ -269,7 +269,7 @@ The **_config.yaml** will contain a configuration that points to custom director
 - deprecated_rules: etc/deprecated_rules.json
   - Upon rule deprecation, **maturity = “deprecated”** is set in the TOML rule and the rule is moved to the **_deprecated** - folder
   - Rules are recorded in the deprecated_rules.json when **version lock** update occur
-- packages: etc/packages.yml
+- packages: etc/packages.yaml
   - Update **name: "< version >"** to the current Elastic Security version managed
 - stack_schema_map: etc/stack-schema-map.yaml
   - Add the version combinations of the different schemas preferred to validate security rules
@@ -283,7 +283,7 @@ rule_dirs:
   - rules
 files:
   deprecated_rules: etc/deprecated_rules.json
-  packages: etc/packages.yml
+  packages: etc/packages.yaml
   stack_schema_map: etc/stack-schema-map.yaml
   version_lock: etc/version.lock.json
 
@@ -306,7 +306,7 @@ Created directory: dac_custom_rules_dir/rules_building_block
 Created directory: dac_custom_rules_dir/etc
 Created file with default content: dac_custom_rules_dir/etc/deprecated_rules.json
 Created file with default content: dac_custom_rules_dir/etc/version.lock.json
-Created file with default content: dac_custom_rules_dir/etc/packages.yml
+Created file with default content: dac_custom_rules_dir/etc/packages.yaml
 Created file with default content: dac_custom_rules_dir/etc/stack-schema-map.yaml
 Created file with default content: dac_custom_rules_dir/etc/test_config.yaml
 Created file with default content: dac_custom_rules_dir/_config.yaml
