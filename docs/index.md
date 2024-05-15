@@ -22,6 +22,7 @@
 ./feedback_and_resources.md
 ./known_limitations.md
 ./about.md
+./faq.md
 ```
 
 ![Footer](./_static/footer.png)

@@ -22,3 +22,12 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **Q7**: How can I contribute to the DaC methodology or detection-rules repo?
 **A7**: Contributions are welcome! You can contribute by testing the alpha features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
+
+**Q8**: How should exception & action files be deployed to Kibana?
+**A8**: Currently, there two approaches.
+
+1. You could directly add the correct exception or action item in the toml files themselves. We have two fields available: `actions: Optional[list]` and `exceptions_list: Optional[list]`. This approach is a bit difficult because we do not define the entire schema for these fields that are expected by Kibana. It's not really a feature we use within our prebuilt ruleset, so its left open to the user to properly supply the correct fields and format.
+2. The second approach to define the actions and /or exceptions directories in the `_config.yaml`. This will load action list toml files or exception list toml files defined in their folders. These toml files will have the `rule id`  mapping so you know which list are associated to the rule. When you upload rules to kibana, it will automatically bring the defined exception/action lists.
+
+Note this is one way at the moment (toml --> kibana). So you can not export lists and import them into toml files.
+
