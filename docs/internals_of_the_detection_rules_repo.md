@@ -222,7 +222,7 @@ python -m detection_rules dev integrations build-schemas
 
 This method involves creating a custom directory within your forked version of the **detection-rules** repository to manage and map rules. By setting an environment variable to this directory's location and initializing it via the CLI, users can effectively manage custom rule sets alongside the benefits of schema validation and unit testing provided by the original repository.
 
-For more information on the custom rules directory, refer to the [Custom Rules Docs]([#custom-rules](https://github.com/elastic/detection-rules/blob/DAC-feature/docs/custom-rules.md)).
+For more information on the custom rules directory, refer to the [Custom Rules Docs](https://github.com/elastic/detection-rules/blob/DAC-feature/docs/custom-rules.md).
 
 |Pros|Cons|
 |-|-|
