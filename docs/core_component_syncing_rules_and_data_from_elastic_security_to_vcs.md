@@ -150,13 +150,6 @@ DEBUG MODE ENABLED
 11 errors saved to test-export-rules/_errors.txt
 ```
 
-4. Format and commit the extracted rules into VCS, optionally creating a PR for review.
-
-```bash
-# Import Rules into Detection Rules
-python -m detection_rules import-rules-to-repo ...
-```
-
 ### Option 2: Cron Scheduling Pull
 
 Setting up a CI/CD workflow that periodically triggers, such as through a cron job, automates the process of pulling updates from Elastic Security into VCS and opening PRs for review.
