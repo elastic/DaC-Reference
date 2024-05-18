@@ -423,6 +423,8 @@ Collectively, these two files are used as the source of truth and used to proper
 
 2. To update these version lock files, run the **python -m detection_rules dev build-release --update-version-lock** command.
 
+💡 Note: To use this command, registry information should be included in the `packages.yaml` file.
+
 ```bash
 + python -m detection_rules dev build-release --update-version-lock
 [+] Building package 8.3
@@ -434,6 +436,8 @@ Rule changes detected!
 run `build-release --update-version-lock` to update version.lock.json and deprecated_rules.json
 Rule changes detected!
 ```
+
+Alternatively, use the **python -m detection_rules dev update-lock-versions --force** command to force update the version lock file without building a package.
 
 ### Option 2: Defer to Elastic Security
 
