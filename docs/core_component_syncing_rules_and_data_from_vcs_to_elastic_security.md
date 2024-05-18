@@ -426,9 +426,6 @@ DEBUG MODE ENABLED
 💡 Note: The exceptions/actions lists have links to rules by ID in their dedicated schemas. When pushing rule updates, any available action or exception lists will be updated automatically.
 
 ```bash
-# Export TOML files to ndjson
-python -m detection_rules export-rules-from-repo
-
 # Import rules (ndjon) to Kibana
 python -m detection_rules kibana import-rules ...
 ```
@@ -453,6 +450,7 @@ python -m detection_rules kibana import-rules ...
 ```bash
 python -m detection_rules dev build-release
 ```
+💡 Note: To use this command, registry information should be included in the `packages.yaml` file.
 
 2. Update the versions to match the latest package version within the **manifest.yml** build if needed.
 3. Check formatting by running **elastic-package format**, then **elastic-package lint** against the package built.
@@ -468,9 +466,6 @@ curl -XPOST -H 'content-type: application/zip' -H 'kbn-xsrf: true' https://my-ki
 💡 Note: The exceptions/actions lists have links to rules by ID in their dedicated schemas. When pushing rule updates, any available action or exception lists will be updated automatically.
 
 ```bash
-# Export TOML files to ndjson
-python -m detection_rules export-rules-from-repo
-
 # Import rules (ndjon) to Kibana
 python -m detection_rules kibana import-rules ...
 ```
@@ -491,27 +486,138 @@ Automatically deploying rule changes upon merging into the main branch is a comm
 
 **Steps:**
 
-1. Configure a CI/CD pipeline workflow following [GitHub actions](https://docs.github.com/en/actions) documentation in your version control system to trigger on merge events to the main branch. Add the DAC CLI commands to ensure rules are properly published.
+1. Configure a CI/CD pipeline workflow following [GitHub actions](https://docs.github.com/en/actions) documentation in your version control system to trigger on merge events to the main branch. Add the DAC CLI commands to ensure rules are properly published. Here is an example to convey the concept:
 
 ```yaml
 # Example GitHub Action Workflow
 on:
+name: Push Latest Rules to Elastic Security Space
+
+on:
   push:
     branches:
       - main
+    paths:
+      - '**/*.toml'
+  workflow_dispatch:
+    inputs:
+      overwrite:
+        description: 'Overwrite existing rules'
+        required: false
+        default: 'true'
+      overwrite_exceptions:
+        description: 'Overwrite existing exceptions'
+        required: false
+        default: 'true'
+      overwrite_action_connectors:
+        description: 'Overwrite existing action connectors'
+        required: false
+        default: 'true'
+      space:
+        description: 'Kibana space to use (dev or prod)'
+        required: false
+        default: 'prod'
+
 jobs:
-  deploy_rules:
+  sync-to-production:
     runs-on: ubuntu-latest
+    env:
+      CUSTOM_RULES_DIR: ${{ secrets.CUSTOM_RULES_DIR }}
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Deploy Rules
-        run: |
-          echo "Deploying rules..."
-          # Add DAC CLI commands here
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip cache purge
+        pip install .[dev]
+
+    - name: Import Rules to Kibana
+      run: |
+        FLAGS=""
+        if [[ "${{ github.event_name }}" == "push" || "${{ inputs.overwrite }}" == "true" ]]; then
+          FLAGS="$FLAGS --overwrite"
+        fi
+        if [[ "${{ github.event_name }}" == "push" || "${{ inputs.overwrite_exceptions }}" == "true" ]]; then
+          FLAGS="$FLAGS --overwrite-exceptions"
+        fi
+        if [[ "${{ github.event_name }}" == "push" || "${{ inputs.overwrite_action_connectors }}" == "true" ]]; then
+          FLAGS="$FLAGS --overwrite-action-connectors"
+        fi
+        if [[ "${{ github.event_name }}" == "push" ]]; then
+          SPACE="prod"  # Default to production for push events
+        elif [[ "${{ inputs.space }}" == "dev" || "${{ inputs.space }}" == "prod" ]]; then
+          SPACE="${{ inputs.space }}"  # Use provided space if valid
+        else
+          echo "::error::Invalid space provided. Defaulting to 'dev'."
+          SPACE="dev"
+        fi
+        SPACE_FLAG="--space $SPACE"
+        python -m detection_rules kibana $SPACE_FLAG import-rules $FLAGS
+      env:
+        DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
+        DR_KIBANA_USER: ${{ secrets.ELASTIC_USERNAME }}
+        DR_KIBANA_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
+```
+
+Alternatively, you can sync rules to a development environment first and then promote them to production after testing.
+
+```yaml
+name: Sync Rule Tunings Per-PR to Elastic Security Dev Space
+
+on:
+  pull_request:
+    branches: [ "*" ]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+    paths:
+      - '**/*.toml'
+
+jobs:
+  sync-on-pr:
+    runs-on: ubuntu-latest
+    env:
+      CUSTOM_RULES_DIR: ${{ secrets.CUSTOM_RULES_DIR }}
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip cache purge
+        pip install .[dev]
+
+    - name: Import Specific Rules Modified in PR
+      run: |
+        git fetch origin ${{ github.base_ref }}
+        git diff --name-only origin/${{ github.base_ref }} '*.toml' | while read rule_file; do
+          echo "Importing rule from file $rule_file"
+          python -m detection_rules kibana --space "dev" import-rules --rule-file "$rule_file"  --overwrite
+        done
+      env:
+        DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
+        DR_KIBANA_USER: ${{ secrets.ELASTIC_USERNAME }}
+        DR_KIBANA_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
+
 ```
 
 2. Set the environment variables to the Elastic Security environment as [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) so your pipeline can deploy to the proper environment.
+
+<img src="_static/ci_secrets.png"  alt="CICD Workflow Secrets" id="cisecrets"/>
+
 3. Upon merge, the pipeline automatically deploys the changes to the relevant detection systems.
 4. Monitor deployments closely to adjust schedules as needed based on operational feedback and ensure rules are successfully deployed to production.
 

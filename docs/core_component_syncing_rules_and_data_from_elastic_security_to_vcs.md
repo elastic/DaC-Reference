@@ -45,7 +45,84 @@ This approach involves creating a CI/CD workflow, such as a GitHub Action, that 
 **Steps:**
 
 1. Configure a GitHub Action or other CI/CD workflow with a manual dispatch trigger for rule exports.
-1. Script the API calls to Elastic Security for rule extraction.
+
+```yaml
+name: Manually Sync Rules from Elastic Security to GitHub
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_sync_rules_from_elastic:
+        description: 'Sync rules from Elastic Security (direct commit (false) vs PR (true))'
+        required: true
+        default: 'true'
+      space:
+        description: 'Specify the Kibana space to export rules from'
+        required: false
+        default: 'dev'
+
+jobs:
+  manual-dispatch-sync:
+    runs-on: ubuntu-latest
+    env:
+      CUSTOM_RULES_DIR: ${{ secrets.CUSTOM_RULES_DIR }}
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip cache purge
+        pip install .[dev]
+
+    - name: Export Rules from Elastic Security and Import Rules to TOML
+      run: |
+        python -m detection_rules kibana --space "${{ github.event.inputs.space }}" export-rules --directory ${{ env.CUSTOM_RULES_DIR }}/rules/
+      env:
+        DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
+        DR_KIBANA_USER: ${{ secrets.ELASTIC_USERNAME }}
+        DR_KIBANA_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
+
+    - name: Update Version Lock
+      run: |
+        python -m detection_rules dev update-lock-versions --force
+
+    - name: Create Pull Request
+      if: ${{ github.event.inputs.pr_sync_rules_from_elastic == 'true' }}
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.WRITE_GITHUB_TOKEN }}
+        commit-message: "Sync rules from Elastic Security"
+        title: "Sync rules from Elastic Security"
+        body: "This PR syncs rules from Elastic Security to the repository for review."
+        branch: "sync-rules-${{ github.run_id }}"
+        delete-branch: true
+        labels: "auto-update"
+
+    - name: Commit Directly to Main
+      if: ${{ github.event.inputs.pr_sync_rules_from_elastic == 'false' }}
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Manual dispatch sync"
+        branch: main
+        file_pattern: "."
+        commit_user_name: "GitHub Action"
+        commit_user_email: "action@github.com"
+      env:
+        GITHUB_TOKEN: ${{ secrets.WRITE_GITHUB_TOKEN }}
+```
+2. Set the environment variables to the Elastic Security environment as [GitHub secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions) so your pipeline can deploy to the proper environment.
+
+<img src="_static/ci_secrets.png"  alt="CICD Workflow Secrets" id="cisecrets"/>
+
+3. Script the API calls to Elastic Security for rule extraction.
 
 ```bash
 # Export Rules from Elastic Security
@@ -73,7 +150,7 @@ DEBUG MODE ENABLED
 11 errors saved to test-export-rules/_errors.txt
 ```
 
-3. Format and commit the extracted rules into VCS, optionally creating a PR for review.
+4. Format and commit the extracted rules into VCS, optionally creating a PR for review.
 
 ```bash
 # Import Rules into Detection Rules
