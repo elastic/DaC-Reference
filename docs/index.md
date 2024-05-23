@@ -9,15 +9,6 @@
 ⚠️ Note: The alpha detection-rules [DAC-feature](https://github.com/elastic/detection-rules/tree/DAC-feature) branch, content within these [slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf), and this reference guide are subject to change. Once we finally migrate the changes to the `main` branch, we will update the content accordingly.
 
 
-.. dropdown:: Demo Video
-
-    Take a look at an example of how you can use some of our DaC features. The repo used in this example can be found [here](https://github.com/eric-forte-elastic/detection-rules-dac-demo)
-
-    .. raw:: html
-
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
-            <iframe src="https://drive.google.com/file/d/1XMPSdgjZipa94xufv_4byVrMm-0XaKZh/preview" width="640" height="480" allow="autoplay"></iframe>
-        </div>
 
 ```{toctree}
 :maxdepth: 2
