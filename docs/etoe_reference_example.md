@@ -14,7 +14,7 @@ If you’re starting from scratch and would like to get quickly started, here ar
 Take a look at an example of how you can use some of our DaC features. The repo used in this example can be found [here](https://github.com/eric-forte-elastic/detection-rules-dac-demo)
 
 
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+<div style="position: relative; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://drive.google.com/file/d/1XMPSdgjZipa94xufv_4byVrMm-0XaKZh/preview" width="640" height="480" allow="autoplay"></iframe>
 </div>
 
