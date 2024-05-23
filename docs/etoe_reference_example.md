@@ -9,6 +9,15 @@ Check out the [Quick Start Slides](./_static/DaC_Rolling_your_own_Detections_as_
 
 If you’re starting from scratch and would like to get quickly started, here are the high-level instructions. These steps assume you are familiar with the considerations associated with the various steps and elect to follow the detection-rules VCS approach to manage rules. It also assumes advanced configurations are not applied.
 
+### Demo Video
+
+Take a look at an example of how you can use some of our DaC features. The repo used in this example can be found [here](https://github.com/eric-forte-elastic/detection-rules-dac-demo)
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; height: auto;">
+    <iframe src="https://drive.google.com/file/d/1XMPSdgjZipa94xufv_4byVrMm-0XaKZh/preview" width="640" height="480" allow="autoplay"></iframe>
+</div>
+
 ### Locally
 
 **Steps:**
