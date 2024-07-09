@@ -279,14 +279,15 @@ The **_config.yaml** will contain a configuration that points to custom director
 ```config
 # detection-rules _config.yaml file
 
-rule_dirs:
-  - rules
+bbr_rules_dirs:
+- rules_building_block
 files:
   deprecated_rules: etc/deprecated_rules.json
   packages: etc/packages.yaml
   stack_schema_map: etc/stack-schema-map.yaml
   version_lock: etc/version.lock.json
-
+rule_dirs:
+- rules
 testing:
   config: etc/test_config.yaml
 ```
@@ -312,8 +313,8 @@ Created file with default content: dac_custom_rules_dir/etc/test_config.yaml
 Created file with default content: dac_custom_rules_dir/_config.yaml
 
 # For details on how to configure the _config.yaml file,
-# consult: /Users/stryker/workspace/ElasticGitHub/detection-rules/detection_rules/etc/_config.yaml
-# or the docs: /Users/stryker/workspace/ElasticGitHub/detection-rules/docs/custom-rules.md
+# consult: detection-rules/detection_rules/etc/_config.yaml
+# or the docs: detection-rules/docs/custom-rules.md
 ```
 
 1. Validate and test your custom rules by executing:
