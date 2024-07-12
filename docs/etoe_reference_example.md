@@ -18,6 +18,22 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     <iframe src="https://drive.google.com/file/d/1XMPSdgjZipa94xufv_4byVrMm-0XaKZh/preview" width="640" height="480" allow="autoplay"></iframe>
 </div>
 
+### Quick Start Example Detection Rules CLI Commands
+
+**Steps:**
+
+1. Export custom rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
+
+    `python -m detection_rules kibana export-rules -s -sv -e`
+
+1. Run local unit tests.
+
+   `make test`
+
+1. Import custom rules and related exceptions to a Kibana Instance, overwriting existing.
+
+    `python -m detection_rules kibana import-rules --overwrite -e`
+
 ### Locally
 
 **Steps:**
