@@ -34,6 +34,8 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
     `python -m detection_rules kibana import-rules --overwrite -e`
 
+For more information on these CLI commands please see CLI.md and docs/custom-rules.md in the DAC-Feature branch of Detection Rules.
+
 ### Locally
 
 **Steps:**
