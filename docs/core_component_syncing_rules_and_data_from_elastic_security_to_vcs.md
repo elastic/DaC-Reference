@@ -163,3 +163,47 @@ Setting up a CI/CD workflow that periodically triggers, such as through a cron j
 1. Establish a cron job within your CI/CD platform to periodically trigger rule exports.
 1. Automate the extraction and formatting of rules from Elastic Security using the Detection Engine API.
 1. Commit the updated rules to VCS and optionally open PRs for team review.
+
+
+## Sub-Component 3 (optional): Unit Testing Rules via CI/CD
+
+This is an optional step you may want to configure to setup custom unit testing that runs on your PRs. This is optional and just an example means of accomplishing this.
+
+```yaml
+name: Custom Unit Tests
+
+on:
+  push:
+    branches: [ "DAC-feature", "7.*", "8.*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  tests:
+
+    runs-on: ubuntu-latest
+    env:
+      CUSTOM_RULES_DIR: ${{ secrets.CUSTOM_RULES_DIR }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip cache purge
+        pip install .[dev]
+
+    - name: Python Lint
+      run: |
+        python -m flake8 tests detection_rules --ignore D203,N815 --max-line-length 120
+
+    - name: Unit tests
+      run: |
+        python -m detection_rules test
+```
