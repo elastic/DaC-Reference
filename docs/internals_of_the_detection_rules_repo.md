@@ -28,7 +28,6 @@ This section covers the **detection-rules** repo, how to install prerequisites, 
 1. Download and install [Python](https://www.python.org/downloads/). Note: Versions *3.12+* are supported.
 1. Install the detection-rules python **CLI** prerequisites. Installing essentially requires you to change to the new directory and use pip to install. **cd detection-rules -> make** (optionally install direct using: **pip install “[.dev]”**) See the [README](https://github.com/elastic/detection-rules/blob/main/README.md) for more details.
 
-💡 Note: The DAC alpha branch to use is [DAC-feature](https://github.com/elastic/detection-rules/tree/DAC-feature).
 
 |                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------------- |
@@ -222,7 +221,7 @@ python -m detection_rules dev integrations build-schemas
 
 This method involves creating a custom directory within your forked version of the **detection-rules** repository to manage and map rules. By setting an environment variable to this directory's location and initializing it via the CLI, users can effectively manage custom rule sets alongside the benefits of schema validation and unit testing provided by the original repository.
 
-For more information on the custom rules directory, refer to the [Custom Rules Docs](https://github.com/elastic/detection-rules/blob/DAC-feature/docs/custom-rules.md).
+For more information on the custom rules directory, refer to the [Custom Rules Docs](https://github.com/elastic/detection-rules/blob/main/docs/custom-rules.md).
 
 |Pros|Cons|
 |-|-|
@@ -293,7 +292,7 @@ testing:
 ```
 
 ```bash
-(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
+(detection-rules-build) ➜  detection-rules git:(main) ✗ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
 Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄

@@ -42,7 +42,7 @@ Note this is one way at the moment (toml --> kibana). So you can not export list
 
 **Q9**: Is there a way to run the unit tests only on `custom_rules_dir`?
 
-**A9**: Yes, there are a few options you have when it comes to doing this. For more reference material, see our [custom-rules.md](https://github.com/elastic/detection-rules/blob/DAC-feature/docs/custom-rules.md).
+**A9**: Yes, there are a few options you have when it comes to doing this. For more reference material, see our [custom-rules.md](https://github.com/elastic/detection-rules/blob/main/docs/custom-rules.md).
 
 If you already have your custom rules directory for reference and appropriate config files setup you can skip this step.
 First, generate a base set of configs and custom rules directory using our helper command
