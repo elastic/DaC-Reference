@@ -5,7 +5,7 @@
 
 Check out the [Quick Start Slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf) to an overview of DaC and how to get started. It provides some example CLI commands using the detection-rules repo.
 
-⚠️ Note: The alpha detection-rules [branch](https://github.com/elastic/detection-rules/tree/DAC-feature), content within these slides, and this reference guide are subject to change. Once we finally migrate the changes to the `main` branch, we will update the content accordingly.
+⚠️ Note: The Detection Rules DaC feature is still in Beta. This phase includes continued testing to include edge cases and feedback from the community. This reference guide and associated content are subject to change. 
 
 If you’re starting from scratch and would like to get quickly started, here are the high-level instructions. These steps assume you are familiar with the considerations associated with the various steps and elect to follow the detection-rules VCS approach to manage rules. It also assumes advanced configurations are not applied.
 
@@ -17,6 +17,79 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 <div style="position: relative; height: 0; overflow: hidden; max-width: 100%; height: auto;">
     <iframe src="https://drive.google.com/file/d/1XMPSdgjZipa94xufv_4byVrMm-0XaKZh/preview" width="640" height="480" allow="autoplay"></iframe>
 </div>
+
+### Quick Start Example Detection Rules CLI Commands
+
+**Steps:**
+
+1. Clone the detection rules repo and install python requirements, see [getting started](https://github.com/elastic/detection-rules?tab=readme-ov-file#getting-started).
+
+1. Initialize a custom rules directory via the setup config command. 
+
+    `python -m detection_rules custom-rules setup-config dac_custom_rules_dir`
+
+1. Edit the `_config` file in your `dac_custom_rules_dir` directory. 
+
+    Most users will want to add these additional parameters for ease of use:
+
+    ```yaml
+    bypass_version_lock: True
+    normalize_kql_keywords: True
+    auto_gen_schema_file: "etc/schemas/auto_gen.json"
+    bypass_optional_elastic_validation: True
+    ```
+
+1. Edit the `test_config.yaml` in your `dac_custom_rules_dir/etc` directory. 
+
+    For unit testing, most users will also want to bypass the following Elastic unit tests.
+
+    ```yaml
+    unit_tests:
+        bypass:
+        - tests.test_gh_workflows.TestWorkflows.test_matrix_to_lock_version_defaults
+        - tests.test_schemas.TestVersionLockSchema.test_version_lock_has_nested_previous
+        - tests.test_packages.TestRegistryPackage.test_registry_package_config
+        - tests.test_all_rules.TestValidRules.test_schema_and_dupes
+        - tests.test_all_rules.TestRuleMetadata.test_invalid_queries
+        - tests.test_all_rules.TestValidRules.test_bbr_validation
+        - tests.test_all_rules.TestValidRules.test_rule_type_changes
+        - tests.test_schemas.TestSchemas.test_eql_validation
+    ```
+
+1. Set your environment variable to use the custom configuration and rules directory you just made.
+
+    `export CUSTOM_RULES_DIR="<full_path_to_dac_custom_rules_dir>"`
+
+1. If running locally, set your ``.detection-rules-cfg.json` in the root of the detection rules directory. See [setup a config file](https://github.com/elastic/detection-rules/blob/main/CLI.md#setup-a-config-file) for more details.
+
+    ```json
+    {
+        "cloud_id": "example:example",
+        "api_key": "example",
+    }
+    ```
+
+1. Export custom rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
+
+    `python -m detection_rules kibana export-rules -s -sv -e -ac`
+
+1. Run local unit tests.
+
+   `make test`
+
+1. Import custom rules and related exceptions to a Kibana Instance, overwriting existing.
+
+    `python -m detection_rules kibana import-rules --overwrite -e -ac`
+
+1. Or if you prefer to import and export using ndjson file(s) instead of the Kibana API use the following:
+
+    For moving rules from a Kibana rules export to the repo
+    `python -m detection_rules import-rules-to-repo <ndjson_file> --required-only -e -da DefaultAuthor -ske -ac`
+
+    For moving rules from the repo to an ndjson file that is compatible with Kibana rule import.
+    ` python -m detection_rules export-rules-from-repo -ac -e`
+
+For more information on these CLI commands please see CLI.md and docs/custom-rules.md in Detection Rules.
 
 ### Locally
 

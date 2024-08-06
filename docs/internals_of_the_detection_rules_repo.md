@@ -28,7 +28,6 @@ This section covers the **detection-rules** repo, how to install prerequisites, 
 1. Download and install [Python](https://www.python.org/downloads/). Note: Versions *3.12+* are supported.
 1. Install the detection-rules python **CLI** prerequisites. Installing essentially requires you to change to the new directory and use pip to install. **cd detection-rules -> make** (optionally install direct using: **pip install “[.dev]”**) See the [README](https://github.com/elastic/detection-rules/blob/main/README.md) for more details.
 
-💡 Note: The DAC alpha branch to use is [DAC-feature](https://github.com/elastic/detection-rules/tree/DAC-feature).
 
 |                                                                                                                   |
 | ----------------------------------------------------------------------------------------------------------------- |
@@ -222,7 +221,7 @@ python -m detection_rules dev integrations build-schemas
 
 This method involves creating a custom directory within your forked version of the **detection-rules** repository to manage and map rules. By setting an environment variable to this directory's location and initializing it via the CLI, users can effectively manage custom rule sets alongside the benefits of schema validation and unit testing provided by the original repository.
 
-For more information on the custom rules directory, refer to the [Custom Rules Docs](https://github.com/elastic/detection-rules/blob/DAC-feature/docs/custom-rules.md).
+For more information on the custom rules directory, refer to the [Custom Rules Docs](https://github.com/elastic/detection-rules/blob/main/docs/custom-rules.md).
 
 |Pros|Cons|
 |-|-|
@@ -279,27 +278,29 @@ The **_config.yaml** will contain a configuration that points to custom director
 ```config
 # detection-rules _config.yaml file
 
-rule_dirs:
-  - rules
+bbr_rules_dirs:
+- rules_building_block
 files:
   deprecated_rules: etc/deprecated_rules.json
   packages: etc/packages.yaml
   stack_schema_map: etc/stack-schema-map.yaml
   version_lock: etc/version.lock.json
-
+rule_dirs:
+- rules
 testing:
   config: etc/test_config.yaml
 ```
 
 ```bash
-(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
-Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
+(detection-rules-build) ➜  detection-rules git:(main) ✗ ❯ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
+Loaded config file: /home/user/code/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 Created directory: dac_custom_rules_dir/actions
+Created directory: dac_custom_rules_dir/action_connectors
 Created directory: dac_custom_rules_dir/exceptions
 Created directory: dac_custom_rules_dir/rules
 Created directory: dac_custom_rules_dir/rules_building_block
@@ -312,8 +313,37 @@ Created file with default content: dac_custom_rules_dir/etc/test_config.yaml
 Created file with default content: dac_custom_rules_dir/_config.yaml
 
 # For details on how to configure the _config.yaml file,
-# consult: /Users/stryker/workspace/ElasticGitHub/detection-rules/detection_rules/etc/_config.yaml
-# or the docs: /Users/stryker/workspace/ElasticGitHub/detection-rules/docs/custom-rules.md
+# consult: /home/user/code/detection-rules/detection_rules/etc/_config.yaml
+# or the docs: /home/user/code/detection-rules/docs/custom-rules.md
+```
+
+Here is an example of what the custom config will look like when it is first generated:
+
+```yaml
+bbr_rules_dirs:
+- rules_building_block
+directories:
+  action_connector_dir: action_connectors
+  action_dir: actions
+  exception_dir: exceptions
+files:
+  deprecated_rules: etc/deprecated_rules.json
+  packages: etc/packages.yaml
+  stack_schema_map: etc/stack-schema-map.yaml
+  version_lock: etc/version.lock.json
+rule_dirs:
+- rules
+testing:
+  config: etc/test_config.yaml
+```
+
+Most users will want to add these additional parameters for ease of use:
+
+```yaml
+bypass_version_lock: True
+normalize_kql_keywords: True
+auto_gen_schema_file: "etc/schemas/auto_gen.json"
+bypass_optional_elastic_validation: True
 ```
 
 1. Validate and test your custom rules by executing:
@@ -492,6 +522,7 @@ Rule [exceptions](https://www.elastic.co/guide/en/security/current/detections-ui
 
 ```config
  directories:
+   # action_connector_dir: action_connectors
    # actions_dir: exceptions
    # exceptions_dir: actions
 ```
@@ -520,51 +551,74 @@ action_type_id = ".slack"
 group = "default"
 params.message = "Some other notification"
 ```
-
-3. Manually create the exception lists (one TOML file per rule), based on the Exceptions schema.
+2. Manually create the action connector based on action connector schema.
 
 ```toml
 [metadata]
-creation_date = "2024-02-21"
-rule_id = "5d1e96c6-1ee8-4f19-9416-1d8d81428f59"
-rule_name = "Example Rule Name"
-updated_date = "2024-02-22"
-comments = "This is an example exception list."
-maturity = "development"
+creation_date = "2024/08/04"
+action_connector_name = "Action Connector 478b2165-83fb-480d-8a4a-bb47cfcafd4c"
+rule_ids = ["2e299dad-3a09-4c08-89cb-f08c4f85a18e"]
+rule_names = ["TestActionRule"]
+updated_date = "2024/08/04"
+
+[[action_connectors]]
+id = "478b2165-83fb-480d-8a4a-bb47cfcafd4c"
+managed = false
+type = "action"
+references = []
+
+[action_connectors.attributes]
+actionTypeId = ".webhook"
+isMissingSecrets = false
+name = "test"
+
+[action_connectors.attributes.config]
+hasAuth = false
+method = "post"
+url = "https://best-website-ever.com"
+
+[action_connectors.attributes.secrets]
+
+
+```
+
+
+3. Manually create the exception lists, based on the Exceptions schema.
+
+```toml
+[metadata]
+creation_date = "2024/07/10"
+list_name = "TestShareList"
+rule_ids = ["7c22a9d2-5910-4da2-92af-7ff7481bd0f7", "521629d1-61e4-4203-8a16-a08d5dc20281", "222e1b03-fdc9-42a5-911e-2e3e0533549a"]
+rule_names = ["Test Exception List", "Another Test Rule", "DaC Demo Rule"]
+updated_date = "2024/07/10"
 
 [[exceptions]]
-description = "Example exception container"
-list_id = "exception_list_01"
-name = "Sample Exception List"
+
+[exceptions.container]
+description = "TestShareList Desc"
+list_id = "dbc9b368-5d39-41fa-9a16-bfcb995fc866"
+name = "TestShareList"
 namespace_type = "single"
-tags = ["tag1", "tag2"]
+tags = []
 type = "detection"
 
-  [[exceptions.items]]
-  description = "Exception item description"
-  list_id = "item_list_01"
-  name = "Exception Item Name"
-  namespace_type = "single"
-  tags = ["exception_item_tag1"]
-  type = "simple"
-  expire_time = "2024-12-31T23:59:59Z"
+[[exceptions.items]]
+comments = []
+description = "Exception list item"
+list_id = "dbc9b368-5d39-41fa-9a16-bfcb995fc866"
+item_id = "7c823cd0-ca30-46ba-af35-3633219eed1f"
+name = "AllOSTestShare"
+namespace_type = "single"
+tags = []
+type = "simple"
 
-    [[exceptions.items.entries]]
-    field = "process.name"
-    type = "match_any"
-    operator = "included"
-    value = ["malicious_process", "another_process"]
+[[exceptions.items.entries]]
+field = "Effective_process.name"
+type = "match"
+operator = "included"
+value = "BadRooT"
 
-    [[exceptions.items.entries]]
-    field = "nested.field.example"
-    type = "nested"
-    operator = "included"
-
-      [[exceptions.items.entries.entries]]
-      field = "nested.inside"
-      type = "match"
-      operator = "included"
-      value = "specific_value"
 ```
 
 4. Validate the lists by running the unit tests.
@@ -722,6 +776,8 @@ One option to validate custom rules is to check the Elastic API response. This a
 ### Option 3: Custom Schema Validation
 
 The built-in schemas attempt to provide coverage for a broad set of rule types and restrictions. Depending on the use case, the robust built-in schema validation may not be required. For use cases requiring validation against specific Elastic Security versions or minimal feature sets, creating tailored schemas for rule validation might be more appropriate. This allows for custom validation logic that fits unique requirements.
+
+* Note: To turn on automatic schema generation for non-ecs fields via custom schemas you can add `auto_gen_schema_file: <path_to_your_json_file>` to your config file. This will generate a schema file in the specified location that will be used to add entries for each field and index combination that is not already in a known schema. This will also automatically add it to your stack-schema-map.yaml file when using a custom rules directory and config.
 
 |Pros|Cons|
 |-|-|

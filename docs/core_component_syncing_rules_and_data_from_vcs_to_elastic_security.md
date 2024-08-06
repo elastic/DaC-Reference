@@ -69,7 +69,7 @@ Currently supported arguments:
 3. Once authenticated, you can use [API calls](https://www.elastic.co/guide/en/security/current/security-apis.html#_api_calls) directly. If using the detection-rules CLI, the following DAC commands are available. Deploy the latest set of rules by running the following command:
 
 ```bash
-(detection-rules-build) ➜  detection-rules git:(DAC-feature) ✗ python -m detection_rules -h
+(detection-rules-build) ➜  detection-rules git:(main) ✗ python -m detection_rules -h
 Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
@@ -605,7 +605,7 @@ jobs:
         git fetch origin ${{ github.base_ref }}
         git diff --name-only origin/${{ github.base_ref }} '*.toml' | while read rule_file; do
           echo "Importing rule from file $rule_file"
-          python -m detection_rules kibana --space "dev" import-rules --rule-file "$rule_file"  --overwrite
+          python -m detection_rules kibana --space "dev" import-rules --rule-file "$rule_file"  --overwrite -e -ac
         done
       env:
         DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
