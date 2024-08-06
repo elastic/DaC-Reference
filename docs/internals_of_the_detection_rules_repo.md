@@ -292,14 +292,15 @@ testing:
 ```
 
 ```bash
-(detection-rules-build) ➜  detection-rules git:(main) ✗ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
-Loaded config file: /Users/stryker/workspace/ElasticGitHub/detection-rules/.detection-rules-cfg.json
+(detection-rules-build) ➜  detection-rules git:(main) ✗ ❯ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
+Loaded config file: /home/user/Code/clean_mains/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
 Created directory: dac_custom_rules_dir/actions
+Created directory: dac_custom_rules_dir/action_connectors
 Created directory: dac_custom_rules_dir/exceptions
 Created directory: dac_custom_rules_dir/rules
 Created directory: dac_custom_rules_dir/rules_building_block
@@ -312,8 +313,37 @@ Created file with default content: dac_custom_rules_dir/etc/test_config.yaml
 Created file with default content: dac_custom_rules_dir/_config.yaml
 
 # For details on how to configure the _config.yaml file,
-# consult: detection-rules/detection_rules/etc/_config.yaml
-# or the docs: detection-rules/docs/custom-rules.md
+# consult: /home/user/Code/clean_mains/detection-rules/detection_rules/etc/_config.yaml
+# or the docs: /home/user/Code/clean_mains/detection-rules/docs/custom-rules.md
+```
+
+Here is an example of what the custom config will look like when it is first generated:
+
+```yaml
+bbr_rules_dirs:
+- rules_building_block
+directories:
+  action_connector_dir: action_connectors
+  action_dir: actions
+  exception_dir: exceptions
+files:
+  deprecated_rules: etc/deprecated_rules.json
+  packages: etc/packages.yaml
+  stack_schema_map: etc/stack-schema-map.yaml
+  version_lock: etc/version.lock.json
+rule_dirs:
+- rules
+testing:
+  config: etc/test_config.yaml
+```
+
+Most users will want to add these additional parameters for ease of use:
+
+```yaml
+bypass_version_lock: True
+normalize_kql_keywords: True
+auto_gen_schema_file: "etc/schemas/auto_gen.json"
+bypass_optional_elastic_validation: True
 ```
 
 1. Validate and test your custom rules by executing:

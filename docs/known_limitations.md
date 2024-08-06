@@ -1,5 +1,13 @@
-# Known Limitations Using Elastic's detection-rules DAC Approach
+# Known Issues and Limitations Using Elastic's detection-rules DAC Approach
 ================================
+
+## Intermittent exception list Kibana import issue
+
+- There is an intermittent issue when importing many rules and exception lists at the same time that is currently being investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases.
+
+## Schema Validation Support
+
+- While we try to maintain parody with Kibana schemas; however, when Kibana releases a schema update our schema updates lag behind theirs. If there is a schema validation issue where a schema needs updating, first check the [issues in detection rules](https://github.com/elastic/detection-rules/issues) to see if it is already being tracked. If not, please let us know and we will update the schemas as soon as we are able.
 
 ## No Direct Support
 

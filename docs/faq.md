@@ -80,16 +80,16 @@ I want to add 2 new keyword fields to process that I want to be considered as va
   beats: 8.12.2
   ecs: 8.11.0
   endgame: 8.4.0
-  custom: schemas/forte-schema.json
+  custom: schemas/custom-schema.json
 ```
 
-Now I need to populate `schemas/forte-schema.json` with my desired keywords for my index. Here is an example of what this would look like:
+Now I need to populate `schemas/custom-schema.json` with my desired keywords for my index. Here is an example of what this would look like:
 
 ```
 {
-    "eric-index*": {
-      "process.NewEricValue": "keyword",
-      "process.AnotherEricValue": "keyword"
+    "custom-index*": {
+      "process.NewValue": "keyword",
+      "process.AnotherValue": "keyword"
     }
 }
 ```
@@ -112,7 +112,7 @@ description = """
 Test Rule
 """
 from = "now-9m"
-index = ["logs-endpoint.events.*", "eric-index*"]
+index = ["logs-endpoint.events.*", "custom-index*"]
 language = "eql"
 license = "Elastic License v2"
 name = "TEST Potential Protocol Tunneling via Chisel Client"
@@ -134,7 +134,7 @@ tags = [
         ]
 type = "eql"
 query = '''
-process where host.os.type == "linux" and process.NewEricValue == "GoodValue"
+process where host.os.type == "linux" and process.NewValue == "GoodValue"
 '''
 timestamp_override = "event.ingested"
 

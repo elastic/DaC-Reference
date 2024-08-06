@@ -84,7 +84,7 @@ jobs:
 
     - name: Export Rules from Elastic Security and Import Rules to TOML
       run: |
-        python -m detection_rules kibana --space "${{ github.event.inputs.space }}" export-rules --directory ${{ env.CUSTOM_RULES_DIR }}/rules/
+        python -m detection_rules kibana --space "${{ github.event.inputs.space }}" export-rules --directory ${{ env.CUSTOM_RULES_DIR }}/rules/ -e -ac -s
       env:
         DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
         DR_KIBANA_USER: ${{ secrets.ELASTIC_USERNAME }}
