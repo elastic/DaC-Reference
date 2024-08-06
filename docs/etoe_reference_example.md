@@ -39,6 +39,23 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     bypass_optional_elastic_validation: True
     ```
 
+1. Edit the `test_config.yaml` in your `dac_custom_rules_dir/etc` directory. 
+
+    For unit testing, most users will also want to bypass the following Elastic unit tests.
+
+    ```yaml
+    unit_tests:
+        bypass:
+        - tests.test_gh_workflows.TestWorkflows.test_matrix_to_lock_version_defaults
+        - tests.test_schemas.TestVersionLockSchema.test_version_lock_has_nested_previous
+        - tests.test_packages.TestRegistryPackage.test_registry_package_config
+        - tests.test_all_rules.TestValidRules.test_schema_and_dupes
+        - tests.test_all_rules.TestRuleMetadata.test_invalid_queries
+        - tests.test_all_rules.TestValidRules.test_bbr_validation
+        - tests.test_all_rules.TestValidRules.test_rule_type_changes
+        - tests.test_schemas.TestSchemas.test_eql_validation
+    ```
+
 1. Set your environment variable to use the custom configuration and rules directory you just made.
 
     `export CUSTOM_RULES_DIR="<full_path_to_dac_custom_rules_dir>"`
