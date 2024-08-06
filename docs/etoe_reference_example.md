@@ -22,6 +22,36 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
 **Steps:**
 
+1. Clone the detection rules repo and install python requirements, see [getting started](https://github.com/elastic/detection-rules?tab=readme-ov-file#getting-started).
+
+1. Initialize a custom rules directory via the setup config command. 
+
+    `python -m detection_rules custom-rules setup-config dac_custom_rules_dir`
+
+1. Edit the `_config` file in your `dac_custom_rules_dir` directory. 
+
+    Most users will want to add these additional parameters for ease of use:
+
+    ```yaml
+    bypass_version_lock: True
+    normalize_kql_keywords: True
+    auto_gen_schema_file: "etc/schemas/auto_gen.json"
+    bypass_optional_elastic_validation: True
+    ```
+
+1. Set your environment variable to use the custom configuration and rules directory you just made.
+
+    `export CUSTOM_RULES_DIR="<full_path_to_dac_custom_rules_dir>"`
+
+1. If running locally, set your ``.detection-rules-cfg.json` in the root of the detection rules directory. See [setup a config file](https://github.com/elastic/detection-rules/blob/main/CLI.md#setup-a-config-file) for more details.
+
+    ```json
+    {
+        "cloud_id": "example:example",
+        "api_key": "example",
+    }
+    ```
+
 1. Export custom rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
 
     `python -m detection_rules kibana export-rules -s -sv -e -ac`
@@ -33,6 +63,14 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 1. Import custom rules and related exceptions to a Kibana Instance, overwriting existing.
 
     `python -m detection_rules kibana import-rules --overwrite -e -ac`
+
+1. Or if you prefer to import and export using ndjson file(s) instead of the Kibana API use the following:
+
+    For moving rules from a Kibana rules export to the repo
+    `python -m detection_rules import-rules-to-repo <ndjson_file> --required-only -e -da DefaultAuthor -ske -ac`
+
+    For moving rules from the repo to an ndjson file that is compatible with Kibana rule import.
+    ` python -m detection_rules export-rules-from-repo -ac -e`
 
 For more information on these CLI commands please see CLI.md and docs/custom-rules.md in Detection Rules.
 
