@@ -293,7 +293,7 @@ testing:
 
 ```bash
 (detection-rules-build) ➜  detection-rules git:(main) ✗ ❯ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
-Loaded config file: /home/user/Code/clean_mains/detection-rules/.detection-rules-cfg.json
+Loaded config file: /home/user/code/detection-rules/.detection-rules-cfg.json
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -313,8 +313,8 @@ Created file with default content: dac_custom_rules_dir/etc/test_config.yaml
 Created file with default content: dac_custom_rules_dir/_config.yaml
 
 # For details on how to configure the _config.yaml file,
-# consult: /home/user/Code/clean_mains/detection-rules/detection_rules/etc/_config.yaml
-# or the docs: /home/user/Code/clean_mains/detection-rules/docs/custom-rules.md
+# consult: /home/user/code/detection-rules/detection_rules/etc/_config.yaml
+# or the docs: /home/user/code/detection-rules/docs/custom-rules.md
 ```
 
 Here is an example of what the custom config will look like when it is first generated:
