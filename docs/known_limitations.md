@@ -1,9 +1,9 @@
 # Known Issues and Limitations Using Elastic's detection-rules DAC Approach
 ================================
 
-## Intermittent exception list Kibana import issue
+## Intermittent Exception List Kibana Import Issue
 
-- There is an intermittent issue when importing many rules and exception lists at the same time that is currently being investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases.
+- There is an intermittent issue when importing many rules and exception lists at the same time that is currently being investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases. We implemented a helper message that will attempt to identify when this occurs and provide a command template that you can run to re-try to upload the rules that might have failed erroneously. This message will appear from the output of `kibana import-rules` if this situation is detected.
 
 ## Schema Validation Support
 
