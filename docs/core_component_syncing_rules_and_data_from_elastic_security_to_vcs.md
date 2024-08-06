@@ -174,7 +174,7 @@ name: Custom Unit Tests
 
 on:
   push:
-    branches: [ "DAC-feature", "7.*", "8.*" ]
+    branches: [ "main", "7.*", "8.*" ]
   pull_request:
     branches: [ "*" ]
 
