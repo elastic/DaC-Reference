@@ -250,6 +250,9 @@ This command will generate the custom directory supplied to the command line and
 ├── actions
     ├── action_1.toml
     ├── action_2.toml
+├── action_connectors
+    ├── action_connector_1.toml
+    ├── action_connector_2.toml
 ├── etc
 │   ├── deprecated_rules.json
 │   ├── packages.yaml
