@@ -60,7 +60,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
     `export CUSTOM_RULES_DIR="<full_path_to_dac_custom_rules_dir>"`
 
-1. If running locally, set your ``.detection-rules-cfg.json` in the root of the detection rules directory. See [setup a config file](https://github.com/elastic/detection-rules/blob/main/CLI.md#setup-a-config-file) for more details.
+1. If running locally, set your `.detection-rules-cfg.json` in the root of the detection rules directory. See [setup a config file](https://github.com/elastic/detection-rules/blob/main/CLI.md#setup-a-config-file) for more details.
 
     ```json
     {
