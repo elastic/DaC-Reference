@@ -22,6 +22,7 @@ As the cybersecurity landscape evolves, so does the need for adaptable and robus
 - [Automating Detection as Code](https://www.tines.com/blog/automating-detection-as-code)
 - [Building a Detection as Code Pipeline](https://medium.com/threatpunter/from-soup-to-nuts-building-a-detection-as-code-pipeline-59b96c875ca1)
 - [Can We Have Detection as Code?](https://medium.com/anton-on-security/can-we-have-detection-as-code-96f869cfdc79)
+- [Detection as Code: A Maturity Framework](https://catscrdl.io/blog/detectionascodematurity/)
 - [Detection as Code Explained](https://panther.com/cyber-explained/detections-as-code/)
 - [Detection as Code on Splunk Blog](https://www.splunk.com/en_us/blog/learn/detection-as-code.html)
 - [Detection as Code: Detection Development Using CI/CD](https://www.jedi.be/blog/2022/02/23/trends-and-inventory-of-50-as-code-concepts/?ref=hackernoon.com)
