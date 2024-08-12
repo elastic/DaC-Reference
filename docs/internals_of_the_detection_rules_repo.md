@@ -780,7 +780,11 @@ One option to validate custom rules is to check the Elastic API response. This a
 
 The built-in schemas attempt to provide coverage for a broad set of rule types and restrictions. Depending on the use case, the robust built-in schema validation may not be required. For use cases requiring validation against specific Elastic Security versions or minimal feature sets, creating tailored schemas for rule validation might be more appropriate. This allows for custom validation logic that fits unique requirements.
 
-* Note: To turn on automatic schema generation for non-ecs fields via custom schemas you can add `auto_gen_schema_file: <path_to_your_json_file>` to your config file. This will generate a schema file in the specified location that will be used to add entries for each field and index combination that is not already in a known schema. This will also automatically add it to your stack-schema-map.yaml file when using a custom rules directory and config.
+* Note: To turn on automatic schema generation for non-ecs fields via custom schemas you can add `auto_gen_schema_file: <path_to_your_json_file>` to your config file. This will generate a schema file in the specified location that will be used to add entries for each field and index combination that is not already in a known schema. This will occur in any command where rule contents are validated against a schema, including `import-rules-to-repo`, `kibana export-rules`, `view-rule`, and others. This will also automatically add it to your stack-schema-map.yaml file when using a custom rules directory and config. 
+
+The following is an example of what this looks like with a test rule. 
+
+ <img src="_static/auto_gen_schema.gif"  alt="Automatic Schema Generation" id="figure6"/>
 
 |Pros|Cons|
 |-|-|
