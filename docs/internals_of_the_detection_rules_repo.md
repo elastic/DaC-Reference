@@ -782,6 +782,10 @@ The built-in schemas attempt to provide coverage for a broad set of rule types a
 
 * Note: To turn on automatic schema generation for non-ecs fields via custom schemas you can add `auto_gen_schema_file: <path_to_your_json_file>` to your config file. This will generate a schema file in the specified location that will be used to add entries for each field and index combination that is not already in a known schema. This will also automatically add it to your stack-schema-map.yaml file when using a custom rules directory and config.
 
+The following is an example of what this looks like with a test rule. 
+
+ <img src="_static/auto_gen_schema.gif"  alt="Automatic Schema Generation" id="figure6"/>
+
 |Pros|Cons|
 |-|-|
 |- Customization: Enables validation tailored to specific use cases or Elastic Security versions.</br> - Expanded Format Support: Allows for rule definitions in formats beyond TOML, such as YAML or JSON.</br> - Language Versatility: Validation can be implemented in various programming languages.|Development Overhead: Requires the creation and maintenance of custom validation logic.</br> - Maintenance Challenges: Keeping validation logic updated with new Elastic features can be demanding.|

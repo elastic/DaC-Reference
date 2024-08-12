@@ -155,3 +155,6 @@ reference = "https://attack.mitre.org/tactics/TA0011/"
 Running `view-rule` on this rule should look similar to the following. When the custom schema is specified, the schema validation should pass and the contents should be printed. If the custom schema is removed, the validation should fail and an error message should appear.
 
  <img src="_static/byos_test.gif"  alt="View Rule Custom Schema" id="figure5"/>
+
+
+For more information on how you can also automatically generate the custom schemas please see [Option 3: Custom Schema Validation](https://dac-reference.readthedocs.io/en/latest/internals_of_the_detection_rules_repo.html#option-3-custom-schema-validation)
