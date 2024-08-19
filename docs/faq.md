@@ -20,7 +20,7 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **Q5**: How do I start using DaC in my organization?
 
-**A5**: Begin by exploring the detection-rules repository and familiarizing yourself with its structure and tooling. Consider your governance model (VCS as authoritative, Elastic Security as authoritative, or dual sync) and plan your workflow accordingly. Experiment with the alpha branch to test new features and configurations that suit your needs.
+**A5**: Begin by exploring the detection-rules repository and familiarizing yourself with its structure and tooling. Consider your governance model (VCS as authoritative, Elastic Security as authoritative, or dual sync) and plan your workflow accordingly. Experiment with the main branch to test new features and configurations that suit your needs.
 
 **Q6**: Are there any resources available for learning more about DaC?
 
@@ -28,7 +28,7 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **Q7**: How can I contribute to the DaC methodology or detection-rules repo?
 
-**A7**: Contributions are welcome! You can contribute by testing the alpha features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
+**A7**: Contributions are welcome! You can contribute by testing the beta features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
 
 **Q8**: How should exception & action files be deployed to Kibana?
 
@@ -56,10 +56,10 @@ You can further customize the unit tests configuration (ignoring specific tests,
 
 **Q10**: I want to use `export-rules-from-repo`in CI/CD to convert a new/modified rule from TOML to JSON and push the JSON to Kibana API. What is the best way to do that?
 
-**A10**: You may be able to use `import-rules` to simplify this process. 
+**A10**: You may be able to use `import-rules` to simplify this process.
 
 The `export-rules-from-repo` command is not the required method for uploading rules to Kibana, just another option for those who may wish to use ndjson.
-For instance, in this setup I have a local directory specific in my `CUSTOM_RULES_DIR` config. 
+For instance, in this setup I have a local directory specific in my `CUSTOM_RULES_DIR` config.
 
 If I want to modify it and upload it to Kibana, I can directly use the `import-rules` command with the `--overwrite` flag to trigger the update from TOML directly into Kibana.
 Command: `python -m detection_rules kibana import-rules --overwrite`. You can also specify a directory or specific file here too in addition to the config.
