@@ -67,7 +67,7 @@ The miscellaneous folder [detection_rules/etc](https://github.com/elastic/detect
 
 The detection-rules Python command line interface (CLI) is designed initially to support internal Elastic rule management, however, it also includes DaC options to manage custom rules. Users can manage rules locally to validate their TOML files against the defined schema dataclasses, interact with Elastic Security to sync rule updates, or even execute RTAs just to name a few. See the [CLI.md](https://github.com/elastic/detection-rules/blob/main/CLI.md) for more details.
 
-The CLI contains more options than needed to perform standard DAC operations. Therefore, we have grouped the relevant DAC commands under <name>.
+The CLI contains more options than needed to perform standard DAC operations. Therefore, we have grouped the relevant DAC commands under custom-rules.
 
 **Steps:**
 
