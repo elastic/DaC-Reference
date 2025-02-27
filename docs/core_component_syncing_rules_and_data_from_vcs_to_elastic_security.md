@@ -63,6 +63,27 @@ Currently supported arguments:
  cloud_id
  *_username (kibana and es)
  *_password (kibana and es)
+ api_key
+```
+
+If you are authenticating using an API key, you do not need a username and password. E.g. for Kibana
+
+```json
+{
+  "kibana_url": "http://localhost:5601",
+  "api_key": "key value",
+}
+```
+
+Additionally, you can use environment variables instead of the credentials file by using the `DR_*` format.
+
+E.g.
+
+```
+env:
+        DR_KIBANA_URL: ${{ secrets.KIBANA_URL }}
+        DR_KIBANA_USER: ${{ secrets.KIBANA_USER }}
+        DR_KIBANA_PASSWORD: ${{ secrets.KIBANA_PASSWORD }}
 ```
 
 2. Configure your [custom rules directory](./internals_of_the_detection_rules_repo.md#option-1-using-the-built-in-configuration)
