@@ -31,11 +31,6 @@
 
 ## Potential Upcoming Enhancements
 
-- Support for Kibana version or revision fields:
-  - These two fields are not supported within detection-rules since Elastic uses the version lock file for versioning.
-  - This means that for versioning, users have limited built-in approaches to version rules.
-  - We recommend adopting the built-in versioning version.lock.json strategy.
-  - This is tracked in: [#3620](https://github.com/elastic/detection-rules/issues/3620)
 - Support for customizable folder structure:
   - There currently is no support for customizing the folder structure which decides how rules are stored on disk when downloaded from kibana (however, this can also be reconciled post download in whatever manner desired).
   - This means that users have to manually move rules to specific organized folders.
