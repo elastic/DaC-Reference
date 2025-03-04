@@ -18,6 +18,8 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **A3**: There are a number of different ways to create an API key but the most straightforward approach is to make an API key tied to an existing user. The API Key's scope is then limited to the level of access provided to that user. See the video below for a walkthrough.
 
+ <img src="_static/api_key_auth.gif"  alt="API Key Auth Example" id="figure7"/>
+
 **Q4**: What are the prerequisites for adopting DaC with Elastic?
 
 **A4**: To adopt DaC, you'll need access to the Elastic detection-rules repository, a version control system (like GitHub), and familiarity with CI/CD principles and tools. Basic knowledge of Elastic Security and its API is also beneficial for customizing and deploying rules.
