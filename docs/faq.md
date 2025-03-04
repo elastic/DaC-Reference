@@ -14,6 +14,10 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **A3**: Yes, DaC is designed to integrate seamlessly with existing CI/CD pipelines. By leveraging the detection-rules repository and its tooling within your CI/CD workflows, you can automate the testing, validation, and deployment of detection rules directly into Elastic Security or other SIEM platforms.
 
+**Q3**: How can setup and use an API Key for authentication with the stack?
+
+**A3**: There are a number of different ways to create an API key but the most straightforward approach is to make an API key tied to an existing user. The API Key's scope is then limited to the level of access provided to that user. See the video below for a walkthrough.
+
 **Q4**: What are the prerequisites for adopting DaC with Elastic?
 
 **A4**: To adopt DaC, you'll need access to the Elastic detection-rules repository, a version control system (like GitHub), and familiarity with CI/CD principles and tools. Basic knowledge of Elastic Security and its API is also beneficial for customizing and deploying rules.
@@ -28,7 +32,7 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **Q7**: How can I contribute to the DaC methodology or detection-rules repo?
 
-**A7**: Contributions are welcome! You can contribute by testing the beta features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
+**A7**: Contributions are welcome! You can contribute by testing the DaC features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
 
 **Q8**: How should exception & action files be deployed to Kibana?
 

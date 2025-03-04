@@ -5,7 +5,6 @@
 
 Check out the [Quick Start Slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf) to an overview of DaC and how to get started. It provides some example CLI commands using the detection-rules repo.
 
-⚠️ Note: The Detection Rules DaC feature is still in Beta. This phase includes continued testing to include edge cases and feedback from the community. This reference guide and associated content are subject to change. 
 
 If you’re starting from scratch and would like to get quickly started, here are the high-level instructions. These steps assume you are familiar with the considerations associated with the various steps and elect to follow the detection-rules VCS approach to manage rules. It also assumes advanced configurations are not applied.
 

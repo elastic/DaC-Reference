@@ -6,7 +6,7 @@
 <span style="font-size:em;">_______________</span><br>
 <span style="font-size:1.5em;">Managing Elastic Security Security Detection Rules Using DaC</span><br><br><br>
 
-⚠️ Note: The Detection Rules DaC feature is still in Beta. This phase includes continued testing to include edge cases and feedback from the community. This reference guide, content within these [slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf), and associated content are subject to change. 
+For additional reference, see the content within these [slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf).
 
 ```{toctree}
 :maxdepth: 2
