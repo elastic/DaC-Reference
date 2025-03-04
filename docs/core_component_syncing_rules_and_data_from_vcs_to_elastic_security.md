@@ -220,7 +220,7 @@ Unknown field
 data_stream.dataset:osquery_manager.result and osquery_meta.counter>0 and osquery_meta.type:diff and osquery.last_run_code:0 and osquery_meta.action:removed
                                                                           ^^^^^^^^^^^^^^^^^
 stack: 8.9.0, beats: 8.9.0, ecs: 8.9.0
-- name - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗
+- name - {'rule': [ValidationError({'type': ['Must be equal to eql.'], 'language': ['Must be equal to eql.']}), ValidationError({'type': ['Must be equal to esql.'], 'language': ['Must be equal to esql.']}), ValidationError({'type': ['Must be equal to threshold.'], 'threshold': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to threat_match.'], 'threat_mapping': ['Missing data for required field.'], 'threat_index': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to machine_learning.'], 'anomaly_threshold': ['Missing data for required field.'], 'machine_learning_job_id': ['Missing data for required field.']}), ValidationError({'type': ['Must be equal to query.']}), ValidationError({'new_terms': ['Missing data for required field.']})]}(venv312) ➜  detection-rules-fork git:(main) ✗
 ```
 
 <details>
@@ -228,7 +228,7 @@ stack: 8.9.0, beats: 8.9.0, ecs: 8.9.0
 
 Help output:
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -h
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -h
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -267,7 +267,7 @@ Options:
 
 Existing rule fails as expected:
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_EXISTING_RULE.toml
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_EXISTING_RULE.toml
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -280,7 +280,7 @@ DEBUG MODE ENABLED
 
 `-o` overwrite forces the import successfully
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_EXISTING_RULE.toml -o
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_EXISTING_RULE.toml -o
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -293,7 +293,7 @@ DEBUG MODE ENABLED
 
 New rule successfully imports:
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_NEW_RULE.toml
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -f test-export-rules/credential_access_NEW_RULE.toml
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -306,7 +306,7 @@ DEBUG MODE ENABLED
 
 The rule loader detects a collision in name and fails as intended:
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -d test-export-rules
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -326,7 +326,7 @@ AssertionError: Rule Name Multiple Okta User Auth Events with Same Device Token 
 
 Expected failure on rule_id collision:
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -d test-export-rules
 Loaded config file: .../detection-rules-fork/.detection-rules-cfg.yaml
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
@@ -347,7 +347,7 @@ AssertionError: Rule ID 50887ba8-7ff7-11ee-a038-f661ea17fbcd for Multiple Okta U
 
 Import a full directory - all fail as expected:
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -d test-export-rules
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
@@ -382,7 +382,7 @@ DEBUG MODE ENABLED
 
 Import a fulle directory, with `-o` forcing the updates successfully
 ```
-(venv312) ➜  detection-rules-fork git:(refresh-kibana-module-with-new-APIs) ✗ python -m detection_rules kibana import-rules -d test-export-rules -o
+(venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -d test-export-rules -o
 Loaded config file: .../detection-rules-fork/.detection-rules-cfg.yaml
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
