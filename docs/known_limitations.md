@@ -3,7 +3,11 @@
 
 ## Intermittent Exception List Kibana Import Issue
 
-- There is an intermittent issue when importing many rules and exception lists at the same time that is currently being investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases. We implemented a helper message that will attempt to identify when this occurs and provide a command template that you can run to re-try to upload the rules that might have failed erroneously. This message will appear from the output of `kibana import-rules` if this situation is detected. We expect the issue to be resolved as of 8.16.1 and 8.15.5, but this workaround is available for those who are using older stacks.
+- There is an intermittent issue when importing many rules and exception lists at the same time that has been investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases. We implemented a helper message that will attempt to identify when this occurs and provide a command template that you can run to re-try to upload the rules that might have failed erroneously. This message will appear from the output of `kibana import-rules` if this situation is detected. We expect the issue to be resolved as of 8.16.1 and 8.15.5, but this workaround is available for those who are using older stacks. See the following Kibana references for more information: [190447](https://github.com/elastic/kibana/pull/190447) and [193471](https://github.com/elastic/kibana/pull/193471).
+
+## Rule Size Limitations
+
+- The Kibana API has limitations on number/size of rules for importing and exporting that may impact the way one interacts with our DaC commands. For instance, the export API cannot export more than 10,000 rules. If one tries to export more one should expect to receive a message similar to the following: `{"message":"Can't export more than 10000 rules","status_code":400}`. Additionally, there is an ~5k rules limit when importing rules into Kibana. If one attempts this, one should expect to receive a message similar to: `413 Client Error: Request Entity Too Large for url`. To mitigate the import limitation, one split one's rules into folders smaller than 5k rules each and upload them separately. E.g. calling `kibana import-rules` for each folder directly.  
 
 ## Schema Validation Support
 
