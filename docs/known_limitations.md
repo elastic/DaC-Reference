@@ -7,7 +7,7 @@
 
 ## Rule Size Limitations
 
-- The Kibana API has limitations on number/size of rules for importing and exporting that may impact the way one interacts with our DaC commands. For instance, the export API cannot export more than 10,000 rules. If one tries to export more one should expect to receive a message similar to the following: `{"message":"Can't export more than 10000 rules","status_code":400}`. Additionally, there is an ~5k rules limit when importing rules into Kibana. If one attempts this, one should expect to receive a message similar to: `413 Client Error: Request Entity Too Large for url`. To mitigate the import limitation, one split one's rules into folders smaller than 5k rules each and upload them separately. E.g. calling `kibana import-rules` for each folder directly.  
+- The Kibana API has limitations on number/size of rules for importing and exporting that may impact the way one interacts with our DaC commands. For instance, the export, by default, the API cannot export more than 10,000 rules or have a max byte payload of 10,485,760 bytes. If one tries to export more than these values, one should expect to receive a message similar to the following: `{"message":"Can't export more than 10000 rules","status_code":400}` or `413 Client Error: Request Entity Too Large for url`. These values are enforced via configuration and can be changed in `xpack.securitySolution.maxRuleImportExportSize` and `xpack.securitySolution.maxRuleImportPayloadBytes` respectively. Furthermore, there is a known bug documented in [176207](https://github.com/elastic/kibana/issues/176207) where importing a large number of rules can create extra rules and is being actively addressed. 
 
 ## Schema Validation Support
 
