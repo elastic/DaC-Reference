@@ -107,13 +107,13 @@ Options:
 
 Commands:
   ...
-  export-rules-from-repo  Export rule(s) into an importable ndjson file.
-  generate-rules-index    Generate enriched indexes of rules, based on a...
-  import-rules-to-repo    Import rules from json, toml, yaml, or Kibana...
+  export-rules-from-repo  Export rule(s) and exception(s) into an importable ndjson file.
+  generate-rules-index    Generate enriched indexes of rules, based on a KQL search, for indexing/importing into elasticsearch/kibana.
+  import-rules-to-repo    Import rules from json, toml, or yaml files containing Kibana exported rule(s).
   ...
 ```
 
-💡 Note: There's a known issue importing some of the rule types. In the interim, the legacy kibana commands can be used as a workaround.
+💡 Note: For older stacks (Version prior to 9.0), one can use the `kibana upload-rule` command. However, this is not recommended and one should use the `kibana import-rules` in its place.
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
@@ -127,14 +127,13 @@ Usage: detection_rules kibana [OPTIONS] COMMAND [ARGS]...
 Options:
   --ignore-ssl-errors TEXT
   --space TEXT                 Kibana space
-  --provider-name TEXT         Elastic Cloud providers: cloud-basic and cloud-
-                               saml (for SSO)
-  --provider-type TEXT         Elastic Cloud providers: basic and saml (for
-                               SSO)
+  --provider-name TEXT         Elastic Cloud providers: cloud-basic and cloud-saml (for SSO)
+  --provider-type TEXT         Elastic Cloud providers: basic and saml (for SSO)
   -ku, --kibana-user TEXT
   --kibana-url TEXT
   -kp, --kibana-password TEXT
   -kc, --kibana-cookie TEXT    Cookie from an authed session
+  --api-key TEXT
   --cloud-id TEXT              ID of the cloud instance.
   -h, --help                   Show this message and exit.
 
@@ -142,7 +141,7 @@ Commands:
   export-rules   Export custom rules from Kibana.
   import-rules   Import custom rules into Kibana.
   search-alerts  Search detection engine alerts with KQL.
-  upload-rule    Upload a list of rule .toml files to Kibana.
+  upload-rule    [Deprecated] Upload a list of rule .toml files to Kibana.
 ```
 
 ### Testing
