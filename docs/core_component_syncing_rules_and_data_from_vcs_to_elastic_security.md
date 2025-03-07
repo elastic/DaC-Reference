@@ -113,7 +113,7 @@ Commands:
   ...
 ```
 
-💡 Note: For older stacks (Version prior to 9.0), one can use the `kibana upload-rule` command. However, this is not recommended and one should use the `kibana import-rules` in its place.
+💡 Note: For stacks with a version prior to 9.0, one can use the `kibana upload-rule` command. However, this is not recommended and one should use the `kibana import-rules` in its place.
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
