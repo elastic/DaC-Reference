@@ -3,7 +3,11 @@
 
 ## Intermittent Exception List Kibana Import Issue
 
-- There is an intermittent issue when importing many rules and exception lists at the same time that is currently being investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases. We implemented a helper message that will attempt to identify when this occurs and provide a command template that you can run to re-try to upload the rules that might have failed erroneously. This message will appear from the output of `kibana import-rules` if this situation is detected.
+- There is an intermittent issue when importing many rules and exception lists at the same time that has been investigated related to [this Kibana issue](https://github.com/elastic/kibana/issues/143864). This may cause exception list references to be stripped when importing rules in some cases. We implemented a helper message that will attempt to identify when this occurs and provide a command template that you can run to re-try to upload the rules that might have failed erroneously. This message will appear from the output of `kibana import-rules` if this situation is detected. We expect the issue to be resolved as of 8.16.1 and 8.15.5, but this workaround is available for those who are using older stacks. See the following Kibana references for more information: [190447](https://github.com/elastic/kibana/pull/190447) and [193471](https://github.com/elastic/kibana/pull/193471).
+
+## Rule Size Limitations
+
+- The Kibana API has limitations on number/size of rules for importing and exporting that may impact the way one interacts with our DaC commands. For instance, the export, by default, the API cannot export more than 10,000 rules or have a max byte payload of 10,485,760 bytes. If one tries to export more than these values, one should expect to receive a message similar to the following: `{"message":"Can't export more than 10000 rules","status_code":400}` or `413 Client Error: Request Entity Too Large for url`. These values are enforced via configuration and can be changed in `xpack.securitySolution.maxRuleImportExportSize` and `xpack.securitySolution.maxRuleImportPayloadBytes` respectively. Furthermore, there is a known bug documented in [176207](https://github.com/elastic/kibana/issues/176207) where importing a large number of rules can create extra rules and is being actively addressed. 
 
 ## Schema Validation Support
 
@@ -27,11 +31,6 @@
 
 ## Potential Upcoming Enhancements
 
-- Support for Kibana version or revision fields:
-  - These two fields are not supported within detection-rules since Elastic uses the version lock file for versioning.
-  - This means that for versioning, users have limited built-in approaches to version rules.
-  - We recommend adopting the built-in versioning version.lock.json strategy.
-  - This is tracked in: [#3620](https://github.com/elastic/detection-rules/issues/3620)
 - Support for customizable folder structure:
   - There currently is no support for customizing the folder structure which decides how rules are stored on disk when downloaded from kibana (however, this can also be reconciled post download in whatever manner desired).
   - This means that users have to manually move rules to specific organized folders.

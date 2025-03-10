@@ -14,6 +14,12 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **A3**: Yes, DaC is designed to integrate seamlessly with existing CI/CD pipelines. By leveraging the detection-rules repository and its tooling within your CI/CD workflows, you can automate the testing, validation, and deployment of detection rules directly into Elastic Security or other SIEM platforms.
 
+**Q3**: How can setup and use an API Key for authentication with the stack?
+
+**A3**: There are a number of different ways to create an API key but the most straightforward approach is to make an API key tied to an existing user. The API Key's scope is then limited to the level of access provided to that user. See the video below for a walkthrough.
+
+ <img src="_static/api_key_example.gif"  alt="API Key Auth Example" id="figure7"/>
+
 **Q4**: What are the prerequisites for adopting DaC with Elastic?
 
 **A4**: To adopt DaC, you'll need access to the Elastic detection-rules repository, a version control system (like GitHub), and familiarity with CI/CD principles and tools. Basic knowledge of Elastic Security and its API is also beneficial for customizing and deploying rules.
@@ -28,7 +34,7 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **Q7**: How can I contribute to the DaC methodology or detection-rules repo?
 
-**A7**: Contributions are welcome! You can contribute by testing the beta features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
+**A7**: Contributions are welcome! You can contribute by testing the DaC features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
 
 **Q8**: How should exception & action files be deployed to Kibana?
 
@@ -67,9 +73,14 @@ Command: `python -m detection_rules kibana import-rules --overwrite`. You can al
  <img src="_static/rule_update_example.gif"  alt="Import Rules --overwrite Example" id="figure4"/>
 
 
-**Q11**: When using custom schemas, do I have to declare all fields or only those that are not part of the ecs?
+**Q11**: I want to fork the Detection Rules repo in Github, but I want to keep my fork private. What is the best way to do that?
 
-**A11**: You do not have to declare all the fields, just the ones not part of the ecs.
+**A11**: Github's recommended process for this is to create a mirror of the repo which can be private instead of directly forking it via [this guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository). Once this mirror is created, one can also periodically pull in updates from the source repo, in this case detection-rules. There are a number of different ways to do this. [One method](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository#mirroring-a-repository-in-another-location) as recommended and described by Github in the prior guide is to create another clean, private mirror pulling all of the latest updates, point remote URL to the first private mirror you created, fetch the updates from the detection-rules origin and push. This can be done in a CI/CD workflow inside of your private mirror. You may also want to modify with different behavior for example, creating a PR with a specific format for these updates etc. Another method as described [here](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274) in step 6 is to add the detection-rules repo as a remote to fetch from directly, disable pushing to this remote, and then you can fetch and rebase directly to your private mirror from detection-rules without having to checkout detection rules and create a temporary clean mirror. In either case, one will need to run this periodically via CI/CD if one wants to automate pulling the updates from detection-rules to a private mirror.
+
+
+**Q12**: When using custom schemas, do I have to declare all fields or only those that are not part of the ecs?
+
+**A12**: You do not have to declare all the fields, just the ones not part of the ecs.
 
 Custom Schema fields are treated as additional non-ecs fields, in effect this means your custom schema(s) values are added as additional available options that should be considered as valid. Here is an example that might be useful.
 
