@@ -511,6 +511,8 @@ Instead of using a version lock file or building versions dynamically to insert 
 
 Rule [exceptions](https://www.elastic.co/guide/en/security/current/detections-ui-exceptions.html) and [response actions](https://www.elastic.co/guide/en/security/current/response-actions.html) lists are two security features that are natively supported within Elastic Security. Here, we explore methods to manage these elements in code, outside of Elastic Security, leveraging the Detection as Code (DaC) approach.
 
+💡 Note: Actions, action connectors, exceptions, and exceptions lists tied to a rule or rules are currently supported via DaC commands. Managing these separately from managing rules is not currently supported. We have considered adding in support for managing them separately which would require using additional APIs ref: [#3785](https://github.com/elastic/detection-rules/issues/3785). However, we determined that it is not in scope for what we intend to support at this time.
+
 ### Option 1: Built-in Lists Management
 
  Rule exceptions and response actions are integral security features natively supported within Elastic Security. Utilizing VCS for DaC allows for varied methodologies in managing exception lists and their rule associations, given their intricate structure. This approach focuses on managing exception lists and action lists in separate dedicated files. After defining a custom rules management directory, exception and action lists can be defined in the **_config.yaml** file.
