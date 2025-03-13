@@ -511,7 +511,7 @@ Instead of using a version lock file or building versions dynamically to insert 
 
 Rule [exceptions](https://www.elastic.co/guide/en/security/current/detections-ui-exceptions.html) and [response actions](https://www.elastic.co/guide/en/security/current/response-actions.html) lists are two security features that are natively supported within Elastic Security. Here, we explore methods to manage these elements in code, outside of Elastic Security, leveraging the Detection as Code (DaC) approach.
 
-💡 Note: actions, action connectors, exceptions, and exceptions lists tied to a rule or rules are currently supported via DaC commands. Managing these separately from managing rules is not currently supported. We have considered adding in support for managing them separately which would require using additional APIs [#3785](https://github.com/elastic/detection-rules/issues/3785). However, we determined that it is not in scope for what we intend to support at this time.
+💡 Note: Actions, action connectors, exceptions, and exceptions lists tied to a rule or rules are currently supported via DaC commands. Managing these separately from managing rules is not currently supported. We have considered adding in support for managing them separately which would require using additional APIs [#3785](https://github.com/elastic/detection-rules/issues/3785). However, we determined that it is not in scope for what we intend to support at this time.
 
 ### Option 1: Built-in Lists Management
 
