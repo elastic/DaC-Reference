@@ -21,6 +21,8 @@ The workflows described here integrate concepts familiar to those versed in Cont
 1. Monitoring and Feedback: Implement monitoring within the CI/CD pipeline to capture the status of rule deployments. This could include notifications on success or failure, enabling quick response to deployment issues. Consider feedback loops where deployment outcomes can inform rule development practices, potentially triggering additional tests or validations before future deployments.
 1. Documentation and Change Management: Maintain documentation of the CI/CD process, including any custom scripts or configurations used for rule syncing. This ensures transparency and facilitates onboarding for new team members. Implement change management practices to track modifications to the rule set, including version control of rule definitions and a log of deployments to Elastic Security.
 
+💡 Note: Please remember to backup your rules if you are planning to overwrite them authoritatively from a VCS while you are setting up your DaC pipeline! Once rules are overwritten in Elastic Security/Kibana it may be impossible to recover them! See the [FAQ](./faq.md#q8-how-can-i-backup-my-rules-prior-to-overwriting-rules-in-kibana) for more info on backing up rules. 
+
 ## Sub-Component 1: Deploying via Direct HTTP Request API Calls
 
 ### Option 1:  Elastic Security APIs

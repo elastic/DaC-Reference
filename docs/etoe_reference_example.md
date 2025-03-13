@@ -70,13 +70,15 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
 1. Export custom rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
 
-    `python -m detection_rules kibana export-rules -s -sv -e -ac`
+    `python -m detection_rules kibana export-rules -s -sv -e -ac -d <desired_path>`
 
 1. Run local unit tests.
 
    `make test`
 
 1. Import custom rules and related exceptions to a Kibana Instance, overwriting existing.
+
+    💡 Note: Please remember to backup your rules! If you have not run `kibana export-rules` or used the UI to perform a bulk export of rules before running this command, please do so! Once rules are overwritten in Elastic Security/Kibana it may be impossible to recover them! See the [FAQ](./faq.md#q8-how-can-i-backup-my-rules-prior-to-overwriting-rules-in-kibana) for more info on backing up rules. 
 
     `python -m detection_rules kibana import-rules --overwrite -e -ac`
 
@@ -88,7 +90,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     For moving rules from the repo to an ndjson file that is compatible with Kibana rule import.
     ` python -m detection_rules export-rules-from-repo -ac -e`
 
-For more information on these CLI commands please see CLI.md and docs/custom-rules.md in Detection Rules.
+For more information on these CLI commands please see CLI.md, docs-dev/custom-rules.md, and docs-dev/detections-as-code.md in [Detection Rules](https://github.com/elastic/detection-rules).
 
 ### Locally
 
