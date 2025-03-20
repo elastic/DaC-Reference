@@ -222,7 +222,7 @@ stack: 8.9.0, beats: 8.9.0, ecs: 8.9.0
 
 Help output:
 ```
-$ python -m detection_rules kibana import-rules -h
+(venv312) ➜ detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -h
 
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
