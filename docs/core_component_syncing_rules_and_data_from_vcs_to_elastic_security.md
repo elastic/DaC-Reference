@@ -52,8 +52,6 @@ In the root directory of this repo, create the file **.detection-rules-cfg.json*
   "cloud_id": "",
   "es_username": "elastic",
   "es_password": "password",
-  "kibana_username": "elastic",
-  "kibana_password": "password"
 }
 ```
 
@@ -63,12 +61,12 @@ Currently supported arguments:
  elasticsearch_url
  kibana_url
  cloud_id
- *_username (kibana and es)
- *_password (kibana and es)
+ es_username
+ es_password
  api_key
 ```
 
-If you are authenticating using an API key, you do not need a username and password. E.g. for Kibana
+The preferred way of authentication is by using the API key. For example, for Kibana:
 
 ```json
 {
@@ -84,8 +82,8 @@ E.g.
 ```
 env:
         DR_KIBANA_URL: ${{ secrets.KIBANA_URL }}
-        DR_KIBANA_USER: ${{ secrets.KIBANA_USER }}
-        DR_KIBANA_PASSWORD: ${{ secrets.KIBANA_PASSWORD }}
+        DR_ES_USER: ${{ secrets.ES_USER }}
+        DR_ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
 ```
 
 2. Configure your [custom rules directory](./internals_of_the_detection_rules_repo.md#option-1-using-the-built-in-configuration)
@@ -129,13 +127,8 @@ Usage: detection_rules kibana [OPTIONS] COMMAND [ARGS]...
 Options:
   --ignore-ssl-errors TEXT
   --space TEXT                 Kibana space
-  --provider-name TEXT         Elastic Cloud providers: cloud-basic and cloud-saml (for SSO)
-  --provider-type TEXT         Elastic Cloud providers: basic and saml (for SSO)
-  -ku, --kibana-user TEXT
   --kibana-url TEXT
-  -kp, --kibana-password TEXT
-  -kc, --kibana-cookie TEXT    Cookie from an authed session
-  --api-key TEXT
+  --api-key TEXT               [required]
   --cloud-id TEXT              ID of the cloud instance.
   -h, --help                   Show this message and exit.
 
@@ -235,20 +228,13 @@ Help output:
 █  █ █▄▄  █  █▄▄ █    █   █  █ █ █▀▄ █      █▄▄▀ █  █ █   █▄▄ █▄▄
 █▄▄▀ █▄▄  █  █▄▄ █▄▄  █  ▄█▄ █▄█ █ ▀▄█      █ ▀▄ █▄▄█ █▄▄ █▄▄ ▄▄█
 
-DEBUG MODE ENABLED
 Kibana client:
 Options:
   --ignore-ssl-errors TEXT
-  --space TEXT                 Kibana space
-  --provider-name TEXT         Elastic Cloud providers: cloud-basic and cloud-
-                               saml (for SSO)
-  --provider-type TEXT         Elastic Cloud providers: basic and saml (for
-                               SSO)
-  -ku, --kibana-user TEXT
+  --space TEXT              Kibana space
+  --api-key TEXT            [required]
+  --cloud-id TEXT           ID of the cloud instance.
   --kibana-url TEXT
-  -kp, --kibana-password TEXT
-  -kc, --kibana-cookie TEXT    Cookie from an authed session
-  --cloud-id TEXT              ID of the cloud instance.
 
 Usage: detection_rules kibana import-rules [OPTIONS]
 
@@ -260,9 +246,8 @@ Options:
   -id, --rule-id TEXT
   -o, --overwrite                 Overwrite existing rules
   -e, --overwrite-exceptions      Overwrite exceptions in existing rules
-  -a, --overwrite-action-connectors
-                                  Overwrite action connectors in existing
-                                  rules
+  -ac, --overwrite-action-connectors
+                                  Overwrite action connectors in existing rules
   -h, --help                      Show this message and exit.
 ```
 
@@ -585,8 +570,7 @@ jobs:
         python -m detection_rules kibana $SPACE_FLAG import-rules $FLAGS
       env:
         DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
-        DR_KIBANA_USER: ${{ secrets.ELASTIC_USERNAME }}
-        DR_KIBANA_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
+        DR_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
 ```
 
 Alternatively, you can sync rules to a development environment first and then promote them to production after testing.
@@ -631,8 +615,7 @@ jobs:
         done
       env:
         DR_CLOUD_ID: ${{ secrets.ELASTIC_CLOUD_ID }}
-        DR_KIBANA_USER: ${{ secrets.ELASTIC_USERNAME }}
-        DR_KIBANA_PASSWORD: ${{ secrets.ELASTIC_PASSWORD }}
+        DR_API_KEY: ${{ secrets.ELASTIC_API_KEY }}
 
 ```
 
