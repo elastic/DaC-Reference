@@ -68,9 +68,16 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     }
     ```
 
-1. Export custom rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
+1. Export custom rules and related exceptions from a Kibana Instance, overwriting existing, stripping version, and skipping errors.
 
-    `python -m detection_rules kibana export-rules -s -sv -e -ac -d <desired_path>`
+    ```
+    python -m detection_rules kibana export-rules \
+    --skip-errors \
+    --strip-version \
+    --export-exceptions \
+    --export-action-connectors \
+    --directory my-custom-rules
+    ```
 
 1. Run local unit tests.
 
@@ -80,15 +87,35 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
     💡 Note: Please remember to backup your rules! If you have not run `kibana export-rules` or used the UI to perform a bulk export of rules before running this command, please do so! Once rules are overwritten in Elastic Security/Kibana it may be impossible to recover them! See the [FAQ](./faq.md#q8-how-can-i-backup-my-rules-prior-to-overwriting-rules-in-kibana) for more info on backing up rules. 
 
-    `python -m detection_rules kibana import-rules --overwrite -e -ac`
+    ```bash
+    python -m detection_rules kibana import-rules \
+    --overwrite \
+    --overwrite-exceptions \
+    --overwrite-action-connectors
+    ```
 
 1. Or if you prefer to import and export using ndjson file(s) instead of the Kibana API use the following:
 
     For moving rules from a Kibana rules export to the repo
-    `python -m detection_rules import-rules-to-repo <ndjson_file> --required-only -e -da DefaultAuthor -ske -ac`
+
+    ```bash
+    python -m detection_rules import-rules-to-repo <ndjson_file> \
+    --required-only \
+    --action-connector-import \
+    --exceptions-import \
+    --default-author DefaultAuthor \
+    --skip-errors
+    ```
 
     For moving rules from the repo to an ndjson file that is compatible with Kibana rule import.
-    ` python -m detection_rules export-rules-from-repo -ac -e`
+
+    ```bash
+    python -m detection_rules export-rules-from-repo \
+    --directory my-custom-rules \
+    --outfile my-custom-rules-export.ndjson \
+    --include-action-connectors \
+    --include-exceptions
+    ```
 
 For more information on these CLI commands please see CLI.md, docs-dev/custom-rules.md, and docs-dev/detections-as-code.md in [Detection Rules](https://github.com/elastic/detection-rules).
 
