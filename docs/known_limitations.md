@@ -15,11 +15,10 @@
 
 ## No Direct Support
 
-- Managing prebuilt rules via DaC workflows is not supported at the moment (this is being addressed).
 - Rule loading
   - Core repo (loading Rule object)
-    - Officially supports from  TOML to Rule object
-    - Support for json yaml will exist but will remain in a dict format
+    - Officially supports loading from TOML to Rule object
+    - Support for json and yaml exists but will remain in a dict format (as opposed to the nested TOML format)
       - This is only a convenience utility and will only be supported across minimal components, since all functionality depends on the validated object (and related pieces)
   - Kibana module does support raw dict's
   - We added a RawDictLoader as a util, but this will only serve to load rules to dicts, bypassing most of the value of the core repo
@@ -32,6 +31,7 @@
 ## Potential Upcoming Enhancements
 
 - Support for customizable folder structure:
-  - There currently is no support for customizing the folder structure which decides how rules are stored on disk when downloaded from kibana (however, this can also be reconciled post download in whatever manner desired).
+  - There currently is not full support for customizing the folder structure which decides how rules are stored on disk.
   - This means that users have to manually move rules to specific organized folders.
   - This is tracked in: [#3625](https://github.com/elastic/detection-rules/issues/3625)
+  - However, there is support for using an existing folder structure when importing rules from a Kibana export. This is done by using the `--load-rule-loading / -lr` option in the `kibana export-rules` and `import-rules-to-repo` commands. See [#4891](https://github.com/elastic/detection-rules/issues/4891) and its associated PR for more details.

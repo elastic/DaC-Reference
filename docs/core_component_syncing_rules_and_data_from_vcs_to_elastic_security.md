@@ -113,7 +113,7 @@ Commands:
   ...
 ```
 
-💡 Note: For stacks with a version prior to 9.0, one can use the `kibana upload-rule` command. However, this is not recommended and one should use the `kibana import-rules` in its place.
+💡 Note: For stacks with a version prior to 9.0, one can use the `kibana upload-rule` command. However, this is not recommended and one should use the `kibana import-rules` in its place. See the [CLI.md](https://github.com/elastic/detection-rules/blob/main/CLI.md) for more details.
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
@@ -126,17 +126,7 @@ Usage: detection_rules kibana [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --ignore-ssl-errors TEXT
-  --space TEXT                 Kibana space
-  --kibana-url TEXT
-  --api-key TEXT               [required]
-  --cloud-id TEXT              ID of the cloud instance.
-  -h, --help                   Show this message and exit.
-
-Commands:
-  export-rules   Export custom rules from Kibana.
-  import-rules   Import custom rules into Kibana.
-  search-alerts  Search detection engine alerts with KQL.
-  upload-rule    [Deprecated] Upload a list of rule .toml files to Kibana.
+...
 ```
 
 ### Testing
