@@ -170,27 +170,28 @@ The repository extensively utilizes schemas sourced from upstream (e.g., Beats, 
 1. Explore the [rule dataclasses](https://github.com/elastic/detection-rules/blob/main/detection_rules/rule.py) detailed in the repository to understand the expected format for rule definitions. These are periodically updated to reflect new capabilities within the Kibana features set.
 
 ```python
-@dataclass(frozen=True)
+@dataclass(frozen=True, kw_only=True)
 class RuleMeta(MarshmallowDataclassMixin):
     """Data stored in a rule's [metadata] section of TOML."""
+
     creation_date: definitions.Date
     updated_date: definitions.Date
-    deprecation_date: Optional[definitions.Date]
+    deprecation_date: definitions.Date | None = None
 
     # Optional fields
-    bypass_bbr_timing: Optional[bool]
-    comments: Optional[str]
-    integration: Optional[Union[str, List[str]]]
-    maturity: Optional[definitions.Maturity]
-    min_stack_version: Optional[definitions.SemVer]
-    min_stack_comments: Optional[str]
-    os_type_list: Optional[List[definitions.OSType]]
-    query_schema_validation: Optional[bool]
-    related_endpoint_rules: Optional[List[str]]
-    promotion: Optional[bool]
+    bypass_bbr_timing: bool | None = None
+    comments: str | None = None
+    integration: str | list[str] | None = None
+    maturity: definitions.Maturity | None = None
+    min_stack_version: definitions.SemVer | None = None
+    min_stack_comments: str | None = None
+    os_type_list: list[definitions.OSType] | None = None
+    query_schema_validation: bool | None = None
+    related_endpoint_rules: list[str] | None = None
+    promotion: bool | None = None
 
     # Extended information as an arbitrary dictionary
-    extended: Optional[Dict[str, Any]]
+    extended: dict[str, Any] | None = None
 ```
 
 2. Visit the etc/ directory within the repository to review additional resources, including validation schemas and configuration files required for rule management and development.
