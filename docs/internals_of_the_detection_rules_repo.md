@@ -529,8 +529,8 @@ Rule [exceptions](https://www.elastic.co/guide/en/security/current/detections-ui
 ```config
  directories:
    # action_connector_dir: action_connectors
-   # actions_dir: exceptions
-   # exceptions_dir: actions
+   # action_dir: actions
+   # exception_dir: exceptions
 ```
 
 2. Manually create the action lists (one TOML file per rule) based on the [Actions schema](https://www.elastic.co/guide/en/security/current/bulk-actions-rules-api.html#actions-object-schema-bulk).
