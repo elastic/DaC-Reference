@@ -22,7 +22,7 @@ copyright = '2024, Elastic'
 author = 'mika.ayenson@elastic.co,eric.forte@elastic.co,justin.ibarra@elastic.co'
 
 # The full version, including alpha/beta/rc tags
-release = '0.2.0-beta'
+release = '0.3.0'
 
 
 # -- General configuration ---------------------------------------------------
