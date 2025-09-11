@@ -19,7 +19,7 @@ spec:
     kind: Pipeline
     metadata:
       name: DaC-Reference
-      description: Detections as Code Reference
+      description: 
     spec:
       repository: elastic/DaC-Reference
       pipeline_file: ".buildkite/pipeline.yml"
