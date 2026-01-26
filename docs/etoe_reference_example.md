@@ -68,7 +68,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     }
     ```
 
-1. Export custom rules and related exceptions from a Kibana Instance, overwriting existing, stripping version, and skipping errors.
+1. Export rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
 
     ```
     python -m detection_rules kibana export-rules \
@@ -83,7 +83,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
    `make test`
 
-1. Import custom rules and related exceptions to a Kibana Instance, overwriting existing.
+1. Import rules and related exceptions to a Kibana Instance, overwriting existing.
 
     💡 Note: Please remember to backup your rules! If you have not run `kibana export-rules` or used the UI to perform a bulk export of rules before running this command, please do so! Once rules are overwritten in Elastic Security/Kibana it may be impossible to recover them! See the [FAQ](./faq.md#q8-how-can-i-backup-my-rules-prior-to-overwriting-rules-in-kibana) for more info on backing up rules. 
 
