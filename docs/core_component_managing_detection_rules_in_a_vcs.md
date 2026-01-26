@@ -16,7 +16,7 @@ By following the recommended steps within this workflow, you will implement a Da
 
 1. Fork the detection-rules repo
 1. Install the Python dependencies
-1. Initialize and configure your DaC custom rules folder using the CLI
+1. Initialize and configure your DaC rules folder using the CLI
 1. Configure the unit tests to run
 1. Create and version rules using the **detection-rules** capabilities
 1. Create and link exception and action lists
