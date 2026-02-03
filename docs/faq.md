@@ -89,13 +89,9 @@ Command: `python -m detection_rules kibana import-rules --overwrite`. You can al
 
 **A14**: Github's recommended process for this is to create a mirror of the repo which can be private instead of directly forking it via [this guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository). Once this mirror is created, one can also periodically pull in updates from the source repo, in this case detection-rules. There are a number of different ways to do this. [One method](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository#mirroring-a-repository-in-another-location) as recommended and described by Github in the prior guide is to create another clean, private mirror pulling all of the latest updates, point remote URL to the first private mirror you created, fetch the updates from the detection-rules origin and push. This can be done in a CI/CD workflow inside of your private mirror. You may also want to modify with different behavior for example, creating a PR with a specific format for these updates etc. Another method as described [here](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274) in step 6 is to add the detection-rules repo as a remote to fetch from directly, disable pushing to this remote, and then you can fetch and rebase directly to your private mirror from detection-rules without having to checkout detection rules and create a temporary clean mirror. In either case, one will need to run this periodically via CI/CD if one wants to automate pulling the updates from detection-rules to a private mirror.
 
-#### **Q15**: I am trying to use Python 3.13 but whenever I run a Detection Rules CLI command it returns an error like this `AttributeError: attribute '__default__' of 'typing.TypeVar' objects is not writable`. What can I do?
+#### **Q15**: When using custom schemas, do I have to declare all fields or only those that are not part of the ecs?
 
-**A15*: At the moment we do now support Python 3.13. Our current recommendation is to use Python 3.12, we are tracking adding support for Python 3.13 in this issue: [4534](https://github.com/elastic/detection-rules/issues/4534). Please see the issue for the most up to date status on 3.13 support.
-
-#### **Q16**: When using custom schemas, do I have to declare all fields or only those that are not part of the ecs?
-
-**A16**: You do not have to declare all the fields, just the ones not part of the ecs.
+**A15**: You do not have to declare all the fields, just the ones not part of the ecs.
 
 Custom Schema fields are treated as additional non-ecs fields, in effect this means your custom schema(s) values are added as additional available options that should be considered as valid. Here is an example that might be useful.
 
