@@ -26,7 +26,7 @@ For any DaC implementation, the following governance models are required:
 1. Platform as authoritative
 1. Dual sync between VCS and the platform
 
-As applied to the **Elastic Security** this breaks down as follows:
+As applied to **Elastic Security**, this breaks down as follows:
 
 1. VCS as authoritative
 1. Elastic security as authoritative
@@ -93,7 +93,7 @@ This approach encourages the development and testing of detection rules within t
 3. Use test results to guide rule approvals and merges.
 4. Sync approved and tested rules to Elastic Security automatically.
 
-### Elastic security as authoritative
+### Elastic Security as authoritative
 
 #### Overview
 

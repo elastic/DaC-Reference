@@ -67,7 +67,7 @@ The miscellaneous folder [detection_rules/etc](https://github.com/elastic/detect
 
 The detection-rules Python command line interface (CLI) is designed initially to support internal Elastic rule management, however, it also includes DaC options to manage custom rules. Users can manage rules locally to validate their TOML files against the defined schema dataclasses, interact with Elastic Security to sync rule updates, or even execute RTAs just to name a few. See the [CLI.md](https://github.com/elastic/detection-rules/blob/main/CLI.md) for more details.
 
-The CLI contains more options than needed to perform standard DAC operations. Therefore, we have grouped the relevant DAC commands under custom-rules.
+The CLI contains more options than needed to perform standard DaC operations. Therefore, we have grouped the relevant DaC commands under custom-rules.
 
 **Steps:**
 
@@ -163,11 +163,11 @@ plugins: typeguard-3.0.2
 
 ## Schemas and Data Structures
 
-The repository extensively utilizes schemas sourced from upstream (e.g., Beats, ECS, integrations) for validating detection logic fields and values, compatible with the defined datasource (indexes or data views). Additionally, Python dataclasses define the various rule types as schema objects along with the use of marshmallow, which provides validation of the rule structure. There also is several conversion methods, which facilitate the TOML rules' formatting and their conversion to the expected format by Kibana, for import/export processes with Elastic Security. These components work in tandem to ensure detection rules are both structurally sound and functionally accurate.
+The repository extensively utilizes schemas sourced from upstream (e.g., Beats, ECS, integrations) for validating detection logic fields and values, compatible with the defined datasource (indexes or data views). Additionally, Python dataclasses define the various rule types as schema objects along with the use of marshmallow, which provides validation of the rule structure. There are also several conversion methods, which facilitate the TOML rules' formatting and their conversion to the expected format by Kibana, for import/export processes with Elastic Security. These components work in tandem to ensure detection rules are both structurally sound and functionally accurate.
 
 **Steps:**
 
-1. Explore the [rule dataclasses](https://github.com/elastic/detection-rules/blob/main/detection_rules/rule.py) detailed in the repository to understand the expected format for rule definitions. These are periodically updated to reflect new capabilities within the Kibana features set.
+1. Explore the [rule dataclasses](https://github.com/elastic/detection-rules/blob/main/detection_rules/rule.py) detailed in the repository to understand the expected format for rule definitions. These are periodically updated to reflect new capabilities within the Kibana feature set.
 
 ```python
 @dataclass(frozen=True, kw_only=True)
@@ -270,8 +270,8 @@ This command will generate the custom directory supplied to the command line and
 
 The **_config.yaml** will contain a configuration that points to custom directory-specific configuration files defining how to load, package, and validate the custom rules. Here are some management notes associated with each file.
 - deprecated_rules: etc/deprecated_rules.json
-  - Upon rule deprecation, **maturity = “deprecated”** is set in the TOML rule and the rule is moved to the **_deprecated** - folder
-  - Rules are recorded in the deprecated_rules.json when **version lock** update occur
+  - Upon rule deprecation, **maturity = “deprecated”** is set in the TOML rule and the rule is moved to the **_deprecated** folder
+  - Rules are recorded in the deprecated_rules.json when **version lock** updates occur
 - packages: etc/packages.yaml
   - Update **name: "< version >"** to the current Elastic Security version managed
 - stack_schema_map: etc/stack-schema-map.yaml
@@ -381,7 +381,7 @@ Creating detection rules manually by using existing rules as templates involves 
 1. Copy the rule's structure as a template and modify the necessary fields, such as rule name, description, conditions, and actions, to suit the new use case.
 1. Validate the rule to ensure it meets the schema requirements and test it within your environment for efficacy.
 
-### Option 2 - Semi-Automation create-rule CLI
+### Option 2: Semi-Automated create-rule CLI
 
 The **create-rule** command offers a semi-automated approach to rule creation, guiding users through the available rule options via an interactive CLI. This method streamlines the rule creation process by providing prompts for required fields and stripping out unnecessary additional fields, ensuring schema compliance and facilitating validation.
 
@@ -439,7 +439,7 @@ The **.version.lock.json** file contains several fields nested under the rule ID
 - version: Integer that increments when the sha256 hash changes
 
 ```bash
-# Example deprecated_lock.json
+# Example deprecated_rules.json
 "041d4d41-9589-43e2-ba13-5680af75ebc2": {
     "deprecation_date": "2023/09/25",
     "rule_name": "Deprecated - Potential DNS Tunneling via Iodine",
@@ -451,7 +451,7 @@ The **deprecated_rules.json** also contains several fields nested under the rule
 
 - stack_version: The minimum Elastic Security version that the rule supported
 - rule_name: The name of the rule
-- Deprecation_date: The date the rule was deprecated
+- deprecation_date: The date the rule was deprecated
 
 Collectively, these two files are used as the source of truth and used to properly sync files between Elastic Security.
 
@@ -823,7 +823,7 @@ python -m detection_rules test
 
 ### Option 2: Custom Query Validation
 
-For teams requiring specialized validation beyond what's provided out of the box, developing a custom query validation mechanism offers the flexibility to tailor checks to specific needs.  For example, you may want to validate queries based on semantic constraints defined by the rule types ('query', 'saved_query', 'machine_learning', 'eql', 'esql', 'threshold', 'threat_match', 'new_terms') or only a subset of query languages ("eql", "esql", "kuery", "lucene") based on the syntax. If the latter is preferred, one approach would be to start with a grammar file and build a parser using [anlt4](https://www.antlr.org).
+For teams requiring specialized validation beyond what's provided out of the box, developing a custom query validation mechanism offers the flexibility to tailor checks to specific needs.  For example, you may want to validate queries based on semantic constraints defined by the rule types ('query', 'saved_query', 'machine_learning', 'eql', 'esql', 'threshold', 'threat_match', 'new_terms') or only a subset of query languages ("eql", "esql", "kuery", "lucene") based on the syntax. If the latter is preferred, one approach would be to start with a grammar file and build a parser using [ANTLR4](https://www.antlr.org).
 
 |Pros|Cons|
 |-|-|

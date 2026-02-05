@@ -37,4 +37,4 @@ As the cybersecurity landscape evolves, so does the need for adaptable and robus
 - [What is Everything as Code](https://octopus.com/blog/what-is-everything-as-code)
 - [What is Infrastructure as Code (IaC)?](https://www.redhat.com/en/topics/automation/what-is-infrastructure-as-code-iac)
 
-These resources provide a comprehensive overview of the DaC concept, its applications, and broader discussions around 'as Code' practices in the tech industry. Whether you're a beginner or an experienced practitioner, these readings offer valuable insights into modern rule management and DAC practices.
+These resources provide a comprehensive overview of the DaC concept, its applications, and broader discussions around 'as Code' practices in the tech industry. Whether you're a beginner or an experienced practitioner, these readings offer valuable insights into modern rule management and DaC practices.

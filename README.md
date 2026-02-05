@@ -59,7 +59,7 @@ To get started with this project run the following commands:
 
    This command uses Poetry to invoke Sphinx, building the HTML documentation from the source files in the `docs` directory into the `docs/_build` directory. You can view the built documentation by opening the `docs/_build/index.html` file in a web browser.
 
-1. **Commit Your Changes**: After updating the documentation and verifying your changes locally, commit the changes to your documentation source files to your git repository:
+1. **Commit Your Changes**: After updating the documentation and verifying your changes locally, commit your documentation source changes to your git repository:
 
    ```bash
    git add docs/
