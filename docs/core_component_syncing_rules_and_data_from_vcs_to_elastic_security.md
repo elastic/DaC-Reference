@@ -27,11 +27,11 @@ The workflows described here integrate concepts familiar to those versed in Cont
 
 ### Option 1:  Elastic Security APIs
 
-The [Elastic Security APIs](https://www.elastic.co/guide/en/security/current/security-apis.html) offer comprehensive endpoints for managing Create, Read, Update, Delete (CRUD) operations within Elastic Security through REST API calls. These APIs can be utilized directly, bypassing the CLI options provided by the detection-rules repository. The CLI aids in simplifying connection setup, wrapping specific endpoints to integrate core Detection as Code (DAC) components like validation, field transformation, and conversion to JSON.
+The [Elastic Security APIs](https://www.elastic.co/guide/en/security/current/security-apis.html) offer comprehensive endpoints for managing Create, Read, Update, Delete (CRUD) operations within Elastic Security through REST API calls. These APIs can be utilized directly, bypassing the CLI options provided by the detection-rules repository. The CLI aids in simplifying connection setup, wrapping specific endpoints to integrate core Detections as Code (DaC) components like validation, field transformation, and conversion to JSON.
 
 |Pros|Cons|
 |-|-|
-|- Comprehensive CRUD Support: Directly supported standard APIs for managing security rules.</br> - CLI Integration: Simplifies rule syncing for CI/CD workflows, providing a bridge for direct API interaction.|- Limited API Coverage: Not all Elastic Security APIs are integrated within the detection-rules repo, which might be necessary for advanced DAC workflows (e.g., timelines, cases)|
+|- Comprehensive CRUD Support: Directly supported standard APIs for managing security rules.</br> - CLI Integration: Simplifies rule syncing for CI/CD workflows, providing a bridge for direct API interaction.|- Limited API Coverage: Not all Elastic Security APIs are integrated within the detection-rules repo, which might be necessary for advanced DaC workflows (e.g., timelines, cases)|
 
 **Steps:**
 
@@ -87,7 +87,7 @@ env:
 ```
 
 2. Configure your [custom rules directory](./internals_of_the_detection_rules_repo.md#option-1-using-the-built-in-configuration)
-3. Once authenticated, you can use [API calls](https://www.elastic.co/guide/en/security/current/security-apis.html#_api_calls) directly. If using the detection-rules CLI, the following DAC commands are available. Deploy the latest set of rules by running the following command:
+3. Once authenticated, you can use [API calls](https://www.elastic.co/guide/en/security/current/security-apis.html#_api_calls) directly. If using the detection-rules CLI, the following DaC commands are available. Deploy the latest set of rules by running the following command:
 
 ```bash
 (detection-rules-build) ➜  detection-rules git:(main) ✗ python -m detection_rules -h
@@ -356,7 +356,7 @@ DEBUG MODE ENABLED
  - e1b7d2a6-d23a-4747-b621-d249d83162ea: (409) rule_id: "e1b7d2a6-d23a-4747-b621-d249d83162ea" already exists
 ```
 
-Import a fulle directory, with `-o` forcing the updates successfully
+Import a full directory, with `-o` forcing the updates successfully
 ```
 (venv312) ➜  detection-rules-fork git:(main) ✗ python -m detection_rules kibana import-rules -d test-export-rules -o
 Loaded config file: .../detection-rules-fork/.detection-rules-cfg.yaml
@@ -423,7 +423,7 @@ DEBUG MODE ENABLED
 💡 Note: The exceptions/actions lists have links to rules by ID in their dedicated schemas. When pushing rule updates, any available action or exception lists will be updated automatically.
 
 ```bash
-# Import rules (ndjon) to Kibana
+# Import rules (ndjson) to Kibana
 python -m detection_rules kibana import-rules ...
 ```
 
@@ -463,13 +463,13 @@ curl -XPOST -H 'content-type: application/zip' -H 'kbn-xsrf: true' https://my-ki
 💡 Note: The exceptions/actions lists have links to rules by ID in their dedicated schemas. When pushing rule updates, any available action or exception lists will be updated automatically.
 
 ```bash
-# Import rules (ndjon) to Kibana
+# Import rules (ndjson) to Kibana
 python -m detection_rules kibana import-rules ...
 ```
 
 ## Sub-Component 2: Deploying via CI/CD
 
-CI/CD (Continuous Integration/Continuous Deployment) can be a powerful mechanism for managing detections as code, ensuring that security detections are consistently integrated, tested, and deployed in an automated and efficient manner. Leveraging CI/CD not only streamlines the update and deployment processes but also helps in maintaining the reliability and effectiveness of detection rules over time. Note: All of the reference examples are built on [GitHub action](https://github.com/features/actions) features that should be adapted to fit your version control product if possible.
+CI/CD (Continuous Integration/Continuous Deployment) can be a powerful mechanism for managing detections as code, ensuring that security detections are consistently integrated, tested, and deployed in an automated and efficient manner. Leveraging CI/CD not only streamlines the update and deployment processes but also helps in maintaining the reliability and effectiveness of detection rules over time. Note: All of the reference examples are built on [GitHub Actions](https://github.com/features/actions) features that should be adapted to fit your version control product if possible.
 
 In practical application, a combination of these deployment options can offer enhanced flexibility and control over the rule management process. For instance, leveraging "Push on Merge" for continuous integration of reviewed changes, "Manual Dispatch Push" for critical updates or exceptions, and "Cron Scheduling Push" for regular, non-urgent updates can provide a comprehensive CI/CD strategy that accommodates various operational needs and urgency levels. This blended approach allows teams to balance automation efficiency with the necessity for manual oversight in certain scenarios.
 
@@ -479,11 +479,11 @@ In practical application, a combination of these deployment options can offer en
 
 ### Option 1:  Push on Merge
 
-Automatically deploying rule changes upon merging into the main branch is a common strategy that emphasizes the deployment of only reviewed and approved modifications. It helps to streamline deployment and aggregate several DAC rule management commands into a unified test and release process.
+Automatically deploying rule changes upon merging into the main branch is a common strategy that emphasizes the deployment of only reviewed and approved modifications. It helps to streamline deployment and aggregate several DaC rule management commands into a unified test and release process.
 
 **Steps:**
 
-1. Configure a CI/CD pipeline workflow following [GitHub actions](https://docs.github.com/en/actions) documentation in your version control system to trigger on merge events to the main branch. Add the DAC CLI commands to ensure rules are properly published. Here is an example to convey the concept:
+1. Configure a CI/CD pipeline workflow following [GitHub Actions](https://docs.github.com/en/actions) documentation in your version control system to trigger on merge events to the main branch. Add the DaC CLI commands to ensure rules are properly published. Here is an example to convey the concept:
 
 ```yaml
 # Example GitHub Action Workflow
