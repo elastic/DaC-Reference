@@ -55,6 +55,7 @@ In cases where this may not be possible, keeping your code in separate functions
 1. You could directly add the correct exception or action item in the toml files themselves. We have two fields available: `actions: Optional[list]` and `exceptions_list: Optional[list]`. This approach is a bit difficult because we do not define the entire schema for these fields that are expected by Kibana. It's not a feature we use within our prebuilt ruleset, so it's left open to the user to properly supply the correct fields and format.
 2. The second approach to define the actions and/or exceptions directories in the `_config.yaml`. This will load action list toml files or exception list toml files defined in their folders. These toml files will have the `rule id`  mapping so you know which lists are associated with the rule. When you upload rules to kibana, it will automatically bring the defined exception/action lists.
 
+For the second approach see our [example for using built-in list management](https://dac-reference.readthedocs.io/en/latest/internals_of_the_detection_rules_repo.html#option-1-built-in-lists-management) for more information.
 
 
 #### **Q12**: Is there a way to run the unit tests only on `custom_rules_dir`?
