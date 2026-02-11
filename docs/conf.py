@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'DaC Reference'
-copyright = '2024, Elastic'
-author = 'mika.ayenson@elastic.co,eric.forte@elastic.co,justin.ibarra@elastic.co'
+copyright = '2026, Elastic'
+author = 'mika.ayenson@elastic.co,eric.forte@elastic.co'
 
 # The full version, including alpha/beta/rc tags
-release = '0.3.0'
+release = '0.4.0'
 
 
 # -- General configuration ---------------------------------------------------

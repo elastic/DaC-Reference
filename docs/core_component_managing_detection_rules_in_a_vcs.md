@@ -3,7 +3,7 @@
 
 ## Overview
 
-Version Control System (VCS) adoption for managing detection rules empowers security teams to implement Detection as Code (DaC) principles through Elastic's Public APIs. With the *VCS as authoritative* or Dual Sync governance models, changes to detection rules are developed, reviewed, and version-controlled within a repository before synced with the production Elastic stack. This method leverages the inherent collaboration, review, auditing, and versioning capabilities of VCS, ensuring a robust governance framework for the lifecycle management of detection rules.  This strategy is the recommended approach to getting started with DaC and managing rules with Elastic’s SIEM.
+Version Control System (VCS) adoption for managing detection rules empowers security teams to implement Detection as Code (DaC) principles through Elastic's Public APIs. With the *VCS as authoritative* or Dual Sync governance models, changes to detection rules are developed, reviewed, and version-controlled within a repository before being synced with the production Elastic stack. This method leverages the inherent collaboration, review, auditing, and versioning capabilities of VCS, ensuring a robust governance framework for the lifecycle management of detection rules.  This strategy is the recommended approach to getting started with DaC and managing rules with Elastic’s SIEM.
 
 If the *Elastic security as authoritative* governance model is employed, the VCS component should be largely static, and would serve more as an external store for maintaining versions and diff history, than as a medium for driving changes.
 
@@ -16,7 +16,7 @@ By following the recommended steps within this workflow, you will implement a Da
 
 1. Fork the detection-rules repo
 1. Install the Python dependencies
-1. Initialize and configure your DaC custom rules folder using the CLI
+1. Initialize and configure your DaC rules folder using the CLI
 1. Configure the unit tests to run
 1. Create and version rules using the **detection-rules** capabilities
 1. Create and link exception and action lists
@@ -44,7 +44,7 @@ Reference the [CLI](./internals_of_the_detection_rules_repo.md#cli) internals us
 
 |Pros|Cons|
 |-|-|
-|- Integration with Public Elastic APIs: Serves as a convenient reference for Elastic API utilization.</br> - Simplified Command Execution: Condenses multiple DAC processes into singular commands for efficiency.</br> - Versatility: Harnesses the full potential of CLI for rule management.|- Custom Application Limitations: May not seamlessly integrate with all custom applications specific to user environments.</br> - Intentional Coupling: Some commands are intentionally designed to be closely integrated with specific workflows.|
+|- Integration with Public Elastic APIs: Serves as a convenient reference for Elastic API utilization.</br> - Simplified Command Execution: Condenses multiple DaC processes into singular commands for efficiency.</br> - Versatility: Harnesses the full potential of CLI for rule management.|- Custom Application Limitations: May not seamlessly integrate with all custom applications specific to user environments.</br> - Intentional Coupling: Some commands are intentionally designed to be closely integrated with specific workflows.|
 
 ### Unit Tests
 
@@ -52,7 +52,7 @@ Reference the [Unit Tests](./internals_of_the_detection_rules_repo.md#unit-tests
 
 |Pros|Cons|
 |-|-|
-|- Flexibility in Testing: Allows configuration to either execute or skip specific unit tests, catering to diverse testing needs.</br> - Adherence to Best Practices: Incorporates Elastic's recommended rule development practices, ensuring high-quality rule creation.</br> - Independent Validation: Facilitates the validation of query syntax and schema conformity outside of the Elastic stack, offering an additional layer of assurance.|-Limited Coverage: Some specialized rule features might not be fully supported, requiring external validation methods.</br> - Customization Challenges: Adapting tests for unique scenarios or integrating divergent unit tests with upstream changes may pose difficulties.</br> - Time-Consuming: The comprehensive nature of the tests may lead to longer execution times, particularly when loading extensive rule sets.|
+|- Flexibility in Testing: Allows configuration to either execute or skip specific unit tests, catering to diverse testing needs.</br> - Adherence to Best Practices: Incorporates Elastic's recommended rule development practices, ensuring high-quality rule creation.</br> - Independent Validation: Facilitates the validation of query syntax and schema conformity outside of the Elastic stack, offering an additional layer of assurance.| - Limited Coverage: Some specialized rule features might not be fully supported, requiring external validation methods.</br> - Customization Challenges: Adapting tests for unique scenarios or integrating divergent unit tests with upstream changes may pose difficulties.</br> - Time-Consuming: The comprehensive nature of the tests may lead to longer execution times, particularly when loading extensive rule sets.|
 
 ### Custom Unit Tests
 

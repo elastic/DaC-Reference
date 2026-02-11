@@ -4,7 +4,7 @@ build-docs = "sphinx.cmd.build:main"
 [tool.poetry]
 name = "dac-elastic-reference"
 authors = ["Elastic"]
-version = "0.1.0"
+version = "0.4.0"
 description = "A comprehensive reference and toolset for managing Elastic Security SIEM Rules using the Detections as Code methodology."
 license = "Elastic license V2"
 
@@ -15,7 +15,7 @@ myst-parser = "^2.0.0"
 sphinx-rtd-theme = "^2.0.0"
 sphinxemoji = "^0.3.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^6.2.4"
 
 [build-system]

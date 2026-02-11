@@ -7,9 +7,9 @@ This guide was authored and is maintained by:
 
 **Eric Forte** <a href="https://twitter.com/EricF0r73"><img src="_static/x_logo.png" width="20" height="20" style="vertical-align:middle"></a> <a href="https://github.com/eric-forte-elastic"><img src="_static/github_logo.png" width="20" height="20" style="vertical-align:middle"></a> - Security Research Engineer at Elastic
 
-**Justin Ibarra** <a href="https://twitter.com/br0k3ns0und"><img src="_static/x_logo.png" width="20" height="20" style="vertical-align:middle"></a> <a href="https://github.com/brokensound77"><img src="_static/github_logo.png" width="20" height="20" style="vertical-align:middle"></a> <a href="https://linkedin.com/in/justinibarra"><img src="_static/linkedin_logo.png" width="20" height="20" style="vertical-align:middle"></a> - Principal Security Research Engineer at Elastic
+**Kseniia Ignatovych** <a href="https://github.com/approksiu"><img src="_static/github_logo.png" width="20" height="20" style="vertical-align:middle"></a> <a href="https://www.linkedin.com/in/kseniiaignatovych"><img src="_static/linkedin_logo.png" width="20" height="20" style="vertical-align:middle"></a> - Security Product Manager at Elastic
 
-This guide is meant to enable the implementation of detections as code in a generic manner, through the application of its use on Elastic detection rules (SIEM). We will continue to maintain and improve this guide, especially in the early stages of the new code and adoption, with intent of this eventually stabilizing.
+This guide is meant to enable the implementation of detections as code in a generic manner, through the application of its use on Elastic detection rules (SIEM). We will continue to maintain and improve this guide, especially in the early stages of the new code and adoption, with the intent that this eventually stabilizes.
 
 If you have any feedback or questions along the way, the best place to reach us is in the public slack channel for [security-rules-dac](https://elasticstack.slack.com/archives/C06TE19EP09).
 

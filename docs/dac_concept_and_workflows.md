@@ -4,7 +4,7 @@
 
 ## Overview
 
-Detection as Code (DaC) is a modern security approach that applies software development best practices to the creation, management, and deployment of security rules. By treating “detections” as traditional code, organizations can leverage version control systems (VCS), automate testing and deployment processes, and ensure consistency across their security information and event management (SIEM) and endpoint detection and response (EDR) capabilities. This methodology enhances collaboration among security teams, streamlines updates, and facilitates a more agile response to evolving threats.
+Detections as Code (DaC) is a modern security approach that applies software development best practices to the creation, management, and deployment of security rules. By treating “detections” as traditional code, organizations can leverage version control systems (VCS), automate testing and deployment processes, and ensure consistency across their security information and event management (SIEM) and endpoint detection and response (EDR) capabilities. This methodology enhances collaboration among security teams, streamlines updates, and facilitates a more agile response to evolving threats.
 
 <div style="text-align: center;">
     <img src="_static/dac_lock.png" style="width:3.24354in;height:3.24354in" alt="DaC Lock"/>
@@ -20,13 +20,13 @@ DaC adoption is driven by several factors:
 
 ## Applying DaC Principles to Rules in Elastic
 
-Incorporating DaC principles into Elastic Security rules management workflows involves using VCS to track rule changes, employing continuous integration (CI) tools for validation and testing, and continuous deployment (CD) mechanisms to update detection rules within [Kibana](https://www.elastic.co/guide/en/kibana/current/introduction.html)’s Elastic Security seamlessly. This practice ensures that rule changes are systematically reviewed, tested and enables rapid deployment of updates to respond to new vulnerabilities and attack techniques.
+Incorporating DaC principles into Elastic Security rules management workflows involves using VCS to track rule changes, employing continuous integration (CI) tools for validation and testing, and continuous deployment (CD) mechanisms to update detection rules within [Kibana](https://www.elastic.co/guide/en/kibana/current/introduction.html)’s Elastic Security seamlessly. This practice ensures that rule changes are systematically reviewed and tested, and this enables rapid deployment of updates to respond to new vulnerabilities and attack techniques.
 
 ### Prerequisites
 
 To effectively apply DaC principles to Elastic Security, individuals or teams should have a foundational understanding of several key concepts and technologies:
 
-- **Version Control Systems (VCS)**: Familiarity with VCS and tools (e.g. particularly Git), is crucial for tracking changes to detection rules and collaborating on rule development.
+- **Version Control Systems (VCS)**: Familiarity with VCS and tools (e.g., Git) is crucial for tracking changes to detection rules and collaborating on rule development.
 - **Continuous Integration and Continuous Deployment (CI/CD)**: Knowledge of CI/CD pipelines and how they facilitate automated testing and deployment processes.
 - **Elastic Security**: An understanding of how Elastic Security functions, including creating and managing detection rules within Elastic Security.
 - **Elastic Prebuilt Rules repository**: Exposure to the detection-rules repo.
@@ -46,7 +46,7 @@ There are many ways to implement DaC within Elastic Security ecosystems, but thi
 
 ## Managing Detection Rules beyond Elastic Security with VCS
 
-While Elastic Security provides a user-friendly interface for creating and managing detection rules, integrating these rules with a VCS capability offers several advantages, and is the core of implementing an “as code” approach. VCS allows for detailed tracking of rule changes, collaborative rule development, and the integration of rule management into broader CI/CD workflows. This reference documentation heavily biases the direct management of rules utilizing VCS *alongside* the **detection-rules** repository, to enhance detection rule lifecycle management. It offers high-level alternative options to considering posterity, but does not recommend implementing all of them.
+While Elastic Security provides a user-friendly interface for creating and managing detection rules, integrating these rules with a VCS capability offers several advantages, and is the core of implementing an “as code” approach. VCS allows for detailed tracking of rule changes, collaborative rule development, and the integration of rule management into broader CI/CD workflows. This reference documentation heavily biases the direct management of rules utilizing VCS *alongside* the **detection-rules** repository, to enhance detection rule lifecycle management. It offers high-level alternative options for considering posterity, but does not recommend implementing all of them.
 
 However, this reference is meant to enable implementations of DaC even without the dependency on the rules repo, since a key feature of DaC is that it is necessarily highly customizable and dependent on exact use cases. As such, even if a specific component does not perfectly fit within a requirement, the many options provided should be consulted for inspiration to modify as needed. In other words, <u>the repo and the guide will not strive to solve *all* problems and requirements</u>, but rather, establish some reference architecture, best practices, and standards.
 
@@ -114,10 +114,24 @@ This reference explains multiple strategies for synchronizing rules between the 
 | **Managing Rules within Elastic Security (consistent with DaC)** | Focuses on creating, testing, and managing rules directly in Elastic Security while considering backup and versioning strategies. | - Elastic Security access with permissions<br>- Knowledge of Elastic Security's UI              | - Directly create, modify, and manage rules in Elastic Security<br>- Manually export rules for backup/version control                                      |
 | **Syncing Rules from Elastic Security to VCS**                   | Describes exporting and versioning rules from Elastic Security back into VCS for tracking and collaboration.                      | - Scripting for API interaction<br>- Authentication<br>- CI/CD setup for automation (optional)  | - Export rules using Detection Engine API<br>- Commit exported rules into VCS<br>- Use CI/CD workflows to automate the process                             |
 
-## Governance Models of Dac Delineation
+## Governance Models of DaC Delineation
 
 | Workflow Topic | Description | Requirements | Key Steps |
 | - | - | - | - |
 | **VCS as authoritative**                                 | Updates always flow from VCS to the platform. Any discrepancies are overwritten based on changes from VCS. Rules should not be modified in the platform.                                 | ||
-| **Elastic security as authoritative**                   | Updates always flow from the platform to VCS. Any discrepancies are overwritten based on changes from the platform. Rules should not be modified in VCS directly.                             | ||
-| **Dual Sync Between VCS and Elastic Security** | Updates can originate via VCS or the platform, however, they should be reconciled before subsequent changes (race condition) | - Setup for bidirectional syncing <br> - Authentication <br>- Access <br> - Automation tools/scripts | - Establish sync process for both directions <br> - Automate sync using CLI, API, and CI/CD <br> - Regularly review and reconcile discrepancies|
+| **Elastic Security as authoritative**                   | Updates always flow from the platform to VCS. Any discrepancies are overwritten based on changes from the platform. Rules should not be modified in VCS directly.                             | ||
+| **Dual Sync Between VCS and Elastic Security** | Updates can originate via VCS or the platform, however, they should be reconciled before subsequent changes to avoid race conditions | - Setup for bidirectional syncing <br> - Authentication <br>- Access <br> - Automation tools/scripts | - Establish sync process for both directions <br> - Automate sync using CLI, API, and CI/CD <br> - Regularly review and reconcile discrepancies|
+
+## Best Practices
+
+Detections as Code features are provided as components that can be used to build a custom implementation for your chosen process and architecture. When implementing DaC in your production environment, treat it as an engineering process and follow these best practices.
+
+- **Design Thoroughly**: Since every DaC implementation will be user-specific, remember to diligently gather your requirements and priorities, then thoughtfully design your system.
+    - Carefully read this reference when making design choices
+    - Some design decisions are more risky than others. For instance, if you are using a [dual sync governance model](https://dac-reference.readthedocs.io/en/latest/core_components_and_governance_models_of_dac.html#dual-syncing-rules-and-data-between-kibana-and-vcs), one must be very careful when setting up the syncing jobs to not overwrite rule updates unintentionally in your stack. We highly recommend keeping backup rule exports from Kibana especially when first setting up these processes.
+- **Test Rigorously**: Thoroughly test the tools before deploying them in a production environment. Things to consider for your custom DaC implementation:
+    - Limited Backward Compatibility: We do not guarantee backward compatibility across versions for rule schemas. While we aim to make new fields optional where feasible, there may be minimum version requirements for Elastic Stack and are subject to Kibana's rule schema definitions.
+    - Schema Parity: Not all fields in the schema defined in Kibana are fully supported. Some fields in the detection-rules repo are generalized (e.g., field = dict()), while others are more strictly defined. This is due to the complexity of the schemas and the prioritization of Elastic's internal use cases. As an example, the attributes field for Actions Connectors uses the dataclass definition dict[str, Any]. This would indicate that in detection-rules there is no validation on the values attached to a given attributes key value pair, whereas Kibana may have more restrictive filtering. For general usage, one should not encounter problems, as these are typically more nuanced cases. For example, in Kibana you can define a rule without a query and only use filters, whereas in the detection-rules repo, this will fail schema validation, and as this is not yet supported. Please raise any issues you encounter in the [detection-rules repo issue tracker](https://github.com/elastic/detection-rules/issues).  
+- **Document**: create and maintain documentation for your implementation
+    - Combined with Elastic’s docs it will help with maintenance of your DaC implementation. Consider referencing relevant Elastic docs in your guide.
+- **Adding custom code**: the best place for adding custom code is to create separate files with the functions you may want to add. In this way, you can receive upstream updates without having to perform potentially extensive merges as we move forward in the development of additional DaC features.

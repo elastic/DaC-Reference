@@ -42,36 +42,42 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 **A9**: Contributions are welcome! You can contribute by testing the DaC features, reporting issues, suggesting enhancements, or sharing your own use cases and scripts. Contributions help improve DaC for everyone and are a great way to give back to the community.
 
-#### **Q10**: How should exception & action files be deployed to Kibana?
+#### **Q10**: Where is the best place to add custom code?
 
-**A10**: Currently, there two approaches.
+**A10**: The best place for adding custom code is to create separate files with the functions you may want to add. In this way, you can receive upstream updates without having to perform potentially extensive merges as we move forward in the development of additional DaC features.
 
-1. You could directly add the correct exception or action item in the toml files themselves. We have two fields available: `actions: Optional[list]` and `exceptions_list: Optional[list]`. This approach is a bit difficult because we do not define the entire schema for these fields that are expected by Kibana. It's not really a feature we use within our prebuilt ruleset, so its left open to the user to properly supply the correct fields and format.
-2. The second approach to define the actions and /or exceptions directories in the `_config.yaml`. This will load action list toml files or exception list toml files defined in their folders. These toml files will have the `rule id`  mapping so you know which list are associated to the rule. When you upload rules to kibana, it will automatically bring the defined exception/action lists.
+In cases where this may not be possible, keeping your code in separate functions also makes merging upstream updates considerably easier.
 
-Note this is one way at the moment (toml --> kibana). So you can not export lists and import them into toml files.
+#### **Q11**: How should exception & action files be deployed to Kibana?
+
+**A11**: Currently, there are two approaches.
+
+1. You could directly add the correct exception or action item in the toml files themselves. We have two fields available: `actions: Optional[list]` and `exceptions_list: Optional[list]`. This approach is a bit difficult because we do not define the entire schema for these fields that are expected by Kibana. It's not a feature we use within our prebuilt ruleset, so it's left open to the user to properly supply the correct fields and format.
+2. The second approach to define the actions and/or exceptions directories in the `_config.yaml`. This will load action list toml files or exception list toml files defined in their folders. These toml files will have the `rule id`  mapping so you know which lists are associated with the rule. When you upload rules to kibana, it will automatically bring the defined exception/action lists.
+
+For the second approach see our [example for using built-in list management](https://dac-reference.readthedocs.io/en/latest/internals_of_the_detection_rules_repo.html#option-1-built-in-lists-management) for more information.
 
 
-#### **Q11**: Is there a way to run the unit tests only on `custom_rules_dir`?
+#### **Q12**: Is there a way to run the unit tests only on `custom_rules_dir`?
 
-**A11**: Yes, there are a few options you have when it comes to doing this. For more reference material, see our [custom-rules.md](https://github.com/elastic/detection-rules/blob/main/docs/custom-rules.md).
+**A12**: Yes, there are a few options you have when it comes to doing this. For more reference material, see our [custom-rules.md](https://github.com/elastic/detection-rules/blob/main/docs/custom-rules.md).
 
-If you already have your custom rules directory for reference and appropriate config files setup you can skip this step.
+If you already have your custom rules directory for reference and appropriate config files set up, you can skip this step.
 First, generate a base set of configs and custom rules directory using our helper command
 `python -m detection_rules custom-rules setup-config <new_directory_name>`
 
-Set the environment variable `CUSTOM_RULES_DIR` to the path of you custom rules directory. At this point the rule loading will pull from the rules folders specified in the `<new_directory_name>_config.yaml`.
+Set the environment variable `CUSTOM_RULES_DIR` to the path of your custom rules directory. At this point the rule loading will pull from the rules folders specified in the `<new_directory_name>_config.yaml`.
 
 The default behavior now is for the unit tests to be run on only the rules directories specified in that config file.
-You can further customize the unit tests configuration (ignoring specific tests, etc.) in the `<new_directory_name>/etc/test_config.yaml`
+You can further customize the unit tests configuration (ignoring specific tests, etc.) in the `<new_directory_name>/etc/test_config.yaml`.
 
 
-#### **Q12**: I want to use `export-rules-from-repo` in CI/CD to convert a new/modified rule from TOML to JSON and push the JSON to Kibana API. What is the best way to do that?
+#### **Q13**: I want to use `export-rules-from-repo` in CI/CD to convert a new/modified rule from TOML to JSON and push the JSON to Kibana API. What is the best way to do that?
 
-**A12**: You may be able to use `import-rules` to simplify this process.
+**A13**: You may be able to use `import-rules` to simplify this process.
 
 The `export-rules-from-repo` command is not the required method for uploading rules to Kibana, just another option for those who may wish to use ndjson.
-For instance, in this setup I have a local directory specific in my `CUSTOM_RULES_DIR` config.
+For instance, in this setup I have a local directory specified in my `CUSTOM_RULES_DIR` config.
 
 If I want to modify it and upload it to Kibana, I can directly use the `import-rules` command with the `--overwrite` flag to trigger the update from TOML directly into Kibana.
 Command: `python -m detection_rules kibana import-rules --overwrite`. You can also specify a directory or specific file here too in addition to the config.
@@ -79,13 +85,9 @@ Command: `python -m detection_rules kibana import-rules --overwrite`. You can al
  <img src="_static/rule_update_example.gif"  alt="Import Rules --overwrite Example" id="figure4"/>
 
 
-#### **Q13**: I want to fork the Detection Rules repo in Github, but I want to keep my fork private. What is the best way to do that?
+#### **Q14**: I want to fork the Detection Rules repo on GitHub, but I want to keep my fork private. What is the best way to do that?
 
-**A13**: Github's recommended process for this is to create a mirror of the repo which can be private instead of directly forking it via [this guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository). Once this mirror is created, one can also periodically pull in updates from the source repo, in this case detection-rules. There are a number of different ways to do this. [One method](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository#mirroring-a-repository-in-another-location) as recommended and described by Github in the prior guide is to create another clean, private mirror pulling all of the latest updates, point remote URL to the first private mirror you created, fetch the updates from the detection-rules origin and push. This can be done in a CI/CD workflow inside of your private mirror. You may also want to modify with different behavior for example, creating a PR with a specific format for these updates etc. Another method as described [here](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274) in step 6 is to add the detection-rules repo as a remote to fetch from directly, disable pushing to this remote, and then you can fetch and rebase directly to your private mirror from detection-rules without having to checkout detection rules and create a temporary clean mirror. In either case, one will need to run this periodically via CI/CD if one wants to automate pulling the updates from detection-rules to a private mirror.
-
-#### **Q14**: I am trying to use Python 3.13 but whenever I run a Detection Rules CLI command it returns an error like this `AttributeError: attribute '__default__' of 'typing.TypeVar' objects is not writable`. What can I do?
-
-**A14*: At the moment we do now support Python 3.13. Our current recommendation is to use Python 3.12, we are tracking adding support for Python 3.13 in this issue: [4534](https://github.com/elastic/detection-rules/issues/4534). Please see the issue for the most up to date status on 3.13 support.
+**A14**: GitHub's recommended process for this is to create a mirror of the repo which can be private instead of directly forking it via [this guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository). Once this mirror is created, one can also periodically pull in updates from the source repo, in this case detection-rules. There are a number of different ways to do this. [One method](https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository#mirroring-a-repository-in-another-location) as recommended and described by GitHub in the prior guide is to create another clean, private mirror pulling all of the latest updates, point remote URL to the first private mirror you created, fetch the updates from the detection-rules origin and push. This can be done in a CI/CD workflow inside of your private mirror. You may also want to modify with different behavior for example, creating a PR with a specific format for these updates etc. Another method as described [here](https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274) in step 6 is to add the detection-rules repo as a remote to fetch from directly, disable pushing to this remote, and then you can fetch and rebase directly to your private mirror from detection-rules without having to checkout detection rules and create a temporary clean mirror. In either case, one will need to run this periodically via CI/CD if one wants to automate pulling the updates from detection-rules to a private mirror.
 
 #### **Q15**: When using custom schemas, do I have to declare all fields or only those that are not part of the ecs?
 

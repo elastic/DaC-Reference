@@ -3,7 +3,7 @@
 
 ## Quick Start Slides
 
-Check out the [Quick Start Slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf) to an overview of DaC and how to get started. It provides some example CLI commands using the detection-rules repo.
+Check out the [Quick Start Slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf) for an overview of DaC and how to get started. It provides some example CLI commands using the detection-rules repo.
 
 
 If you’re starting from scratch and would like to get quickly started, here are the high-level instructions. These steps assume you are familiar with the considerations associated with the various steps and elect to follow the detection-rules VCS approach to manage rules. It also assumes advanced configurations are not applied.
@@ -27,7 +27,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
     `python -m detection_rules custom-rules setup-config dac_custom_rules_dir`
 
-1. Edit the `_config` file in your `dac_custom_rules_dir` directory. 
+1. Edit the `_config.yaml` file in your `dac_custom_rules_dir` directory. 
 
     Most users will want to add these additional parameters for ease of use:
 
@@ -68,7 +68,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     }
     ```
 
-1. Export custom rules and related exceptions from a Kibana Instance, overwriting existing, stripping version, and skipping errors.
+1. Export rules and related exceptions to a Kibana Instance, overwriting existing, stripping version, and skipping errors.
 
     ```
     python -m detection_rules kibana export-rules \
@@ -83,7 +83,7 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
    `make test`
 
-1. Import custom rules and related exceptions to a Kibana Instance, overwriting existing.
+1. Import rules and related exceptions to a Kibana Instance, overwriting existing.
 
     💡 Note: Please remember to backup your rules! If you have not run `kibana export-rules` or used the UI to perform a bulk export of rules before running this command, please do so! Once rules are overwritten in Elastic Security/Kibana it may be impossible to recover them! See the [FAQ](./faq.md#q8-how-can-i-backup-my-rules-prior-to-overwriting-rules-in-kibana) for more info on backing up rules. 
 
