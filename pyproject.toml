@@ -9,10 +9,11 @@ description = "A comprehensive reference and toolset for managing Elastic Securi
 license = "Elastic license V2"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-sphinx = "^7.2.6"
-myst-parser = "^2.0.0"
-sphinx-rtd-theme = "^2.0.0"
+python = "^3.12"
+docutils = ">=0.22.2,<0.23"
+sphinx = "^9.0"
+myst-parser = "^5.0.0"
+sphinx-rtd-theme = "^3.0"
 sphinxemoji = "^0.3.1"
 
 [tool.poetry.group.dev.dependencies]
