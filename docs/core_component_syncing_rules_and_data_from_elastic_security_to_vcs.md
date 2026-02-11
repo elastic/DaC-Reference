@@ -167,7 +167,7 @@ Setting up a CI/CD workflow that periodically triggers, such as through a cron j
 
 ## Sub-Component 3 (optional): Unit Testing Rules via CI/CD
 
-This is an optional step you may want to configure to setup custom unit testing that runs on your PRs. This is optional and just an example means of accomplishing this.
+This is an optional step you may want to configure to set up custom unit testing that runs on your PRs. This is optional and just an example means of accomplishing this.
 
 ```yaml
 name: Custom Unit Tests

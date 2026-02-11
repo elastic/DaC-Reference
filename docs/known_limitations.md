@@ -1,4 +1,4 @@
-# Known Issues and Limitations Using Elastic's detection-rules DAC Approach
+# Known Issues and Limitations Using Elastic's detection-rules DaC Approach
 ================================
 
 ## Intermittent Exception List Kibana Import Issue
@@ -11,7 +11,7 @@
 
 ## Schema Validation Support
 
-- While we try to maintain parody with Kibana schemas; however, when Kibana releases a schema update our schema updates lag behind theirs. If there is a schema validation issue where a schema needs updating, first check the [issues in detection rules](https://github.com/elastic/detection-rules/issues) to see if it is already being tracked. If not, please let us know and we will update the schemas as soon as we are able.
+- While we try to maintain parity with Kibana schemas; however, when Kibana releases a schema update our schema updates lag behind theirs. If there is a schema validation issue where a schema needs updating, first check the [issues in detection rules](https://github.com/elastic/detection-rules/issues) to see if it is already being tracked. If not, please let us know and we will update the schemas as soon as we are able.
 
 ## No Direct Support
 
@@ -20,13 +20,13 @@
     - Officially supports loading from TOML to Rule object
     - Support for json and yaml exists but will remain in a dict format (as opposed to the nested TOML format)
       - This is only a convenience utility and will only be supported across minimal components, since all functionality depends on the validated object (and related pieces)
-  - Kibana module does support raw dict's
-  - We added a RawDictLoader as a util, but this will only serve to load rules to dicts, bypassing most of the value of the core repo
+  - Kibana module does support raw dictionaries
+  - We added a RawDictLoader as a util, but this will only serve to load rules to dictionaries, bypassing most of the value of the core repo
 - Limited support for Exception and Action Lists:
   - Schema validation for exception or action lists are not available within the individual rule TOML files. You can add the fields manually to the TOML files, however validation is only available when managing these lists in separate TOML files in the custom folder. 
     - Data within the exceptions are not validated 
     - We recommend managing exception/action lists in Kibana and exporting the rules, which will include the list information per rule. 
-  - The limited action/exception support within the detection-rules repo has two-way support to push mass updates to lists in Kibana. You can not currently export a single list from Kibana and save into the detection rule format.
+  - The limited action/exception support within the detection-rules repo has two-way support to push mass updates to lists in Kibana. You cannot currently export a single list from Kibana and save into the detection rule format.
 
 ## Potential Upcoming Enhancements
 

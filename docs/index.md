@@ -3,8 +3,8 @@
 ![Header](./_static/header.png)
 <span style="font-size:4em;font-weight: bold;">Detections as Code</span><br><br><br>
 <span style="font-size:1.5em;">Elastic Reference</span><br>
-<span style="font-size:em;">_______________</span><br>
-<span style="font-size:1.5em;">Managing Elastic Security Security Detection Rules Using DaC</span><br><br><br>
+<span style="font-size:1em;">_______________</span><br>
+<span style="font-size:1.5em;">Managing Elastic Security Detection Rules Using DaC</span><br><br><br>
 
 For additional reference, see the content within these [slides](./_static/DaC_Rolling_your_own_Detections_as_Code.pdf).
 
