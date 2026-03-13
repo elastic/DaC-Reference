@@ -8,8 +8,8 @@ This guide walks through the **technical steps** to set up the detection-rules r
 
 - **Version control**: Git; fork or clone the [detection-rules](https://github.com/elastic/detection-rules) repository.
 - **Python**: 3.12+ (see [detection-rules Getting Started](https://github.com/elastic/detection-rules?tab=readme-ov-file#getting-started)).
-- **Elastic**: Access to an Elastic stack (Kibana/Elastic Security) for import/export and optional query testing.
-- **Basics**: Familiarity with the CLI, YAML/TOML, and (for custom tests) pytest.
+- **Elastic**: Access to an Elastic stack (Kibana/Elastic Security) for import/export and optional full ES|QL query testing.
+- **Basics**: Familiarity with the CLI, YAML/TOML, and pytest (for writing custom tests) .
 
 ---
 
@@ -86,30 +86,33 @@ With `CUSTOM_RULES_DIR` set, rule loading and tests run only against the rule di
 
 ## 3. Connecting to the Elastic stack
 
-The CLI reads auth from a config file, environment variables, or command-line flags. **Precedence:** explicit args → environment variables → config file → prompt (where applicable).
+The CLI reads auth from a config file, environment variables, or command-line flags. 
+
+**Precedence:** explicit args → environment variables → config file → prompt (where applicable).
 
 1. **Create a config file** in the **root of the detection-rules repo** (not inside the custom rules dir):
    - **Filename:** `.detection-rules-cfg.json`
-   - **Contents (example):**
+   - **Example (self-managed stack with SSL ignore for local dev):**
    ```json
    {
-     "kibana_url": "https://localhost:5601",
-     "elasticsearch_url": "https://localhost:9200",
-     "api_key": "your-api-key-here",
-     "cloud_id": ""
+       "kibana_url": "https://127.0.0.1:5601/",
+       "elasticsearch_url": "https://127.0.0.1:9200/",
+       "api_key": "your-api-key-here",
+       "ignore_ssl_errors": "true",
+       "cloud_id": ""
    }
    ```
-   For Elastic Cloud, use `cloud_id` and `api_key`; for self-managed, `kibana_url` (and optionally `elasticsearch_url`) plus `api_key` or `es_username`/`es_password`.  
+   For Elastic Cloud, set `cloud_id` to your deployment’s cloud ID and keep `api_key`; for self-managed, use `kibana_url` (and optionally `elasticsearch_url`) plus `api_key`. Omit `ignore_ssl_errors` or set to `"false"` for production.  
    **Preferred auth:** API key (e.g. created for a Kibana user). See [FAQ Q4](faq.md#q4-how-can-setup-and-use-an-api-key-for-authentication-with-the-stack) for creating an API key.
 
-2. **Supported config keys:** `elasticsearch_url`, `kibana_url`, `cloud_id`, `es_username`, `es_password`, `api_key`.
+2. **Supported config keys:** `elasticsearch_url`, `kibana_url`, `cloud_id`, `api_key`.
 
 3. **SSL verification:** For dev stacks with self-signed certs you can ignore SSL errors in any of three ways:
    - In `.detection-rules-cfg.json`: `"ignore_ssl_errors": "true"`
    - Environment: `export DR_IGNORE_SSL_ERRORS=True`
    - Per command: `python -m detection_rules kibana --ignore-ssl-errors true export-rules ...`
 
-4. **Environment variables** (useful for CI): use the `DR_*` prefix (e.g. `DR_KIBANA_URL`, `DR_API_KEY`, `DR_ES_USER`, `DR_ES_PASSWORD`).
+4. **Environment variables** (useful for CI): use the `DR_*` prefix (e.g. `DR_KIBANA_URL`, `DR_API_KEY`, `DR_CLOUD_ID`).
 
 ---
 
@@ -167,6 +170,34 @@ Useful to confirm custom schema and query validation (see [Custom schema validat
 
 - **Custom rules only:** Set `CUSTOM_RULES_DIR` and ensure `_config.yaml` has `testing.config: etc/test_config.yaml`. Then `make test` (or `python -m detection_rules test`) runs only for rules in that config. See [FAQ Q12](faq.md#q12-is-there-a-way-to-run-the-unit-tests-only-on-custom_rules_dir).
 
+### ES|QL rules and remote validation
+
+**Full unit testing of ES|QL rules requires an Elastic stack.** Unlike KQL and EQL, there is no local-only ES|QL Python parser in the detection-rules repo; ES|QL query validation is performed by the stack. For full validation of ES|QL rules (syntax and semantics), you must run **remote validation** against a running Elastic cluster.
+
+**Prerequisites:** Configure cluster access as in [Connecting to the Elastic stack](#3-connecting-to-the-elastic-stack)—either a config file (e.g. `.detection-rules-cfg.json` or `.detection-rules-cfg.yml`) in the repo root or the same `DR_*` environment variables. The remote tests create temporary indices, run the ES|QL query against the cluster, and then tear down the indices. A local containerized stack (e.g. [elastic-container](https://github.com/peasead/elastic-container)) with a dedicated API key is sufficient.
+
+**How to run remote ES|QL validation:**
+
+1. **Single pytest test** (validates ES|QL rules against the configured stack):
+   ```bash
+   export DR_REMOTE_ESQL_VALIDATION=True
+   python -m pytest tests/test_rules_remote.py::TestRemoteRules::test_esql_rules -s -v
+   ```
+   Use `-v` (or `-vv`) for more verbose output. Ensure your config file or `DR_*` env vars are set. **Note**: if the environment variable is set, unit tests will automatically attempt remote ES|QL validation for any rules with `rule_type: esql` when unit tests are run. If you want to validate a single rule without running the full test suite, use the `view-rule` command as described in step 2.
+
+2. **Validate a single rule via `view-rule`** (enables remote ES|QL validation for that rule):
+   ```bash
+   export DR_REMOTE_ESQL_VALIDATION=True
+   python -m detection_rules view-rule path/to/your_esql_rule.toml
+   ```
+
+3. **Validate all ES|QL rules manually separately from unit tests** via the dev command:
+   ```bash
+   python -m detection_rules dev test esql-remote-validation --verbosity 1
+   ```
+
+For implementation details, edge cases (e.g. integration mappings with chained multi-fields), and the rationale for remote validation, see [detection-rules PR #4955](https://github.com/elastic/detection-rules/pull/4955) and the related [issue #5222](https://github.com/elastic/detection-rules/issues/5222).
+
 For **custom unit tests** (e.g. your own pytest files), keep them in a separate directory (e.g. `custom_tests/`) and run them via pytest or CI; see the main guide’s “Custom Unit Tests” section. Place custom code in separate files so upstream updates are easier to merge ([FAQ Q10](faq.md#q10-where-is-the-best-place-to-add-custom-code)).
 
 ---
@@ -191,7 +222,7 @@ Other important entries:
 
 ## 7. Schema validation
 
-- **Built-in:** Rules are validated with dataclasses (and Marshmallow) when loaded. Query validation uses ECS/Beats/integration schemas referenced in `stack-schema-map.yaml` (EQL, KQL, etc.). Validation runs on load (e.g. during `test`, `validate-rule`, `view-rule`, `kibana export-rules`, `import-rules-to-repo`).
+- **Built-in:** Rules are validated with dataclasses (and Marshmallow) when loaded. Query validation uses ECS/Beats/integration schemas referenced in `stack-schema-map.yaml` (EQL, KQL, etc.). Validation runs on load (e.g. during `test`, `validate-rule`, `view-rule`, `kibana export-rules`, `import-rules-to-repo`). **ES|QL** is not validated locally; full ES|QL validation requires [remote validation against an Elastic stack](#esql-rules-and-remote-validation).
 
 - **Custom schema (non-ECS fields):** In `etc/stack-schema-map.yaml`, add a stack version and a `custom` path to a JSON schema file, e.g.:
   ```yaml
