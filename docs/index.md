@@ -12,6 +12,7 @@ For additional reference, see the content within these [slides](./_static/DaC_Ro
 :maxdepth: 2
 :caption: Documentation
 ./dac_concept_and_workflows.md
+./dac_abridged_guide.md
 ./core_components_and_governance_models_of_dac.md
 ./internals_of_the_detection_rules_repo.md
 ./core_component_managing_detection_rules_in_a_vcs.md
