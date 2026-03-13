@@ -9,7 +9,7 @@ This guide walks through the **technical steps** to set up the detection-rules r
 - **Version control**: Git; fork or clone the [detection-rules](https://github.com/elastic/detection-rules) repository.
 - **Python**: 3.12+ (see [detection-rules Getting Started](https://github.com/elastic/detection-rules?tab=readme-ov-file#getting-started)).
 - **Elastic**: Access to an Elastic stack (Kibana/Elastic Security) for import/export and optional full ES|QL query testing.
-- **Basics**: Familiarity with the CLI, YAML/TOML, and pytest (for writing custom tests) .
+- **Basics**: Familiarity with the CLI, YAML/TOML, and pytest (for writing custom tests).
 
 ---
 
@@ -72,7 +72,7 @@ Use a **custom rules directory** so your rules and config stay separate from the
    auto_gen_schema_file: "etc/schemas/auto_gen.json"
    bypass_optional_elastic_validation: true
    ```
-   The generated `_config.yaml` already points `rule_dirs`, `files`, and `testing.config` to this directory (e.g. `rule_dirs: [rules]`, `testing.config: etc/test_config.yaml`).
+   The generated `_config.yaml` already points `rule_dirs`, `files`, and `testing.config` to paths within this directory (e.g. `rule_dirs: [rules]`, `testing.config: etc/test_config.yaml`).
 
 3. **Set the environment variable** (required for all subsequent steps):
    ```bash
@@ -216,7 +216,7 @@ In your custom directory’s `_config.yaml`, these options are commonly used:
 Other important entries:
 
 - **`files.stack_schema_map`**: Points to `etc/stack-schema-map.yaml`, which maps stack versions to ECS/Beats/integration and optional **custom** schema files.
-- **`directories`**: `action_connector_dir`, `action_dir`, `exception_dir` — set to your `action_connectors/`, `actions/`, `exception_dir` folder names if you use built-in list management.
+- **`directories`**: `action_connector_dir`, `action_dir`, `exception_dir` — set to your `action_connectors/`, `actions/`, and `exceptions/` folder names if you use built-in list management.
 
 ---
 
