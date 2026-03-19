@@ -1,4 +1,4 @@
-# DaC Abridged Guide
+# DaC Quick Start Guide
 
 This guide walks through the **technical steps** to set up the detection-rules repo, connect to an Elastic stack, and develop rules with unit tests, custom configuration, and schema validation. It omits governance models and decision trees; for those, see the [full DaC concept and workflows](dac_concept_and_workflows.md). For common questions and troubleshooting, see the [FAQ](faq.md).
 

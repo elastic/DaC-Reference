@@ -19,6 +19,8 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
 ## Quick Start Example Detection Rules CLI Commands
 
+For the full walkthrough (setup, Elastic connection, rules, unit tests, schemas), see the [DaC Quick Start Guide](./dac_quick_start_guide.md).
+
 **Steps:**
 
 1. Clone the detection rules repo and install python requirements, see [getting started](https://github.com/elastic/detection-rules?tab=readme-ov-file#getting-started).
