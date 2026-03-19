@@ -67,9 +67,13 @@ Use a **custom rules directory** so your rules and config stay separate from the
 
 2. **Edit `_config.yaml`** in the custom directory. For most DaC use cases, add:
    ```yaml
+   # Skip version-lock checks (useful when not using version.lock.json)
    bypass_version_lock: true
+   # Normalize KQL keywords for consistency
    normalize_kql_keywords: true
+   # Path for auto-generated schema for non-ECS fields; used in validation
    auto_gen_schema_file: "etc/schemas/auto_gen.json"
+   # Skip optional, Elastic specific checks that may not apply to your use case
    bypass_optional_elastic_validation: true
    ```
    The generated `_config.yaml` already points `rule_dirs`, `files`, and `testing.config` to paths within this directory (e.g. `rule_dirs: [rules]`, `testing.config: etc/test_config.yaml`).
@@ -314,7 +318,9 @@ Optionally add `-d <directory>` or `-f <file>` to limit to a directory or single
 
 ## 10. Version locking (optional)
 
-If you need consistent version tracking (e.g. for dual sync or overwrite workflows):
+Version locking can help when you sync in both directions (repo ↔ Kibana) or use overwrite workflows with multiple sources of truth at a time for rules: the lock file records which version of each rule is “current,” so the CLI can avoid overwriting newer changes or detect conflicts. If you only have a single source of truth at one time, you typically do not need it.
+
+**Option A – Use version locking** (for dual sync or overwrite workflows):
 
 - **version.lock.json** and **deprecated_rules.json** in `etc/` track rule versions (e.g. by sha256) and deprecated rules.
 - Update the lock file after changes:
@@ -325,7 +331,8 @@ If you need consistent version tracking (e.g. for dual sync or overwrite workflo
   ```bash
   python -m detection_rules dev update-lock-versions --force
   ```
-If you don’t use version locking, set `bypass_version_lock: true` in `_config.yaml`.
+
+**Option B – Skip version locking:** If you have a single, authoritative source of truth for rules, set `bypass_version_lock: true` in `_config.yaml`. The CLI will not check or update version lock files.
 
 ---
 
