@@ -40,6 +40,8 @@ For the full walkthrough (setup, Elastic connection, rules, unit tests, schemas)
     bypass_optional_elastic_validation: True
     ```
 
+    For finer control (for example bypassing only local ES|QL `keep` or `METADATA` checks), use the individual `bypass_*` keys in `_config.yaml` documented in the [DaC Quick Start Guide](./dac_quick_start_guide.md) (section **6. Custom configuration (_config.yaml)**) and in upstream `detection_rules/etc/_config.yaml`; see [detection-rules PR #5869](https://github.com/elastic/detection-rules/pull/5869).
+
 1. Edit the `test_config.yaml` in your `dac_custom_rules_dir/etc` directory. 
 
     For unit testing, most users will also want to bypass the following Elastic unit tests.

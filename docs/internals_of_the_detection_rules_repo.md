@@ -350,6 +350,8 @@ auto_gen_schema_file: "etc/schemas/auto_gen.json"
 bypass_optional_elastic_validation: True
 ```
 
+If you prefer not to disable every optional check, omit `bypass_optional_elastic_validation` (or set it to `false`) and set only the top-level bypass booleans you need in `_config.yaml`. Each `true` sets the matching `DR_BYPASS_*` variable when the config loads—for example `bypass_esql_keep_validation` and `bypass_esql_metadata_validation` for ES|QL-only bypasses. The bulk flag wins when it is `true`. See `detection_rules/etc/_config.yaml` in the detection-rules repo and [PR #5869](https://github.com/elastic/detection-rules/pull/5869).
+
 1. Validate and test your custom rules by executing:
 
 ```bash
