@@ -176,7 +176,7 @@ Useful to confirm custom schema and query validation (see [Custom schema validat
 
 ### ES|QL rules and remote validation
 
-**Full unit testing of ES|QL rules requires an Elastic stack.** Unlike KQL and EQL, there is no local-only ES|QL Python parser in the detection-rules repo; ES|QL query validation is performed by the stack. For full validation of ES|QL rules (syntax and semantics), you must run **remote validation** against a running Elastic cluster.
+**Full unit testing of ES|QL rules requires an Elastic stack.** Unlike KQL and EQL, there is no local-only ES|QL parser in the detection-rules repo, so **syntax and full semantics** are validated by the stack when you use remote validation. Separately, when rules load the repo still runs **local** semantic checks that enforce common Elastic Security expectations for ES|QL—for example that non-aggregate queries use `FROM ... METADATA _id, _version, _index` (or an aggregate `STATS ... BY` style pattern), and that the query includes a `| keep` listing `_id`, `_version`, and `_index` for non-aggregate queries. Other ES|QL checks are unchanged. If you need to skip only those local checks (for example during migration or with queries that are valid in Kibana but fail these heuristics), set `DR_BYPASS_ESQL_METADATA_VALIDATION` and/or `DR_BYPASS_ESQL_KEEP_VALIDATION`, or the matching keys in `_config.yaml` (see [Custom configuration (_config.yaml)](#6-custom-configuration-_configyaml)). For background, see [detection-rules PR #5869](https://github.com/elastic/detection-rules/pull/5869).
 
 **Prerequisites:** Configure cluster access as in [Connecting to the Elastic stack](#3-connecting-to-the-elastic-stack)—either a config file (e.g. `.detection-rules-cfg.json` or `.detection-rules-cfg.yml`) in the repo root or the same `DR_*` environment variables. The remote tests create temporary indices, run the ES|QL query against the cluster, and then tear down the indices. A local containerized stack (e.g. [elastic-container](https://github.com/peasead/elastic-container)) with a dedicated API key is sufficient.
 
@@ -215,7 +215,15 @@ In your custom directory’s `_config.yaml`, these options are commonly used:
 | `bypass_version_lock` | Skip version-lock checks (useful when not using version.lock.json). |
 | `normalize_kql_keywords` | Normalize KQL keywords for consistency. |
 | `auto_gen_schema_file` | Path (e.g. `etc/schemas/auto_gen.json`) for auto-generated schema for non-ECS fields; used in validation and can be added to stack-schema-map. |
-| `bypass_optional_elastic_validation` | Skip optional Elastic-specific checks that may not apply to your stack. |
+| `bypass_optional_elastic_validation` | When `true`, enables **all** optional Elastic validation bypasses when the config is loaded (each sets the corresponding `DR_BYPASS_*` environment variable). If this is `true`, it **overrides** the individual bypass flags below—they are all treated as enabled. |
+| `bypass_note_validation_and_parse` | Fine-grained: sets `DR_BYPASS_NOTE_VALIDATION_AND_PARSE` at load time. |
+| `bypass_bbr_lookback_validation` | Fine-grained: sets `DR_BYPASS_BBR_LOOKBACK_VALIDATION` at load time. |
+| `bypass_tags_validation` | Fine-grained: sets `DR_BYPASS_TAGS_VALIDATION` at load time. |
+| `bypass_timeline_template_validation` | Fine-grained: sets `DR_BYPASS_TIMELINE_TEMPLATE_VALIDATION` at load time. |
+| `bypass_esql_keep_validation` | Fine-grained: sets `DR_BYPASS_ESQL_KEEP_VALIDATION` at load time (skips local checks for a `keep` command and metadata fields in `keep` for non-aggregate queries; other ES|QL checks stay on). |
+| `bypass_esql_metadata_validation` | Fine-grained: sets `DR_BYPASS_ESQL_METADATA_VALIDATION` at load time (skips local `FROM ... METADATA` / aggregate-pattern checks for non-aggregate queries; other ES|QL checks stay on). |
+
+Use either the single bulk flag **or** pick individual bypasses: when `bypass_optional_elastic_validation` is omitted or `false`, each listed `bypass_*` key defaults to `false` if absent, and any key you set must be a boolean (`true` / `false`). The canonical comments and examples live in the upstream file [`detection_rules/etc/_config.yaml`](https://github.com/elastic/detection-rules/blob/main/detection_rules/etc/_config.yaml). See also [detection-rules PR #5869](https://github.com/elastic/detection-rules/pull/5869).
 
 Other important entries:
 
@@ -226,7 +234,7 @@ Other important entries:
 
 ## 7. Schema validation
 
-- **Built-in:** Rules are validated with dataclasses (and Marshmallow) when loaded. Query validation uses ECS/Beats/integration schemas referenced in `stack-schema-map.yaml` (EQL, KQL, etc.). Validation runs on load (e.g. during `test`, `validate-rule`, `view-rule`, `kibana export-rules`, `import-rules-to-repo`). **ES|QL** is not validated locally; full ES|QL validation requires [remote validation against an Elastic stack](#esql-rules-and-remote-validation).
+- **Built-in:** Rules are validated with dataclasses (and Marshmallow) when loaded. Query validation uses ECS/Beats/integration schemas referenced in `stack-schema-map.yaml` (EQL, KQL, etc.). Validation runs on load (e.g. during `test`, `validate-rule`, `view-rule`, `kibana export-rules`, `import-rules-to-repo`). **ES|QL** has no full local parser; **syntax and full semantics** require [remote validation against an Elastic stack](#esql-rules-and-remote-validation). Some **local** ES|QL semantic checks still run on load (metadata/`keep` expectations); you can adjust those with `_config.yaml` or `DR_BYPASS_*` as described in [ES|QL rules and remote validation](#esql-rules-and-remote-validation) and [Custom configuration (_config.yaml)](#6-custom-configuration-_configyaml).
 
 - **Custom schema (non-ECS fields):** In `etc/stack-schema-map.yaml`, add a stack version and a `custom` path to a JSON schema file, e.g.:
   ```yaml
