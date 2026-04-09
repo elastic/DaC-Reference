@@ -115,7 +115,7 @@ Commands:
 
 💡 Note: For stacks with a version prior to 9.0, one can use the `kibana upload-rule` command. However, this is not recommended and one should use the `kibana import-rules` in its place. See the [CLI.md](https://github.com/elastic/detection-rules/blob/main/CLI.md) for more details.
 
-💡 **`export-rules-from-repo`** can emit a single NDJSON (default **`exports/<timestamp>.ndjson`** if **`-o`** is omitted) or per-rule YAML with **`--save-yaml-dir` / `-syd`**. **`kibana export-rules`** uses **`-d`** as **output** only; **`export-rules-from-repo`** uses **`-d`** as **input** rule directories. Details: [Quick Start — Syncing with Kibana](dac_quick_start_guide.md#syncing-with-kibana).
+**`export-rules-from-repo`** can emit a single NDJSON (default **`exports/<timestamp>.ndjson`** if **`-o`** is omitted) or per-rule YAML with **`--save-yaml-dir` / `-syd`**. **`kibana export-rules`** uses **`-d`** as **output** only; **`export-rules-from-repo`** uses **`-d`** as **input** rule directories. Details: [Quick Start — Syncing with Kibana](dac_quick_start_guide.md#syncing-with-kibana).
 
 ```bash
 █▀▀▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄▄▄ ▄   ▄      █▀▀▄ ▄  ▄ ▄   ▄▄▄ ▄▄▄
