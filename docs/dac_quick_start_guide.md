@@ -281,7 +281,7 @@ You can manage **exception lists** and **response actions** (and action connecto
 
 **Backup first:** Before overwriting rules in Kibana, export a backup. See [FAQ Q8](faq.md#q8-how-can-i-backup-my-rules-prior-to-overwriting-rules-in-kibana).
 
-**Export from Kibana to your repo (TOML):**
+**Export from Kibana to your repo (TOML or YAML):**
 ```bash
 python -m detection_rules kibana export-rules \
   --skip-errors \
@@ -290,7 +290,11 @@ python -m detection_rules kibana export-rules \
   --export-action-connectors \
   --directory my-custom-rules
 ```
-Use `--directory` to write TOML files into a directory (e.g. your custom rules dir). Errors are reported; `--skip-errors` continues and skips rules that fail validation.
+For this command, **`--directory` / `-d`** is the **output** directory only: rules (and, when requested, exceptions and action connectors) are written there as TOML by default. It is **not** the same as **`export-rules-from-repo`**, where **`-d`** selects **input** rule directories—do not assume the flags mean the same thing across both commands.
+
+Add **`--save-as-yaml` / `-sy`** to write **YAML** under that directory instead of TOML (useful for tooling that consumes YAML, such as some Terraform / Elastic provider workflows). Exception and action connector directories still follow **`--exceptions-directory` / `-ed`** and **`--action-connectors-directory` / `-acd`** when set; if omitted, defaults come from your rules config.
+
+Errors are reported; `--skip-errors` continues and skips rules that fail validation.
 
 **Import from repo to Kibana (overwrite existing):**
 ```bash
@@ -312,7 +316,11 @@ Optionally add `-d <directory>` or `-f <file>` to limit to a directory or single
     --default-author DefaultAuthor \
     --skip-errors
   ```
-- **Repo → NDJSON for Kibana import:**
+- **Repo → NDJSON (or per-rule YAML) for Kibana import:**
+  For **`export-rules-from-repo`**, **`--directory` / `-d`** selects **input**: directories to load rules from (repeatable, same pattern as other multi-collection commands). **`--outfile` / `-o`** is the **NDJSON** path when you are not using YAML mode. **`--save-yaml-dir` / `-syd`** writes **per-rule (and related) YAML files** into that directory instead of a single NDJSON file; when **`-syd`** is set, **`-o`** is ignored.
+
+  If you omit **`-o`** in NDJSON mode, the CLI writes a default file under **`exports/<timestamp>.ndjson`** at the detection-rules repository root (see `export-rules-from-repo --help` for current behavior).
+
   ```bash
   python -m detection_rules export-rules-from-repo \
     --directory my-custom-rules \
@@ -320,7 +328,18 @@ Optionally add `-d <directory>` or `-f <file>` to limit to a directory or single
     --include-action-connectors \
     --include-exceptions
   ```
-  Then import the NDJSON via Kibana UI or API. For CI/CD, you can usually use `kibana import-rules` directly instead of NDJSON; see [FAQ Q13](faq.md#q13-i-want-to-use-export-rules-from-repo-in-cicd-to-convert-a-newmodified-rule-from-toml-to-json-and-push-the-json-to-kibana-api-what-is-the-best-way-to-do-that).
+
+  Example emitting YAML instead of NDJSON:
+
+  ```bash
+  python -m detection_rules export-rules-from-repo \
+    --directory my-custom-rules \
+    --save-yaml-dir yaml_output/ \
+    --include-action-connectors \
+    --include-exceptions
+  ```
+
+  Then import the NDJSON via Kibana UI or API (or use the YAML with external tooling as appropriate). For CI/CD, you can usually use `kibana import-rules` directly instead of NDJSON; see [FAQ Q13](faq.md#q13-i-want-to-use-export-rules-from-repo-in-cicd-to-convert-a-newmodified-rule-from-toml-to-json-and-push-the-json-to-kibana-api-what-is-the-best-way-to-do-that).
 
 ---
 

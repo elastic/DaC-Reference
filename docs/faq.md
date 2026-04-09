@@ -34,7 +34,7 @@ Here are some frequently asked questions about Detections as Code (DaC). There a
 
 #### **Q8**: How can I backup my rules prior to overwriting rules in Kibana?
 
-**A8**: By default, importing rules via the `kibana import-rules` command will not overwrite rules. However, one can use this command to overwrite existing rules by adding the `--overwrite` flag. In this case, one may wish to backup the rules in Kibana using `kibana export-rules -s -sv -e -ac -d <backup_directory_location>` or through Bulk Actions in the UI shown below.
+**A8**: By default, importing rules via the `kibana import-rules` command will not overwrite rules. However, one can use this command to overwrite existing rules by adding the `--overwrite` flag. In this case, one may wish to backup the rules in Kibana using `kibana export-rules -s -sv -e -ac -d <backup_directory_location>` (TOML under that directory) or the same flags with **`--save-as-yaml` / `-sy`** to write YAML instead—useful if downstream tooling expects YAML. You can also export through Bulk Actions in the UI shown below.
 
 <img src="_static/ui_rules_export_bulk_actions.gif"  alt="Select all rules, click 'Bulk Actions', and then click 'Export'." id="figure8"/>
 
@@ -76,7 +76,7 @@ You can further customize the unit tests configuration (ignoring specific tests,
 
 **A13**: You may be able to use `import-rules` to simplify this process.
 
-The `export-rules-from-repo` command is not the required method for uploading rules to Kibana, just another option for those who may wish to use ndjson.
+The `export-rules-from-repo` command is not the required method for uploading rules to Kibana, just another option for those who may wish to use NDJSON—or YAML via **`--save-yaml-dir` / `-syd`** for tooling that does not consume TOML/NDJSON directly.
 For instance, in this setup I have a local directory specified in my `CUSTOM_RULES_DIR` config.
 
 If I want to modify it and upload it to Kibana, I can directly use the `import-rules` command with the `--overwrite` flag to trigger the update from TOML directly into Kibana.
