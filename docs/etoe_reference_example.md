@@ -121,6 +121,8 @@ For the full walkthrough (setup, Elastic connection, rules, unit tests, schemas)
     --include-exceptions
     ```
 
+    For **`kibana export-rules`**, **`--directory`** is the output folder; for **`export-rules-from-repo`**, **`--directory`** loads rules from disk (input). To export YAML instead of a single NDJSON file, use **`--save-yaml-dir`** (and omit **`--outfile`** for that mode). To pull from Kibana as YAML instead of TOML, add **`--save-as-yaml`** to **`kibana export-rules`**. See [Quick Start — Syncing with Kibana](dac_quick_start_guide.md#syncing-with-kibana).
+
 For more information on these CLI commands please see CLI.md, docs-dev/custom-rules.md, and docs-dev/detections-as-code.md in [Detection Rules](https://github.com/elastic/detection-rules).
 
 ### Locally
