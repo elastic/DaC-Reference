@@ -273,7 +273,7 @@ You can manage **exception lists** and **response actions** (and action connecto
 
 1. **Built-in list management (recommended):** In `_config.yaml`, set `directories.exception_dir`, `directories.action_dir`, and `directories.action_connector_dir` to your folders. Add TOML files per list/connector; each file references `rule_ids` (and optionally `rule_names`). On `kibana import-rules`, the CLI can export/import these along with rules. Schema for these TOML files is not as strict as rule TOML; see the main guide’s “Option 1: Built-in Lists Management” for the exact structure (metadata, `[[exceptions]]`, `[[actions]]`, action connector `attributes`, etc.). For more on deployment, see [FAQ Q11](faq.md#q11-how-should-exception--action-files-be-deployed-to-kibana).
 
-2. **Inline in rule TOML:** Use `exceptions_list` and `actions` in the rule TOML. You must supply the exact structure expected by Kibana; validation for these fields is limited when embedded in the rule file. See [known limitations](known_limitations.md#no-direct-support) for exception/action support.
+2. **Inline in rule TOML:** Use `exceptions_list`, `actions`, and `response_actions` in the rule TOML. You must supply the exact structure expected by Kibana; built-in validation for these fields is intentionally light when embedded in the rule file. `response_actions` (added in [detection-rules PR #6083](https://github.com/elastic/detection-rules/pull/6083)) is round-tripped through Kibana export/import and NDJSON; if you want stricter checks on its contents, add a custom unit test (see the test added in PR #6083 for a template). See [known limitations](known_limitations.md#no-direct-support) for exception/action support.
 
 ---
 
