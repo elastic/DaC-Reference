@@ -124,6 +124,8 @@ jobs:
 
 3. Script the API calls to Elastic Security for rule extraction.
 
+Here **`kibana export-rules --directory` (`-d`)** is the **output** directory (unlike **`export-rules-from-repo`**, where **`-d`** loads **input** rules). Add **`--save-as-yaml` / `-sy`** to write YAML instead of TOML. For repo → NDJSON or per-rule YAML, see **`export-rules-from-repo`** in the [Quick Start](dac_quick_start_guide.md#syncing-with-kibana).
+
 ```bash
 # Export Rules from Elastic Security
 python -m detection_rules kibana export-rules -d test-export-rules --skip-errors

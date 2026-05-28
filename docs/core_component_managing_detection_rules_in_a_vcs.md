@@ -5,7 +5,7 @@
 
 Version Control System (VCS) adoption for managing detection rules empowers security teams to implement Detection as Code (DaC) principles through Elastic's Public APIs. With the *VCS as authoritative* or Dual Sync governance models, changes to detection rules are developed, reviewed, and version-controlled within a repository before being synced with the production Elastic stack. This method leverages the inherent collaboration, review, auditing, and versioning capabilities of VCS, ensuring a robust governance framework for the lifecycle management of detection rules.  This strategy is the recommended approach to getting started with DaC and managing rules with Elastic’s SIEM.
 
-If the *Elastic security as authoritative* governance model is employed, the VCS component should be largely static, and would serve more as an external store for maintaining versions and diff history, than as a medium for driving changes.
+If the *Elastic Security as authoritative* governance model is employed, the VCS component should be largely static, and would serve more as an external store for maintaining versions and diff history, than as a medium for driving changes.
 
 |                                                                         |
 | ----------------------------------------------------------------------- |

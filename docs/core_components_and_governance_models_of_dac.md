@@ -29,7 +29,7 @@ For any DaC implementation, the following governance models are required:
 As applied to **Elastic Security**, this breaks down as follows:
 
 1. VCS as authoritative
-1. Elastic security as authoritative
+1. Elastic Security as authoritative
 1. Dual sync between VCS and Elastic Security
 
 ## Sub-Components and Options

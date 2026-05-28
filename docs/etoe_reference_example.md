@@ -19,6 +19,8 @@ Take a look at an example of how you can use some of our DaC features. The repo 
 
 ## Quick Start Example Detection Rules CLI Commands
 
+For the full walkthrough (setup, Elastic connection, rules, unit tests, schemas), see the [DaC Quick Start Guide](./dac_quick_start_guide.md).
+
 **Steps:**
 
 1. Clone the detection rules repo and install python requirements, see [getting started](https://github.com/elastic/detection-rules?tab=readme-ov-file#getting-started).
@@ -37,6 +39,8 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     auto_gen_schema_file: "etc/schemas/auto_gen.json"
     bypass_optional_elastic_validation: True
     ```
+
+    For finer control (for example bypassing only local ES|QL `keep` or `METADATA` checks), use the individual `bypass_*` keys in `_config.yaml` documented in the [DaC Quick Start Guide](./dac_quick_start_guide.md) (section **6. Custom configuration (_config.yaml)**) and in upstream `detection_rules/etc/_config.yaml`; see [detection-rules PR #5869](https://github.com/elastic/detection-rules/pull/5869).
 
 1. Edit the `test_config.yaml` in your `dac_custom_rules_dir/etc` directory. 
 
@@ -116,6 +120,8 @@ Take a look at an example of how you can use some of our DaC features. The repo 
     --include-action-connectors \
     --include-exceptions
     ```
+
+    For **`kibana export-rules`**, **`--directory`** is the output folder; for **`export-rules-from-repo`**, **`--directory`** loads rules from disk (input). To export YAML instead of a single NDJSON file, use **`--save-yaml-dir`** (and omit **`--outfile`** for that mode). To pull from Kibana as YAML instead of TOML, add **`--save-as-yaml`** to **`kibana export-rules`**. See [Quick Start — Syncing with Kibana](dac_quick_start_guide.md#syncing-with-kibana).
 
 For more information on these CLI commands please see CLI.md, docs-dev/custom-rules.md, and docs-dev/detections-as-code.md in [Detection Rules](https://github.com/elastic/detection-rules).
 
