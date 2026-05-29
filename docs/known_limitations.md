@@ -22,11 +22,12 @@
       - This is only a convenience utility and will only be supported across minimal components, since all functionality depends on the validated object (and related pieces)
   - Kibana module does support raw dictionaries
   - We added a RawDictLoader as a util, but this will only serve to load rules to dictionaries, bypassing most of the value of the core repo
-- Limited support for Exception and Action Lists:
+- Limited support for Exception, Action, and Response Action Lists:
   - Schema validation for exception or action lists are not available within the individual rule TOML files. You can add the fields manually to the TOML files, however validation is only available when managing these lists in separate TOML files in the custom folder. 
     - Data within the exceptions are not validated 
     - We recommend managing exception/action lists in Kibana and exporting the rules, which will include the list information per rule. 
   - The limited action/exception support within the detection-rules repo has two-way support to push mass updates to lists in Kibana. You cannot currently export a single list from Kibana and save into the detection rule format.
+  - `response_actions` (endpoint and Osquery response actions) is accepted on the inline rule schema as of [detection-rules PR #6083](https://github.com/elastic/detection-rules/pull/6083). Validation is intentionally minimal — the field is preserved through `kibana export-rules` / `kibana import-rules` and the NDJSON commands so the contents can vary across stack versions. Teams that want stronger checks should add a custom unit test against the expected shape (the test added in PR #6083 is a useful template).
 
 ## Potential Upcoming Enhancements
 

@@ -635,15 +635,17 @@ value = "BadRooT"
 
 Another approach is to use the available action and exception fields in the detection-rules rule dataclasses. These basic fields are complex structures within Elastic Security. Therefore to take advantage of these fields, the lists need to be populated with the exact format expected by Elastic Security to successfully import.
 
+The rule dataclasses expose three relevant inline fields: `exceptions_list`, `actions` (notification actions such as `.email` or `.slack`), and `response_actions` (endpoint or Osquery response actions such as `isolate`, `kill-process`, `suspend-process`, or `.osquery` queries). The `response_actions` field was added in [detection-rules PR #6083](https://github.com/elastic/detection-rules/pull/6083) so the value round-trips through `kibana export-rules` / `kibana import-rules` and the NDJSON export/import commands. Validation is intentionally minimal so the field tolerates feature differences across stack versions; teams that want stricter checks can add a custom unit test (see the example test in PR #6083).
+
 |Pros|Cons|
 |-|-|
-| - Direct Insertion: Action and exception lists fields are available to insert manually defined content </br> -  Context: Rule behavior is defined in the same file| - Management Overhead: Managing exception lists and actions list within a single rule may become duplicative and cumbersome to manage |
+| - Direct Insertion: Action, response action, and exception list fields are available to insert manually defined content </br> -  Context: Rule behavior is defined in the same file| - Management Overhead: Managing exception lists and actions list within a single rule may become duplicative and cumbersome to manage </br> - Light Validation: `actions`, `response_actions`, and `exceptions_list` are accepted largely as-is; format mistakes surface only when Kibana rejects the import |
 
 **Steps:**
 
-1. Directly edit the detection rule's TOML file to include an exception list or action fields, following Elastic Security's expected format. Kibana expects a list of dictionaries for exceptions, with each dictionary containing the necessary fields. See the [Exceptions schema](https://www.elastic.co/guide/en/security/current/detections-ui-exceptions.html) for more details.
+1. Directly edit the detection rule's TOML file to include an exception list, action, or response action fields, following Elastic Security's expected format. Kibana expects a list of dictionaries for exceptions, with each dictionary containing the necessary fields. See the [Exceptions schema](https://www.elastic.co/guide/en/security/current/detections-ui-exceptions.html) for more details. Response action entries follow the Kibana shape — `action_type_id` of `.endpoint` or `.osquery` plus a `params` object — and can be placed in the rule TOML under `[[rule.response_actions]]`.
 
-2. Leverage built-in dataclasses to validate and format these fields correctly before deploying them to Elastic Security.
+2. Leverage built-in dataclasses to validate and format these fields correctly before deploying them to Elastic Security. For `response_actions`, optionally add a unit test in your custom test suite to assert on the expected `action_type_id` / `params` shape.
 
 ### Option 3: Custom List Management
 
