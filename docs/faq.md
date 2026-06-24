@@ -180,3 +180,15 @@ Running `view-rule` on this rule should look similar to the following. When the 
 
 
 For more information on how you can also automatically generate the custom schemas please see [Option 3: Custom Schema Validation](https://dac-reference.readthedocs.io/en/latest/internals_of_the_detection_rules_repo.html#option-3-custom-schema-validation)
+
+#### **Q16**: How do I distinguish custom rules, customized prebuilt rules, and unmodified prebuilt rules when exporting from Kibana?
+
+**A16**: Use rule source metadata rather than the rule's `enabled` state. `enabled` only indicates whether the rule is active in Kibana; it does not reliably identify ownership or customization.
+
+Useful export categories are:
+
+- Custom rules: use `python -m detection_rules kibana export-rules --custom-rules-only`, or filter for internal/non-immutable rules.
+- Customized Elastic prebuilt rules: filter with `alert.attributes.params.ruleSource.isCustomized: true and alert.attributes.params.immutable: true`.
+- Unmodified Elastic prebuilt rules: filter with `alert.attributes.params.ruleSource.isCustomized: false and alert.attributes.params.immutable: true`.
+
+When reviewing exported customized prebuilt rules, inspect `rule_source.customized_fields` to see what changed. For example, `query` means detection logic was customized, while `index` means the rule's index patterns were customized. See [Managing custom and prebuilt rules together](dac_quick_start_guide.md#managing-custom-and-prebuilt-rules-together) for full command examples.

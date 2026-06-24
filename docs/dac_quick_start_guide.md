@@ -343,7 +343,83 @@ Optionally add `-d <directory>` or `-f <file>` to limit to a directory or single
 
 ---
 
-## 10. Version locking (optional)
+## 10. Managing multiple rule sets
+
+Many DaC workflows eventually need to manage more than one collection of rules at the same time: team-owned custom rules, environment-specific rules, modified Elastic prebuilt rules, and unmodified Elastic prebuilt rules that should still be backed up or promoted between spaces. Treat each collection as a rule set with an explicit source of truth, then decide whether the sets should share one deployment config or move independently.
+
+**Recommended local patterns:**
+
+- **One deployment unit:** Use one custom rules directory and list multiple rule directories in its `_config.yaml`. This is best when the rule sets share the same schema map, test config, versioning strategy, exceptions, and release process.
+  ```yaml
+  rule_dirs:
+    - rules
+    - rules_team_a
+    - rules_team_b
+  ```
+- **Independent deployment units:** Use a separate custom rules directory for each rule set when different teams, spaces, schemas, tests, or release cadences need to stay isolated. Set `CUSTOM_RULES_DIR` to the rule set you are validating or syncing so the CLI loads the matching `_config.yaml`, `stack-schema-map.yaml`, `test_config.yaml`, and optional version files.
+
+For repository-to-artifact workflows, `export-rules-from-repo` can load more than one input directory by repeating `--directory` / `-d`. This is useful when you want one NDJSON handoff from several compatible local rule sets:
+
+```bash
+CUSTOM_RULES_DIR=dac_custom_rules_dir \
+python -m detection_rules export-rules-from-repo \
+  --directory dac_custom_rules_dir/rules \
+  --directory dac_custom_rules_dir/rules_team_a \
+  --outfile combined-rules.ndjson \
+  --include-exceptions \
+  --include-action-connectors
+```
+
+If the rule sets have different configs, validate and export each one separately, then combine them at the Kibana import, CI/CD, or change-management layer instead of forcing them through a single `_config.yaml`.
+
+### Managing custom and prebuilt rules together
+
+`kibana export-rules` can export custom rules, Elastic prebuilt rules, and customized Elastic prebuilt rules from the same Kibana space. By default, it exports all matching rules. Use `--custom-rules-only` / `-cro` for custom rules, or `--export-query` / `-eq` when you need more precise Kibana-side filtering.
+
+Do not use `enabled` as the primary way to classify rule ownership. `enabled` only says whether a rule is active in Kibana. Some Elastic-authored rules are enabled by default for structural reasons, such as surfacing alerts from Elastic Defend or Elastic Cloud Defend, and a disabled rule can still be a custom or customized prebuilt rule. For ownership and customization, prefer `immutable` and `ruleSource` fields exposed in exported rule objects and queryable through the Kibana rule filter syntax.
+
+Useful categories:
+
+- **Custom rules:** use `--custom-rules-only` / `-cro`, or filter for internal/non-immutable rules.
+- **Customized prebuilt rules:** `immutable: true` and `ruleSource.isCustomized: true`.
+- **Unmodified prebuilt rules:** `immutable: true` and `ruleSource.isCustomized: false`.
+
+Examples:
+
+```bash
+# Custom rules only
+CUSTOM_RULES_DIR=dac_custom_rules_dir \
+python -m detection_rules kibana export-rules \
+  --directory exports/custom-rules \
+  --custom-rules-only \
+  --skip-errors
+```
+
+```bash
+# Customized Elastic prebuilt rules
+CUSTOM_RULES_DIR=dac_custom_rules_dir \
+python -m detection_rules kibana export-rules \
+  --directory exports/customized-prebuilt-rules \
+  --export-query 'alert.attributes.params.ruleSource.isCustomized: true and alert.attributes.params.immutable: true' \
+  --skip-errors
+```
+
+```bash
+# Unmodified Elastic prebuilt rules
+CUSTOM_RULES_DIR=dac_custom_rules_dir \
+python -m detection_rules kibana export-rules \
+  --directory exports/unmodified-prebuilt-rules \
+  --export-query 'alert.attributes.params.ruleSource.isCustomized: false and alert.attributes.params.immutable: true' \
+  --skip-errors
+```
+
+Kibana's rule filter syntax uses `alert.attributes.*` field paths. Some exported rule JSON fields use different casing or nesting than the filter path; for example, exported rule metadata may appear as `rule_source.is_customized`, while the filter path is `alert.attributes.params.ruleSource.isCustomized`. See the Kibana [Find rules API](https://www.elastic.co/docs/api/doc/kibana/operation/operation-findrules) for the `filter` parameter used by the Detection Engine rule search endpoint.
+
+When you need to audit what changed in a customized prebuilt rule, inspect the exported `rule_source.customized_fields` list. For example, a customized prebuilt rule may show `query` and `index` in `customized_fields`, which lets you distinguish a rule whose detection logic changed from one that only points to a different index pattern.
+
+---
+
+## 11. Version locking (optional)
 
 Version locking can help when you sync in both directions (repo ↔ Kibana) or use overwrite workflows with multiple sources of truth at a time for rules: the lock file records which version of each rule is “current,” so the CLI can avoid overwriting newer changes or detect conflicts. If you only have a single source of truth at one time, you typically do not need it.
 
