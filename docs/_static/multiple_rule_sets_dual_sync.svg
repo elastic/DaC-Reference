@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="660" viewBox="0 0 1180 660" role="img" aria-labelledby="title desc">
+  <title id="title">Managing custom and prebuilt rule sets with dual sync</title>
+  <desc id="desc">Custom and prebuilt rule changes can originate in VCS or Elastic Security. Export jobs filter custom, customized prebuilt, and unmodified prebuilt rules from Kibana, reconcile them in pull requests, then deploy the merged source back to Elastic Security.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 24px Arial, sans-serif; fill: #1f2937; }
+      .subtitle { font: 14px Arial, sans-serif; fill: #4b5563; }
+      .label { font: 700 15px Arial, sans-serif; fill: #111827; }
+      .small { font: 13px Arial, sans-serif; fill: #374151; }
+      .tiny { font: 12px Arial, sans-serif; fill: #4b5563; }
+      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; rx: 14; }
+      .source { fill: #ecfeff; stroke: #06b6d4; }
+      .vcs { fill: #f5f3ff; stroke: #8b5cf6; }
+      .elastic { fill: #ecfdf5; stroke: #10b981; }
+      .ci { fill: #eff6ff; stroke: #3b82f6; }
+      .review { fill: #fff7ed; stroke: #f97316; }
+      .arrow { stroke: #475569; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 7 6; }
+      .edge { font: 700 13px Arial, sans-serif; fill: #1f2937; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1180" height="660" fill="#ffffff"/>
+  <text x="40" y="46" class="title">Multiple Rule Sets: Dual Sync</text>
+  <text x="40" y="72" class="subtitle">Changes may originate in VCS or Kibana, but reconciliation happens before either side overwrites the other.</text>
+
+  <rect x="40" y="118" width="220" height="95" class="box source"/>
+  <text x="60" y="150" class="label">Elastic detection-rules</text>
+  <text x="60" y="176" class="small">Upstream prebuilt updates</text>
+
+  <rect x="40" y="315" width="220" height="115" class="box source"/>
+  <text x="60" y="347" class="label">Rule authors</text>
+  <text x="60" y="373" class="small">Custom rules</text>
+  <text x="60" y="396" class="small">Prebuilt customizations</text>
+
+  <rect x="330" y="106" width="260" height="400" class="box vcs"/>
+  <text x="355" y="138" class="label">Organization VCS</text>
+  <text x="355" y="164" class="small">Reviewed rule history</text>
+
+  <rect x="360" y="195" width="200" height="62" class="box"/>
+  <text x="380" y="220" class="label">Prebuilt rule set</text>
+  <text x="380" y="240" class="tiny">Upstream + local history</text>
+
+  <rect x="360" y="282" width="200" height="62" class="box"/>
+  <text x="380" y="307" class="label">Customized prebuilt</text>
+  <text x="380" y="327" class="tiny">Tracked changes</text>
+
+  <rect x="360" y="369" width="200" height="62" class="box"/>
+  <text x="380" y="394" class="label">Custom rules</text>
+  <text x="380" y="414" class="tiny">Team-owned content</text>
+
+  <rect x="665" y="118" width="220" height="120" class="box ci"/>
+  <text x="690" y="150" class="label">Deploy job</text>
+  <text x="690" y="176" class="small">Validate and import</text>
+  <text x="690" y="199" class="small">merged rule sets</text>
+
+  <rect x="665" y="308" width="220" height="166" class="box review"/>
+  <text x="690" y="340" class="label">Reconciliation PR</text>
+  <text x="690" y="366" class="small">Compare version/hash</text>
+  <text x="690" y="389" class="small">Review exported changes</text>
+  <text x="690" y="412" class="small">Resolve conflicts</text>
+  <text x="690" y="435" class="small">Merge approved state</text>
+
+  <rect x="960" y="150" width="170" height="295" class="box elastic"/>
+  <text x="985" y="184" class="label">Elastic Security</text>
+  <text x="985" y="214" class="small">Custom rules</text>
+  <text x="985" y="238" class="small">Customized prebuilt</text>
+  <text x="985" y="262" class="small">Unmodified prebuilt</text>
+  <text x="985" y="310" class="tiny">Kibana/UI changes</text>
+  <text x="985" y="332" class="tiny">are exported and</text>
+  <text x="985" y="354" class="tiny">reviewed before merge</text>
+
+  <rect x="665" y="520" width="360" height="108" class="box ci"/>
+  <text x="690" y="550" class="label">Filtered export jobs</text>
+  <text x="690" y="576" class="small">-cro for custom rules</text>
+  <text x="690" y="599" class="small">-eq for customized/unmodified prebuilt rules</text>
+
+  <path class="arrow" d="M260 166 C290 166 300 215 330 226"/>
+  <path class="arrow" d="M260 373 C292 373 304 394 330 400"/>
+  <path class="arrow" d="M590 178 L665 178"/>
+  <path class="arrow" d="M885 178 C920 178 930 225 960 240"/>
+  <path class="arrow" d="M960 380 C920 440 890 520 845 520"/>
+  <path class="arrow" d="M665 391 C630 391 620 345 590 330"/>
+  <path class="arrow dashed" d="M775 520 C725 500 700 474 700 474"/>
+  <path class="arrow dashed" d="M775 308 C710 265 650 224 590 215"/>
+
+  <text x="295" y="141" class="edge" text-anchor="middle">upstream</text>
+  <text x="295" y="157" class="edge" text-anchor="middle">sync</text>
+  <text x="295" y="363" class="edge" text-anchor="middle">direct PRs</text>
+  <text x="627" y="168" class="edge" text-anchor="middle">merge</text>
+  <text x="920" y="168" class="edge" text-anchor="middle">deploy</text>
+  <text x="965" y="483" class="edge" text-anchor="middle">export from Kibana</text>
+  <text x="627" y="352" class="edge" text-anchor="middle">sync back</text>
+</svg>

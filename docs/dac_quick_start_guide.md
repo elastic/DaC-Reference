@@ -347,6 +347,8 @@ Optionally add `-d <directory>` or `-f <file>` to limit to a directory or single
 
 Many DaC workflows eventually need to manage more than one collection of rules at the same time: team-owned custom rules, environment-specific rules, modified Elastic prebuilt rules, and unmodified Elastic prebuilt rules that should still be backed up or promoted between spaces. Treat each collection as a rule set with an explicit source of truth, then decide whether the sets should share one deployment config or move independently.
 
+For visual examples of managing custom and prebuilt rules together, see the [VCS as authoritative](core_components_and_governance_models_of_dac.md#vcs-as-authoritative) and [dual sync](core_components_and_governance_models_of_dac.md#dual-syncing-rules-and-data-between-kibana-and-vcs) diagrams in the governance models guide.
+
 **Recommended local patterns:**
 
 - **One deployment unit:** Use one custom rules directory and list multiple rule directories in its `_config.yaml`. This is best when the rule sets share the same schema map, test config, versioning strategy, exceptions, and release process.
