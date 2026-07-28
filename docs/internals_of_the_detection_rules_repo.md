@@ -295,6 +295,17 @@ testing:
   config: etc/test_config.yaml
 ```
 
+For multiple local rule sets, choose whether they should be loaded by one custom rules config or by separate configs. If the rule sets share schema validation, tests, exceptions/actions directories, and versioning strategy, list multiple directories under `rule_dirs`:
+
+```yaml
+rule_dirs:
+- rules
+- rules_team_a
+- rules_team_b
+```
+
+If the rule sets belong to different teams, Kibana spaces, stack versions, schema maps, or release cadences, use separate custom rules directories and set `CUSTOM_RULES_DIR` to the directory being validated or synced. This keeps each rule set's `_config.yaml`, `stack-schema-map.yaml`, `test_config.yaml`, and optional version files independent. For Kibana export examples that separate custom rules from customized and unmodified Elastic prebuilt rules, see [Managing custom and prebuilt rules together](dac_quick_start_guide.md#managing-custom-and-prebuilt-rules-together).
+
 ```bash
 (detection-rules-build) ➜  detection-rules git:(main) ✗ ❯ python -m detection_rules custom-rules setup-config dac_custom_rules_dir
 Loaded config file: /home/user/code/detection-rules/.detection-rules-cfg.json

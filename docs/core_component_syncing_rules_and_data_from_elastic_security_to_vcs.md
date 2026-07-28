@@ -126,6 +126,8 @@ jobs:
 
 Here **`kibana export-rules --directory` (`-d`)** is the **output** directory (unlike **`export-rules-from-repo`**, where **`-d`** loads **input** rules). Add **`--save-as-yaml` / `-sy`** to write YAML instead of TOML. For repo → NDJSON or per-rule YAML, see **`export-rules-from-repo`** in the [Quick Start](dac_quick_start_guide.md#syncing-with-kibana).
 
+When syncing more than one rule set from the same Kibana space, use `--custom-rules-only` / `-cro` or `--export-query` / `-eq` to keep each export intentionally scoped. For example, custom rules can be exported with `-cro`, customized Elastic prebuilt rules can be filtered with `alert.attributes.params.ruleSource.isCustomized: true and alert.attributes.params.immutable: true`, and unmodified Elastic prebuilt rules can be filtered with `alert.attributes.params.ruleSource.isCustomized: false and alert.attributes.params.immutable: true`. Avoid using `enabled` to classify rule ownership because it only represents whether the rule is active in Kibana. For more detail and examples, see [Managing custom and prebuilt rules together](dac_quick_start_guide.md#managing-custom-and-prebuilt-rules-together).
+
 ```bash
 # Export Rules from Elastic Security
 python -m detection_rules kibana export-rules -d test-export-rules --skip-errors

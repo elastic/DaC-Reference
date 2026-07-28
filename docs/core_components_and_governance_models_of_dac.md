@@ -59,6 +59,13 @@ For details on the various options, refer to those specific core components sect
 
 When the Version Control System (VCS) serves as the authoritative source, all rule changes originate from VCS, emphasizing a code-first approach to detection rule management. This model supports strict change control and full traceability of rule modifications, which is ideal for teams prioritizing rigorous oversight and auditability of detection rules.
 
+For teams managing both custom rules and Elastic prebuilt rules, the VCS-authoritative model treats the organization repository as the source of truth for every deployed rule set. Elastic prebuilt rule updates are pulled from the upstream `elastic/detection-rules` repository, custom rules are created in the organization's custom rules directory, and any prebuilt rule customization is reviewed as code before deployment to Elastic Security.
+
+|                                                                                        |
+| -------------------------------------------------------------------------------------- |
+| <img src="_static/multiple_rule_sets_vcs_authoritative.svg" alt="Managing custom and prebuilt rule sets with VCS as authoritative"/> |
+| <center>*Managing Multiple Rule Sets with VCS as Authoritative* </center> |
+
 #### Considerations
 
 Choosing VCS as the authoritative source requires establishing stringent procedures for rule creation, modification, and deployment, ensuring that all changes are versioned and reviewed before being synchronized to Elastic Security. This governance model relies heavily on CI/CD pipelines to manage deployments and maintain rule integrity across environments.
@@ -145,6 +152,13 @@ Dual syncing between Elastic Security and a Version Control System (VCS) embodie
 | -------------------------------------------------------------------------------------- |
 | <img src="_static/dual_sync_overall_diagram.png" style="width:5.94271in;height:5.84793in" alt="Dual Sync Diagram"/> |
 | <center>*Figure 2: Combining Multiple Options to Dual Sync Rules* </center>                                    |
+
+When managing custom rules and prebuilt rules together in a dual sync model, use scoped exports from Elastic Security to separate custom rules, customized prebuilt rules, and unmodified prebuilt rules before opening a reconciliation PR. This prevents an analyst's Kibana-side change from silently overwriting a VCS-side change, and it keeps prebuilt rule package updates distinct from local customizations.
+
+|                                                                                        |
+| -------------------------------------------------------------------------------------- |
+| <img src="_static/multiple_rule_sets_dual_sync.svg" alt="Managing custom and prebuilt rule sets with dual sync"/> |
+| <center>*Managing Multiple Rule Sets with Dual Sync* </center> |
 
 #### Considerations
 
