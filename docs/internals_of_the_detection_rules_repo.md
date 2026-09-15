@@ -295,7 +295,7 @@ testing:
   config: etc/test_config.yaml
 ```
 
-For multiple local rule sets, choose whether they should be loaded by one custom rules config or by separate configs. If the rule sets share schema validation, tests, exceptions/actions directories, and versioning strategy, list multiple directories under `rule_dirs`:
+For multiple local rule sets, choose whether they should be loaded by one custom rules config or by separate configs. If the rule sets share schema validation, tests, exceptions/actions/action_connectors directories, and versioning strategy, list multiple directories under `rule_dirs`:
 
 ```yaml
 rule_dirs:

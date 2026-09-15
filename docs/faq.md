@@ -187,7 +187,7 @@ For more information on how you can also automatically generate the custom schem
 
 Useful export categories are:
 
-- Custom rules: use `python -m detection_rules kibana export-rules --custom-rules-only`, or filter for internal/non-immutable rules.
+- Custom rules: use `python -m detection_rules kibana export-rules --directory exports/custom-rules --custom-rules-only`, or filter for internal/non-immutable rules.
 - Customized Elastic prebuilt rules: filter with `alert.attributes.params.ruleSource.isCustomized: true and alert.attributes.params.immutable: true`.
 - Unmodified Elastic prebuilt rules: filter with `alert.attributes.params.ruleSource.isCustomized: false and alert.attributes.params.immutable: true`.
 
