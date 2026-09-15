@@ -153,7 +153,7 @@ Dual syncing between Elastic Security and a Version Control System (VCS) embodie
 | <img src="_static/dual_sync_overall_diagram.png" style="width:5.94271in;height:5.84793in" alt="Dual Sync Diagram"/> |
 | <center>*Figure 2: Combining Multiple Options to Dual Sync Rules* </center>                                    |
 
-When managing custom rules and prebuilt rules together in a dual sync model, use scoped exports from Elastic Security to separate custom rules, customized prebuilt rules, and unmodified prebuilt rules before opening a reconciliation PR. This prevents an analyst's Kibana-side change from silently overwriting a VCS-side change, and it keeps prebuilt rule package updates distinct from local customizations.
+When managing custom rules and prebuilt rules together in a dual sync model, use scoped exports from Elastic Security to separate custom rules, customized prebuilt rules, and unmodified prebuilt rules before opening a reconciliation PR. This prevents an analyst's Kibana-side change from silently overwriting a VCS-side change, and it keeps prebuilt rule package updates distinct from local customizations. Customizing a prebuilt rule while still taking Elastic package updates is a three-way merge: do not bump the Elastic `version` for a local change—keep that version in the lock file and let Kibana increment `revision`. See [Customizing prebuilt rules without bumping Elastic version](dac_quick_start_guide.md#customizing-prebuilt-rules-without-bumping-elastic-version).
 
 |                                                                                        |
 | -------------------------------------------------------------------------------------- |
