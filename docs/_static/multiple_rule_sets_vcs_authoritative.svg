@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="620" viewBox="0 0 1180 620" role="img" aria-labelledby="title desc">
+  <title id="title">Managing custom and prebuilt rule sets with VCS as authoritative</title>
+  <desc id="desc">Elastic detection-rules upstream feeds approved prebuilt rule updates into an organization VCS. Custom rules and customized prebuilt rules are reviewed in VCS, validated by CI, and deployed one way into Elastic Security.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .title { font: 700 24px Arial, sans-serif; fill: #1f2937; }
+      .subtitle { font: 14px Arial, sans-serif; fill: #4b5563; }
+      .label { font: 700 15px Arial, sans-serif; fill: #111827; }
+      .small { font: 13px Arial, sans-serif; fill: #374151; }
+      .tiny { font: 12px Arial, sans-serif; fill: #4b5563; }
+      .box { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; rx: 14; }
+      .source { fill: #ecfeff; stroke: #06b6d4; }
+      .vcs { fill: #f5f3ff; stroke: #8b5cf6; }
+      .ci { fill: #eff6ff; stroke: #3b82f6; }
+      .elastic { fill: #ecfdf5; stroke: #10b981; }
+      .warning { fill: #fffbeb; stroke: #f59e0b; }
+      .arrow { stroke: #475569; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .dashed { stroke-dasharray: 7 6; }
+      .edge { font: 700 13px Arial, sans-serif; fill: #1f2937; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <rect width="1180" height="620" fill="#ffffff"/>
+  <text x="40" y="46" class="title">Multiple Rule Sets: VCS as Authoritative</text>
+  <text x="40" y="72" class="subtitle">All production changes are reviewed in VCS first, then deployed one way to Elastic Security.</text>
+
+  <rect x="40" y="118" width="230" height="115" class="box source"/>
+  <text x="60" y="148" class="label">Elastic detection-rules</text>
+  <text x="60" y="174" class="small">Upstream prebuilt rules</text>
+  <text x="60" y="197" class="tiny">Pull updates into org fork</text>
+
+  <rect x="40" y="352" width="230" height="115" class="box source"/>
+  <text x="60" y="382" class="label">Detection engineers</text>
+  <text x="60" y="408" class="small">Custom rules</text>
+  <text x="60" y="431" class="tiny">New team-owned detections</text>
+
+  <rect x="345" y="92" width="300" height="410" class="box vcs"/>
+  <text x="370" y="124" class="label">Organization VCS</text>
+  <text x="370" y="150" class="small">Authoritative rule source</text>
+
+  <rect x="375" y="178" width="240" height="70" class="box"/>
+  <text x="395" y="204" class="label">Prebuilt rule set</text>
+  <text x="395" y="226" class="tiny">Selected upstream updates</text>
+
+  <rect x="375" y="270" width="240" height="70" class="box"/>
+  <text x="395" y="296" class="label">Customized prebuilt set</text>
+  <text x="395" y="318" class="tiny">Approved query/index changes</text>
+
+  <rect x="375" y="362" width="240" height="70" class="box"/>
+  <text x="395" y="388" class="label">Custom rule set</text>
+  <text x="395" y="410" class="tiny">Team-owned rules</text>
+
+  <rect x="725" y="150" width="220" height="190" class="box ci"/>
+  <text x="750" y="183" class="label">CI/CD gate</text>
+  <text x="750" y="212" class="small">Validate schemas</text>
+  <text x="750" y="236" class="small">Run unit tests</text>
+  <text x="750" y="260" class="small">Review/version rules</text>
+  <text x="750" y="284" class="small">Import via API/CLI</text>
+
+  <rect x="725" y="390" width="220" height="86" class="box warning"/>
+  <text x="750" y="420" class="label">Kibana edits</text>
+  <text x="750" y="446" class="small">Discouraged for managed</text>
+  <text x="750" y="466" class="small">production rules</text>
+
+  <rect x="1010" y="190" width="130" height="110" class="box elastic"/>
+  <text x="1030" y="224" class="label">Elastic</text>
+  <text x="1030" y="246" class="label">Security</text>
+  <text x="1030" y="274" class="tiny">Custom + prebuilt</text>
+
+  <path class="arrow" d="M270 176 C300 176 313 205 345 212"/>
+  <path class="arrow" d="M270 410 C300 410 315 395 345 397"/>
+  <path class="arrow" d="M645 245 L725 245"/>
+  <path class="arrow" d="M945 245 L1010 245"/>
+  <path class="arrow dashed" d="M1010 300 C930 345 870 380 835 390"/>
+
+  <text x="306" y="150" class="edge" text-anchor="middle">upstream sync</text>
+  <text x="306" y="166" class="edge" text-anchor="middle">+ PR</text>
+  <text x="307" y="388" class="edge" text-anchor="middle">rule PRs</text>
+  <text x="685" y="220" class="edge" text-anchor="middle">merge to</text>
+  <text x="685" y="236" class="edge" text-anchor="middle">deploy</text>
+  <text x="977" y="233" class="edge" text-anchor="middle">one-way</text>
+  <text x="1000" y="343" class="edge" text-anchor="middle">backup/audit only</text>
+</svg>
