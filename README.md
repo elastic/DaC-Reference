@@ -31,7 +31,7 @@ To effectively use this repository, you will need:
 
 #### Doc Prerequisites
 
-- Python 3.10+
+- Python 3.12+
 - [Poetry](https://python-poetry.org/docs/): This project uses Poetry for dependency management and to streamline the build process.
 
 #### Getting Started
