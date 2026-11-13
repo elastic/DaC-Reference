@@ -451,6 +451,8 @@ The **.version.lock.json** file contains several fields nested under the rule ID
 - type: The rule type (e.g. query, saved_query, machine_learning, eql, esql, threshold, threat_match, new_terms)
 - version: Integer that increments when the sha256 hash changes
 
+Elastic prebuilt rule TOML files typically do not include `version` or `revision`. When version locking is enabled, those values are injected from `version.lock.json` when rules are exported to NDJSON or imported into Kibana. Managing prebuilt rules as prebuilt—staying aligned with the versions shipped in the Elastic package—requires the version lock. If `_config.yaml` sets `bypass_version_lock: true`, the lock file is ignored and Kibana rejects Elastic prebuilt imports that have no TOML `version` (`Prebuilt rules must specify a "version" to be imported`). Customizing a prebuilt rule is different: keep the Elastic `version` and let Kibana increment `revision`. See [Customizing prebuilt rules without bumping Elastic version](dac_quick_start_guide.md#customizing-prebuilt-rules-without-bumping-elastic-version).
+
 ```bash
 # Example deprecated_rules.json
 "041d4d41-9589-43e2-ba13-5680af75ebc2": {
@@ -484,7 +486,7 @@ run `build-release --update-version-lock` to update version.lock.json and deprec
 Rule changes detected!
 ```
 
-Alternatively, use the **python -m detection_rules dev update-lock-versions --force** command to force update the version lock file without building a package.
+Alternatively, use **`python -m detection_rules dev update-lock-versions [RULE_ID ...] --force`** to update rule hashes in `version.lock.json` without bumping the stored version and without building a package. Pass one or more rule IDs to limit the update; omit them to refresh every production rule loaded by the current config. Use this after a prebuilt-rule customization: the hash changes, but the Elastic `version` should stay the same.
 
 ### Option 2: Defer to Elastic Security
 

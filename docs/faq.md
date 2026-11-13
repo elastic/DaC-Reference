@@ -192,3 +192,11 @@ Useful export categories are:
 - Unmodified Elastic prebuilt rules: filter with `alert.attributes.params.ruleSource.isCustomized: false and alert.attributes.params.immutable: true`.
 
 When reviewing exported customized prebuilt rules, inspect `rule_source.customized_fields` to see what changed. For example, `query` means detection logic was customized, while `index` means the rule's index patterns were customized. See [Managing custom and prebuilt rules together](dac_quick_start_guide.md#managing-custom-and-prebuilt-rules-together) for full command examples.
+
+#### **Q17**: Why does Kibana say prebuilt rules must specify a version when I import from the repo?
+
+**A17**: Elastic prebuilt TOML files generally do not include `version`. When version locking is on (the default detection-rules repo config), the CLI injects `version` from `version.lock.json` during NDJSON export or Kibana import. If `_config.yaml` has `bypass_version_lock: true`, that injection does not happen, and Kibana rejects the import (`Prebuilt rules must specify a "version" to be imported`). Keep the version lock enabled when you manage prebuilt rules as prebuilt so they stay in sync with the versions shipped in the Elastic package. Bypass the lock only for custom-only rule sets.
+
+#### **Q18**: How do I customize Elastic prebuilt rules without desyncing from upstream versions?
+
+**A18**: Do not bump `version` for a local customization. Keep the Elastic version in `version.lock.json` and let Kibana increment `revision` automatically. Export customized prebuilt rules with `--strip-version` (this also strips `revision`), then run `python -m detection_rules dev update-lock-versions --force` so the lock hash updates without changing the stored version. A dedicated custom rules directory and lock file for customized prebuilt rules avoids listing rule IDs. On the next import, the repo injects the unchanged Elastic version; Kibana records the customization as a new revision. See [Customizing prebuilt rules without bumping Elastic version](dac_quick_start_guide.md#customizing-prebuilt-rules-without-bumping-elastic-version).

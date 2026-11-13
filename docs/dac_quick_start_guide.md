@@ -67,7 +67,9 @@ Use a **custom rules directory** so your rules and config stay separate from the
 
 2. **Edit `_config.yaml`** in the custom directory. For most DaC use cases, add:
    ```yaml
-   # Skip version-lock checks (useful when not using version.lock.json)
+   # Skip version-lock checks (useful when not using version.lock.json).
+   # Do not set this if you import Elastic prebuilt rules as prebuilt;
+   # those rules get their version from version.lock.json, not the TOML file.
    bypass_version_lock: true
    # Normalize KQL keywords for consistency
    normalize_kql_keywords: true
@@ -212,7 +214,7 @@ In your custom directory’s `_config.yaml`, these options are commonly used:
 
 | Option | Purpose |
 |--------|--------|
-| `bypass_version_lock` | Skip version-lock checks (useful when not using version.lock.json). |
+| `bypass_version_lock` | Skip version-lock checks (useful when not using version.lock.json). Do not enable this when importing Elastic prebuilt rules as prebuilt. |
 | `normalize_kql_keywords` | Normalize KQL keywords for consistency. |
 | `auto_gen_schema_file` | Path (e.g. `etc/schemas/auto_gen.json`) for auto-generated schema for non-ECS fields; used in validation and can be added to stack-schema-map. |
 | `bypass_optional_elastic_validation` | When `true`, enables **all** optional Elastic validation bypasses when the config is loaded (each sets the corresponding `DR_BYPASS_*` environment variable). If this is `true`, it **overrides** the individual bypass flags below—they are all treated as enabled. |
@@ -290,7 +292,7 @@ python -m detection_rules kibana export-rules \
   --export-action-connectors \
   --directory my-custom-rules
 ```
-For this command, **`--directory` / `-d`** is the **output** directory only: rules (and, when requested, exceptions and action connectors) are written there as TOML by default. It is **not** the same as **`export-rules-from-repo`**, where **`-d`** selects **input** rule directories—do not assume the flags mean the same thing across both commands.
+For this command, **`--directory` / `-d`** is the **output** directory only: rules (and, when requested, exceptions and action connectors) are written there as TOML by default. It is **not** the same as **`export-rules-from-repo`**, where **`-d`** selects **input** rule directories—do not assume the flags mean the same thing across both commands. **`--strip-version` / `-sv`** removes both `version` and `revision` from the exported files so those fields can be managed by the version lock and Kibana instead of the TOML.
 
 Add **`--save-as-yaml` / `-sy`** to write **YAML** under that directory instead of TOML (useful for tooling that consumes YAML, such as some Terraform / Elastic provider workflows). Exception and action connector directories still follow **`--exceptions-directory` / `-ed`** and **`--action-connectors-directory` / `-acd`** when set; if omitted, defaults come from your rules config.
 
@@ -419,6 +421,29 @@ Kibana's rule filter syntax uses `alert.attributes.*` field paths. Some exported
 
 When you need to audit what changed in a customized prebuilt rule, inspect the exported `rule_source.customized_fields` list. For example, a customized prebuilt rule may show `query` and `index` in `customized_fields`, which lets you distinguish a rule whose detection logic changed from one that only points to a different index pattern.
 
+### Customizing prebuilt rules without bumping Elastic version
+
+Customizing an Elastic prebuilt rule while still taking upstream package updates is a three-way merge: Elastic's next prebuilt version, your local customization, and any Kibana-side change. Keep those sources distinct, and do not increment the Elastic `version` when you customize.
+
+Kibana tracks both `version` and `revision`. `version` is the Elastic prebuilt package version. `revision` increments automatically when Kibana records a local change against that same base version. You do not set `revision` by hand.
+
+Recommended workflow:
+
+1. Export only customized prebuilt rules from Kibana (use `--export-query` as above). Add `--strip-version` / `-sv` so the written TOML does not include `version` or `revision`—both are managed outside the rule file.
+2. Keep customized prebuilt rules in their own custom rules directory (or `rule_dirs` entry) with a dedicated `version.lock.json`. Then `update-lock-versions` only touches this set.
+3. Refresh the lock hashes without bumping Elastic versions:
+
+```bash
+CUSTOM_RULES_DIR=dac_customized_prebuilt \
+python -m detection_rules dev update-lock-versions --force
+```
+
+If customized prebuilt rules share a lock file with other rules, pass the rule ID(s): `python -m detection_rules dev update-lock-versions <rule-id> --force`.
+
+4. On the next `kibana import-rules` or `export-rules-from-repo`, the CLI injects the unchanged Elastic `version` from the lock file. Kibana can then record the customization as a new `revision` while the rule stays associated with the same Elastic prebuilt version.
+
+Do not set `bypass_version_lock: true` for this workflow. Bypassing the lock is appropriate for custom-only rule sets that never import Elastic prebuilt rules as prebuilt.
+
 ---
 
 ## 11. Version locking (optional)
@@ -432,12 +457,13 @@ Version locking can help when you sync in both directions (repo ↔ Kibana) or u
   ```bash
   python -m detection_rules dev build-release --update-version-lock
   ```
-  (Requires `packages.yaml` registry config.) Or force-update without building a package:
+  (Requires `packages.yaml` registry config.) Or update lock hashes without bumping versions and without building a package:
   ```bash
   python -m detection_rules dev update-lock-versions --force
   ```
+  Pass one or more rule IDs to limit the update. This is the command to use after customizing a prebuilt rule so the stored Elastic `version` stays aligned with the package. See [Customizing prebuilt rules without bumping Elastic version](#customizing-prebuilt-rules-without-bumping-elastic-version).
 
-**Option B – Skip version locking:** If you have a single, authoritative source of truth for rules, set `bypass_version_lock: true` in `_config.yaml`. The CLI will not check or update version lock files.
+**Option B – Skip version locking:** If you have a single, authoritative source of truth for custom rules, set `bypass_version_lock: true` in `_config.yaml`. The CLI will not check or update version lock files. Do not use this option when importing Elastic prebuilt rules as prebuilt: those TOML files usually have no `version`, and Kibana will reject the import unless the lock file supplies it.
 
 ---
 
